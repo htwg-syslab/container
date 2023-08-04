@@ -1,0 +1,1 @@
+console=serial0,115200 rootfstype=ext4 elevator=deadline fsck.repair=yes rootwait
