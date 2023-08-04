@@ -4,7 +4,7 @@ ARG my_user="esys"
 ARG my_password="esys"
 WORKDIR "/"
 
-RUN apt-get update && apt-get install -y openssh-server libncurses-dev uml-utilities libssl-dev libelf-dev flex bison shellcheck python2 unzip gnupg2 tftpd-hpa supervisor tmux minicom sudo vim bmon htop mc build-essential
+RUN apt-get update && apt-get install -y openssh-server libncurses-dev uml-utilities libssl-dev libelf-dev flex bison shellcheck python2 unzip gnupg2 tftpd-hpa supervisor tmux minicom sudo vim bmon htop mc build-essential rsyslog
 
 # user
 RUN useradd --create-home --shell /bin/bash "$my_user"
@@ -12,6 +12,9 @@ RUN echo "$my_user:$my_password" | chpasswd
 RUN usermod -aG systemd-journal "$my_user"
 RUN usermod -aG dialout "$my_user"
 RUN usermod -aG sudo "$my_user"
+
+# syslog
+COPY rsyslog.conf /etc/rsyslog.conf
 
 ## ssh
 ## genkey @entrypoint
