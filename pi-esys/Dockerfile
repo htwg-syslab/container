@@ -14,7 +14,9 @@ RUN usermod -aG dialout "$my_user"
 RUN usermod -aG sudo "$my_user"
 
 # syslog
-COPY rsyslog.conf /etc/rsyslog.conf
+## Meldungen lokaler Systemdienste
+RUN echo "local0.* /var/log/syslog" >> /etc/rsyslog.d/50-default.conf
+
 
 ## ssh
 ## genkey @entrypoint
