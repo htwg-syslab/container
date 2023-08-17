@@ -13,13 +13,21 @@ Get your RSA from the logs, the user is default set to bsys.
 docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p'
 ```
 
+Login to running docker image:
+```
+ssh -p40404 -i path/to/rsa bsys@localhost
+```
+
 ## build
+```
 cd base
 docker build --tag bsys:base .
 cd -
+```
 
 # Under construction!
 # ui image
+```
 cd ui
 docker build --tag bsys:ui .
 cd -
