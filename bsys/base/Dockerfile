@@ -74,7 +74,12 @@ RUN set -x && \
     apt-get install -y --no-install-recommends \
     cmake
 RUN set -eux; \
-    url="https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init"; \
+    dpkgArch="$(dpkg --print-architecture)"; \
+    case "${dpkgArch##*-}" in \
+        amd64) url="https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init";; \
+        arm64) url="https://static.rust-lang.org/rustup/dist/aarch64-unknown-linux-gnu/rustup-init";; \
+        *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
+    esac; \
     wget "$url"; \
     chmod +x rustup-init; \
     ./rustup-init -y --no-modify-path --default-toolchain $RUST_VERSION; \
