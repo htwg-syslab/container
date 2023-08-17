@@ -12,17 +12,17 @@ Get your RSA from the logs, the user is default set to bsys.
 ```
 docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p'
 ```
-Copy this key into a new file, e.g.:
+Copy this key into a new file, e.g. **.ssh/rsa_bsys** :
 ```
 docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/rsa_bsys
 ```
-The .ssh/rsa_bsys file should be only readable by you (the owner).
+The **.ssh/rsa_bsys** file should be only readable by you (the owner).
 
 Login to running docker image:
 ```
 ssh -p40404 -i path/to/rsa bsys@localhost
 ```
-with e.g. above:
+with above **.ssh/rsa_bsys** file e.g.:
 ```
 ssh -p40404 -i  .ssh/rsa_bsys bsys@localhost
 ```
