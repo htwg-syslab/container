@@ -51,6 +51,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
      	gpg dirmngr gnupg \ 
 	build-essential \
 	sudo \
+	supervisor \
 	qemu-system libcurses-ocaml-dev zlib1g-dev libc6-dev-arm64-cross gcc-aarch64-linux-gnu gdb-multiarch \
 	curl gnupg lsb-release libnotify4
 
