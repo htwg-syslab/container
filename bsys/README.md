@@ -10,7 +10,7 @@ docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base
 ## login
 Get your RSA from the logs, the user is default set to bsys.
 ```
-docker logs -n100 bsys
+docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p'
 ```
 
 ## build

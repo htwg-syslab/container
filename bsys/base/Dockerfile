@@ -60,12 +60,13 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 RUN useradd --create-home --shell /bin/bash "$my_user"
 RUN echo "$my_user:$my_password" | chpasswd
 RUN usermod -aG systemd-journal "$my_user"
-RUN usermod -aG dialout "$my_user"
 RUN usermod -aG sudo "$my_user"
+RUN chown -R "$my_user":"$my_user" "/home/$my_user"
 
 ## ssh
 ## genkey @entrypoint
 COPY sshd_config /etc/ssh/sshd_config
+RUN mkdir /run/sshd
 
 # install rust
 RUN set -x && \

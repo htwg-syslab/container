@@ -8,7 +8,7 @@ if ! test -f /home/*/.ssh/id_rsa; then
 		mkdir -p .ssh
 		ssh-keygen -N '' -f .ssh/id_rsa
 		cp -v .ssh/id_rsa.pub .ssh/authorized_keys
-		chown -R "$_user":"$_user" .ssh
+		chown -R "$_user":"$_user" "/home/$_user"
 		chmod 700 .ssh
 		chmod 600 .ssh/authorized_keys
 		chmod 600 .ssh/id_rsa
