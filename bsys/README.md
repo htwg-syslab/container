@@ -3,11 +3,17 @@ Install [Ubuntu](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 
 # base image
 ## use
+### AMD64 Architecture
 Building is not necessary. The image can be pulled from DockerHub. 
 ```
 docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base
 ```
-## login
+
+### ARM64 Arhcitecture
+
+TODO
+
+## login (shown with AMD64 Architecture)
 Get your RSA from the logs, the user is default set to bsys.
 ```
 docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p'
@@ -29,21 +35,39 @@ ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 
 ## .ssh/config 
 
-ToDo
+TODO
 
-## build
+## Build base image
+### amd64 Architecture
 ```
 cd base
 docker build --tag bsys:base .
 cd -
 ```
 
-# Under construction!
+### arm64 Architecture
+```
+cd base
+docker build --tag bsys-arm:base .
+cd -
+```
 # ui image
+
+## use
+TODO
+
+## build ui image
+### amd64 Architecture
 ```
 cd ui
 docker build --tag bsys:ui .
 cd -
 ```
 
+### arm64 Architecture
+```
+cd ui
+docker build --tag bsys-arm:ui-arm .
+cd -
+```
 
