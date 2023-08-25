@@ -55,6 +55,9 @@ cd -
 
 ## use
 TODO
+```
+docker run --shm-size=8G -d -p 127.0.0.1:40001:40001 -p 127.0.0.1:5901:5901 --name=bsys --privileged bsys:ui
+```
 
 ## build ui image
 ### amd64 Architecture
