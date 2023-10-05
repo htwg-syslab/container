@@ -62,7 +62,7 @@ cd -
 ```
 
 # ui image
-...comming soon ....
+...coming soon ....
 
 ## use
 TODO
