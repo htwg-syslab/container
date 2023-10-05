@@ -11,7 +11,9 @@ docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base
 
 ### ARM64 Arhcitecture
 
-TODO
+```
+docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base-arm64
+```
 
 ## login (shown with AMD64 Architecture)
 Get your RSA from the logs, the user is default set to bsys.
@@ -35,7 +37,14 @@ ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 
 ## .ssh/config 
 
-TODO
+```
+Host pocketbsys
+    HostName localhost
+    User bsys
+    Port 40404
+    IdentityFile ~/.ssh/id_rsa_bsyslab.key
+```
+
 
 ## Build base image
 ### amd64 Architecture
