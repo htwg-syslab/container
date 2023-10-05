@@ -67,7 +67,7 @@ cd -
 ## use
 
 **DANGER**: if you set ip 0.0.0.0 the container can be accessed without password in the local network.
-```docker run -d -p 127.0.0.1:40001:40001 -p 127.0.0.1:5901:5901 --name=bsys --privileged bsys:ui``````
+```docker run -d -p 127.0.0.1:40001:40001 -p 127.0.0.1:5901:5901 --name=bsys --privileged bsys:ui```
 
 ## access
 
