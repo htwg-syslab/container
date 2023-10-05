@@ -65,7 +65,17 @@ cd -
 ...coming soon ....
 
 ## use
-TODO
+
+**DANGER**: if you set ip 0.0.0.0 the container can be accessed without password in the local network.
+```docker run -d -p 127.0.0.1:40001:40001 -p 127.0.0.1:5901:5901 --name=bsys --privileged bsys:ui``````
+
+## access
+
+via Browser to http://localhost:40001
+```
+username: syslab
+password: syslab
+```
 
 ## build ui image
 ### Intel/amd64 Architecture
