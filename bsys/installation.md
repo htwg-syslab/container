@@ -59,7 +59,7 @@ Für den Kommandozeilen Client 'ssh' befinden sich die Konfigurationsdateien im 
  
     ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost 
  
-Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abrrechen. Nun sollte das .ssh Verzeichnis angelegt worden sein.
+Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abrrechen. Nun sollte das `.ssh` Verzeichnis angelegt worden sein.
  
 Legen Sie In diesem `.ssh/` Verzeichnis die Datei id_rsa_bsyslab.key an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl.. der Zeilen
  
@@ -78,7 +78,7 @@ Ist der Key gespeichert können Sie sich nun mit folgendem Befehl aus der Komman
     
     ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
  
-Bei Problemen bitte überprüfen, ob wirklich der richtige und vollständige Key in der Datei .ssh/id_rsa_bsyslab.key steht, beginnend mit der 
+Bei Problemen bitte überprüfen, ob wirklich der richtige und vollständige Key in der Datei `.ssh/id_rsa_bsyslab.key` steht, beginnend mit der 
     -----BEGIN OPENSSH PRIVATE KEY----- Zeile und am Ende die 
     -----END OPENSSH PRIVATE KEY----- Zeile.
     
@@ -91,7 +91,7 @@ abgefragt werden, die C Compiler Version mit
  
  
 ### ssh config Datei
-Damit wir nun komfortabel von überall aus unserem System uns schnell in den laufenden Docker Container einloggen können konfigurieren wir noch ssh entsprechend. Konfigurationen Ihres ssh Clients nehmen Sie in der Datei .ssh/config vor. Haben Sie diese Datei noch nicht im .ssh/ Verzeichnis, einfach die folgenden Einträge als .ssh/config Datei abspeichern. Ansonsten die Datei entsprechend erweitern:
+Damit wir nun komfortabel von überall aus unserem System uns schnell in den laufenden Docker Container einloggen können konfigurieren wir noch ssh entsprechend. Konfigurationen Ihres ssh Clients nehmen Sie in der Datei `.ssh/config` vor. Haben Sie diese Datei noch nicht im `.ssh/` Verzeichnis, einfach die folgenden Einträge als `.ssh/config` Datei abspeichern. Ansonsten die Datei entsprechend erweitern:
  
     Host pocketlab
         HostName localhost
@@ -105,7 +105,7 @@ Mit ssh pocketlab in einem Terminal können Sie sich nun ohne weitere Rückfrage
  
 - Installieren Sie vscode
 - Installieren Sie die Remote-ssh Extension.
-- Unter der Command Palette können Sie nun "Remote ssh: Connect to Host" aufrufen. Ist die .ssh/config wie oben angelegt wird der pocketlab host direkt angeboten. Wählen Sie den Host aus. Sie werden nach dem Typ des Hosts gefragt und hier wählen Sie Linux aus.
+- Unter der Command Palette können Sie nun "Remote ssh: Connect to Host" aufrufen. Ist die `.ssh/config` wie oben angelegt wird der pocketlab host direkt angeboten. Wählen Sie den Host aus. Sie werden nach dem Typ des Hosts gefragt und hier wählen Sie Linux aus.
  
 Damit haben Sie nun ein vscode Entwicklungsfenster, welches den Docker Container nutzt, sodass Sie Ihre C Programme im Docker Container erstellen/editieren und ausführen können. Plugins des VSCode können nun auch auf dem Container installiert werden und sind bei einem späteren Reconnect wieder verfügbar.
  
@@ -115,4 +115,4 @@ Wenn Sie den Container löschen und neu anlegen sind ALLE Ihre Einstellungen gel
  
 ### Quellen
  
-Kurzinfo zum BSYS Pocketlab Dockerimage: https://github.com/htwg-syslab/container/tree/main/bsys
+Kurzinfo zum BSYS Pocketlab Dockerimage: https://github.com/htwg-syslab/container/blob/main/bsys/README.md
