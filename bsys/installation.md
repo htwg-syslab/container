@@ -13,8 +13,8 @@ Die zwei Abschnitte "Vorbereitung... " sollten Sie unbedingt VOR dem Start des 1
  
 Im Folgenden werden die nötigen Schritte für "Docker Newbies" erklärt. Die Docker Profis unter Ihnen finden weiter unten unter dem Punkt Quellen eine Kurzinfo mit allen nötigen Informationen.
     
-    1.) Gehen Sie auf die Docker Home Page (https://www.docker.com/) und laden Sie dort die für Ihre Betriebssystem (Windows / Mac / Linux) nötige Version. Achten Sie beim Mac auf die richtige Binary Version, je nachdem ob Sie einen Intel oder Mac Chip haben.
-    2.) Starten Sie den Docker Desktop. Unter Windwos müssen Sie unter Umständen einen aktuellen wsl Windows Kernel installieren. Docker informiert Sie darüber in einem Popup Fenster. Gehen Sie auf die Containers Seite (Icon oben links) und schauen Sie sich beiden Walkthroughs „What is a Container“ und "How do I run a Container" an. Damit bekommen Sie einen ersten Eindruck was Docker Ihnen an Funktionalität bieten kann.
+1. Gehen Sie auf die Docker Home Page (https://www.docker.com/) und laden Sie dort die für Ihre Betriebssystem (Windows / Mac / Linux) nötige Version. Achten Sie beim Mac auf die richtige Binary Version, je nachdem ob Sie einen Intel oder Mac Chip haben.
+2. Starten Sie den Docker Desktop. Unter Windwos müssen Sie unter Umständen einen aktuellen wsl Windows Kernel installieren. Docker informiert Sie darüber in einem Popup Fenster. Gehen Sie auf die Containers Seite (Icon oben links) und schauen Sie sich beiden Walkthroughs „What is a Container“ und "How do I run a Container" an. Damit bekommen Sie einen ersten Eindruck was Docker Ihnen an Funktionalität bieten kann.
  
 ### Vorbereitung BSYS Pocketlab
 Für BSYS ist der Container bereits erstellt und dieser kann nun - wenn Docker Desktop läuft - gestartet werden.
@@ -28,15 +28,15 @@ Für Mac ARM64 Systeme verwenden Sie bitte das tag 'base-arm64', somit:
  
 Im weiteren werden alle Beispiele und Aufrufe mit dem Intel/AMD64 base gezeigt. Wenn Sie Mac ARM64 benötigen, bitte entsprechend das Tag ('base' -> 'base-arm64') ändern.
  
-Mit dem Befehl wird versucht einen Container aus dem Image bsys:base zu starten. Beim ersten Aufruf haben Sie dieses Image noch nicht lokal und daher wird nun das Image von Docker Hub heruntergeladen. Das dauert je nach Ihrer Internverbindung einige Minuten. Und da hier eine Menge Daten herunter geladen werden sollten Sie dies auch unbedingt zu Hause vorbereiten und nicht an der HTWG machen, da die WLAN Verbindung an der HTWG den Durchsatz stark begrenzen. 
+Mit dem Befehl wird versucht einen Container aus dem Image `bsys:base` zu starten. Beim ersten Aufruf haben Sie dieses Image noch nicht lokal und daher wird nun das Image von Docker Hub heruntergeladen. Das dauert je nach Ihrer Internverbindung einige Minuten. Und da hier eine Menge Daten herunter geladen werden sollten Sie dies auch unbedingt zu Hause vorbereiten und nicht an der HTWG machen, da die WLAN Verbindung an der HTWG den Durchsatz stark begrenzen. 
  
-Nach dem Download sehen Sie den laufenden BSYS Labor Container unter ‚Containers‘ und unter Image das heruntergeladene systemlabor/bsys Image
+Nach dem Download sehen Sie den laufenden BSYS Labor Container unter ‚Containers‘ und unter Image das heruntergeladene `systemlabor/bsys` Image
  
-Der -p 127.0.0.1:40404:22 Aufruf biegt den Port 22 (ssh) von dem Container um auf den lokalen Port 40404 Ihres Systems. Wenn Sie sich nun also via ssh auf den Container einloggen wollen, so benutzen Sie dafür ein ssh Client mit welchem Sie sich auf Ihren lokalen Port 40404 verbinden.
+Der `-p 127.0.0.1:40404:22` Aufruf biegt den Port 22 (ssh) von dem Container um auf den lokalen Port 40404 Ihres Systems. Wenn Sie sich nun also via ssh auf den Container einloggen wollen, so benutzen Sie dafür ein ssh Client mit welchem Sie sich auf Ihren lokalen Port 40404 verbinden.
  
 Allerdings können Sie sich noch nicht einloggen, da das dafür nötig Passwort haben Sie nicht. Und das bekommen SIe auch nicht, denn es ist keines eingerichtet .... denn wir machen das nun auf eine bessere und professionellere Weise:
     
-Wenn der Container neu angelegt wird (also jedesmal wenn Sie den Container löschen und neu anlegen) durchläuft der Container ein internes Skript welches einen neuen 'random' Schlüssel anlegt. Diesen Schlüssel benötigen Sie um sich einloggen zu können. Also Achtung: Wenn Sie den Container löschen und einen neuen Container anlegen bedeutet das, es wird auch ein neuer Schlüssel erzeugt. Aber keine Sorge:
+Wenn der Container neu angelegt wird (also jedes mal wenn Sie den Container löschen und neu anlegen) durchläuft der Container ein internes Skript welches einen neuen 'random' Schlüssel anlegt. Diesen Schlüssel benötigen Sie um sich einloggen zu können. Also Achtung: Wenn Sie den Container löschen und einen neuen Container anlegen bedeutet das, es wird auch ein neuer Schlüssel erzeugt. Aber keine Sorge:
 
 1. Wird das nicht so oft (wenn überhaupt) vorkommen, dass Sie einen Container löschen und neu anlegen müssen. Es langt auch den Container - wenn er angelegt ist - zu stoppen und zu starten.
 2. Ist das Auslesen des Schlüssels sehr einfach.
@@ -55,13 +55,13 @@ Zeigt Docker Ihnen nichts unter dem Log Reiter an,  benutzen Sie einfach die Kom
     
 Dieser Schlüssel (Key) wird nun Ihrem lokal installierten ssh Client bekannt gegeben und danach können Sie sich ohne Passwort direkt im Container einloggen. 
  
-Für den Kommandozeilen Client 'ssh' befinden sich die Konfigurationsdateien im versteckten Verzeichnis .ssh/ . Schauen Sie also mal in Ihrem Home Direktory Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit ssh benutzt sollten darin schon Dateien zu finden sein (z.B. die Datei .ssh/known_hosts). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte auf den laufenden Container via ssh zuzugreifen:
+Für den Kommandozeilen Client 'ssh' befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/` . Schauen Sie also mal in Ihrem Home Direktory Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit ssh benutzt sollten darin schon Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte auf den laufenden Container via ssh zuzugreifen:
  
     ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost 
  
 Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abrrechen. Nun sollte das .ssh Verzeichnis angelegt worden sein.
  
-Legen Sie In diesem .ssh/ Verzeichnis die Datei id_rsa_bsyslab.key an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl.. der Zeilen
+Legen Sie In diesem `.ssh/` Verzeichnis die Datei id_rsa_bsyslab.key an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl.. der Zeilen
  
     -----BEGIN OPENSSH PRIVATE KEY----- und 
     -----END OPENSSH PRIVATE KEY-----
@@ -70,9 +70,9 @@ Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Komman
     
     docker logs bsys | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_bsyslab.key
  
-Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden bsys Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei .ssh/id_rsa_bsyslab.key. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird:  '>' 
+Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden bsys Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei `.ssh/id_rsa_bsyslab.key`. Dazu werden die Befehle (`docker logs ... | sed` ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird:  '>' 
  
-Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar sein. Sind zuviele Lese- oder Schreibrechte auf die Datei möglich, so beschwert sich das ssh Programm entsprechend. 
+Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar sein. Sind zu viele Lese- oder Schreibrechte auf die Datei möglich, so beschwert sich das ssh Programm entsprechend. 
  
 Ist der Key gespeichert können Sie sich nun mit folgendem Befehl aus der Kommandozeile auf dem Container einloggen:
     
@@ -82,9 +82,9 @@ Bei Problemen bitte überprüfen, ob wirklich der richtige und vollständige Key
     -----BEGIN OPENSSH PRIVATE KEY----- Zeile und am Ende die 
     -----END OPENSSH PRIVATE KEY----- Zeile.
     
-Im Container können Sie z.B. nun mit dem Befehl cat /etc/debian_version sich die zugrunde liegende Linux Distribution anschauen.
+Im Container können Sie z.B. nun mit dem Befehl `cat /etc/debian_version` sich die zugrunde liegende Linux Distribution anschauen.
  
-Die im Container installlierte Python Version kann mit 
+Die im Container installierte Python Version kann mit 
     python3 --version
 abgefragt werden, die C Compiler Version mit
     clang -- version
