@@ -85,11 +85,12 @@ Bei Problemen bitte überprüfen, ob wirklich der richtige und vollständige Key
 Im Container können Sie z.B. nun mit dem Befehl `cat /etc/debian_version` sich die zugrunde liegende Linux Distribution anschauen.
  
 Die im Container installierte Python Version kann mit 
+    
     python3 --version
+
 abgefragt werden, die C Compiler Version mit
-    clang -- version
- 
- 
+    
+    clang --version
 ### ssh config Datei
 Damit wir nun komfortabel von überall aus unserem System uns schnell in den laufenden Docker Container einloggen können konfigurieren wir noch ssh entsprechend. Konfigurationen Ihres ssh Clients nehmen Sie in der Datei `.ssh/config` vor. Haben Sie diese Datei noch nicht im `.ssh/` Verzeichnis, einfach die folgenden Einträge als `.ssh/config` Datei abspeichern. Ansonsten die Datei entsprechend erweitern:
  
@@ -115,4 +116,4 @@ Wenn Sie den Container löschen und neu anlegen sind ALLE Ihre Einstellungen gel
  
 ### Quellen
  
-Kurzinfo zum BSYS Pocketlab Dockerimage: https://github.com/htwg-syslab/container/blob/main/bsys/README.md
+[Kurzinfo zum BSYS Pocketlab Dockerimage](https://github.com/htwg-syslab/container/blob/main/bsys/README.md)
