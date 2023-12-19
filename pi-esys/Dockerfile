@@ -1,4 +1,4 @@
-FROM ubuntu:22.10
+FROM ubuntu:22.04
 
 ARG my_user="esys" 
 ARG my_password="esys"
