@@ -21,6 +21,7 @@ RUN echo "local0.* /var/log/syslog" >> /etc/rsyslog.d/50-default.conf
 ## ssh
 ## genkey @entrypoint
 COPY sshd_config /etc/ssh/sshd_config
+RUN mkdir -p /run/sshd
 
 # tftp
 RUN usermod -aG tftp "$my_user"
