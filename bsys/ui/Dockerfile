@@ -1,4 +1,4 @@
-FROM tmp-tmp
+FROM bsys:base
 
 # set to the same as in the base image (unsupport start_desktop.sh at name change)
 ARG my_user="bsys"
