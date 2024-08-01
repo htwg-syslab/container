@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export DISPLAY=host.docker.internal:0
+
 if ! test -f /home/*/.ssh/id_rsa; then
 	for _user in /home/*; do 
 		_user="${_user##*/}"
