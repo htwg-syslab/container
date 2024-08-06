@@ -1,18 +1,18 @@
-FROM tanguylemo/pocketlab:ui
+FROM systemlabor/bsys:pocketlabui
 
 
 ENV RUSTUP_HOME=/usr/local/rustup \
-    RUST_VERSION=1.71.0 
+    RUST_VERSION=1.71.0
 
 #---------------------------------------------------------------------
 #install cross-platform tools and libraries
 #---------------------------------------------------------------------
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    uml-utilities libssl-dev libelf-dev flex bison qemu-system-x86-xen \ 
+    uml-utilities libssl-dev libelf-dev flex bison qemu-system-x86-xen \
     shellcheck unzip gnupg2\
     libncurses-dev qemu\
     libcurses-ocaml-dev\
-    zlib1g\ 
+    zlib1g\
     gcc-aarch64-linux-gnu\
     gdb-multiarch\
     libnotify4\
@@ -28,7 +28,7 @@ RUN set -x && \
     apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
     cmake
-    
+
 RUN set -eux; \
     dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
