@@ -25,7 +25,7 @@ RUN apt-get update && \
         python-is-python3\
         sudo \
         x11-apps -y \
-        bash bash-completion locales 
+        bash bash-completion locales
 
 # Configure locale
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install tzdata -y
@@ -41,7 +41,7 @@ RUN adduser --disabled-password --gecos "" pocketlab && \
 COPY sshd_config /etc/ssh/sshd_config
 
 RUN mkdir /var/run/sshd && \
-    ssh-keygen -A  
+    ssh-keygen -A
 
 ENV DISPLAY=host.docker.internal:0
 

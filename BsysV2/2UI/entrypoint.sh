@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if ! test -f /home/*/.ssh/id_rsa; then
-	for _user in /home/*; do 
+	for _user in /home/*; do
 		_user="${_user##*/}"
 		cd "/home/$_user" || continue
 		echo "genkey for $_user"
@@ -21,5 +21,5 @@ if ! test -f /home/*/.ssh/id_rsa; then
 		cd - || exit
 	done
 fi
-/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf 
+/usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 exec "$@"
