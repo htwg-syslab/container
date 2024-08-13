@@ -49,7 +49,12 @@ RUN set -eux; \
 COPY set_display.sh /usr/local/bin/set_display.sh
 RUN chmod +x /usr/local/bin/set_display.sh
 
+# Make entrypoint.sh executable on every Platfrom
+RUN chmod +x entrypoint.sh
+
 # Modify the .bashrc file for the pocketlab user
 RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc
+
+
 
 CMD ["/entrypoint.sh"]

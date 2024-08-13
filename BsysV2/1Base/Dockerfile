@@ -68,4 +68,7 @@ EXPOSE 22
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /
 
+# Make entrypoint.sh executable on every Platfrom
+RUN chmod +x entrypoint.sh
+
 CMD ["/entrypoint.sh"]
