@@ -25,7 +25,9 @@ RUN apt-get update && \
         python-is-python3\
         sudo \
         x11-apps -y \
-        bash bash-completion locales
+        bash bash-completion locales \
+        dos2unix \
+        clang
 
 # Configure locale
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install tzdata -y
@@ -40,9 +42,12 @@ RUN adduser --disabled-password --gecos "" pocketlab && \
 # Configure SSH
 COPY sshd_config /etc/ssh/sshd_config
 
+RUN dos2unix /etc/ssh/sshd_config
+
 RUN mkdir /var/run/sshd && \
     ssh-keygen -A
 
+# Set environmental display to x server
 ENV DISPLAY=host.docker.internal:0
 
 # Allow root login via SSH
@@ -56,19 +61,23 @@ RUN sed -i 's/#UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
 
 # Add the script to set DISPLAY variable
 COPY set_display.sh /usr/local/bin/set_display.sh
-RUN chmod +x /usr/local/bin/set_display.sh
+
+RUN dos2unix /usr/local/bin/set_display.sh ; \
+    chmod +x /usr/local/bin/set_display.sh
 
 # Modify the .bashrc file for the pocketlab user
-RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc
+RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc; \
+    echo "alias gcc='clang'" >> /etc/bash.bashrc
 
 
 # Expose SSH port
 EXPOSE 22
-
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /
 
 # Make entrypoint.sh executable on every Platfrom
-RUN chmod +x entrypoint.sh
+RUN dos2unix /etc/supervisor/conf.d/supervisord.conf ; \
+    dos2unix entrypoint.sh ; \
+    chmod +x entrypoint.sh ;
 
 CMD ["/entrypoint.sh"]

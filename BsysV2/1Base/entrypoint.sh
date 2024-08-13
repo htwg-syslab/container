@@ -22,6 +22,5 @@ if ! test -f /home/*/.ssh/id_rsa; then
 		cd - || exit
 	done
 fi
-
 /usr/bin/supervisord -c /etc/supervisor/conf.d/supervisord.conf
 
