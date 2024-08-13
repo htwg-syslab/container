@@ -1,4 +1,4 @@
-FROM systemlabor/bsys:pocketlabui
+FROM tanguylemo/pocketlabtest:base
 
 # set to the same as in the base image (unsupport start_desktop.sh at name change)
 ARG my_user="pocketlab"
@@ -16,12 +16,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     libgl1-mesa-glx libglib2.0-0 libxext6 libsm6 libxrender1 libglu1 \
     libxv1 libegl1-mesa libpython-all-dev libsuitesparse-dev \
     libgtest-dev openssl libeigen3-dev libsdl1.2-dev libsdl-image1.2-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && apt-get clean && rm -rf /var/lib/apt/lists/* dos2unix
 
 # install firefox
 RUN add-apt-repository -y ppa:mozillateam/ppa
 COPY mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y firefox
+RUN chmod +x /etc/apt/preferences.d/mozilla-firefox; \
+    dos2unix /etc/apt/preferences.d/mozilla-firefox ;\
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y firefox
 
 # install vscode
 RUN set -eux; \
@@ -79,21 +81,30 @@ RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" 
     mv /opt/noVNC-* /opt/noVNC && \
     chmod -R a+w /opt/noVNC && \
     mv /opt/websockify-* /opt/websockify && \
-    cd /opt/websockify && make && \
-    cd /opt/noVNC/utils && \
-    ln -s /opt/websockify
+    cd /opt/websockify && \
+    cd /opt/noVNC/utils 
 
 COPY xorg.conf /etc/X11/xorg.conf
 COPY index.html /opt/noVNC/index.html
 
 RUN openssl req -subj '/C=DE/ST=KN/L=KN/O=Dis/CN=unvalid.kk' -x509 -nodes -days 358000 -newkey rsa:2048 -keyout /home/"$my_user"/.self.pem -out /home/"$my_user"/.self.pem
 
+
+
+RUN dos2unix /etc/X11/xorg.conf ; \
+    dos2unix /opt/noVNC/index.html ; \
+    chmod +x /etc/X11/xorg.conf ; \
+    chmod +x /opt/noVNC/index.html
+
 #---------------------------------------------------------------------
 # Install desktop files for this user
 #---------------------------------------------------------------------
 RUN mkdir -p /home/"$my_user"/.vnc
 COPY xstartup.turbovnc /home/"$my_user"/.vnc/xstartup.turbovnc
-RUN chmod a+x /home/"$my_user"/.vnc/xstartup*
+
+RUN dos2unix xstartup.turbovnc ; \
+    chmod a+x /home/"$my_user"/.vnc/xstartup*
+
 RUN chown -R "$my_user":"$my_user" /home/"$my_user"
 RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/"$my_user"/.chromium-browser.init
 
@@ -107,7 +118,7 @@ EXPOSE 22 5901 40001
 
 # Add the script to set DISPLAY variable
 COPY set_display.sh set_display.sh
-RUN chmod +x set_display.sh
+RUN dos2unix set_display ; chmod +x set_display.sh
 
 
 COPY launch.sh /opt/noVNC/utils/launch.sh
@@ -117,7 +128,18 @@ COPY bashrc /home/"$my_user"/.bashrc
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /
 
+
+
 # Make entrypoint.sh executable on every Platfrom
-RUN chmod +x entrypoint.sh
+RUN dos2unix /opt/noVNC/utils/launch.sh;\
+    dos2unix /usr/local/bin/start_desktop.sh;\
+    dos2unix /home/"$my_user"/.bashrc; \
+    dos2unix /etc/supervisor/conf.d/supervisord.conf ;\
+    dos2unix entrypoint.sh ;\
+    chmod +x /opt/noVNC/utils/launch.sh;\
+    chmod +x /usr/local/bin/start_desktop.sh;\
+    chmod +x /home/"$my_user"/.bashrc; \
+    chmod +x /etc/supervisor/conf.d/supervisord.conf ; \
+    chmod +x entrypoint.sh
 
 CMD ["/entrypoint.sh"]
