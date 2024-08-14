@@ -17,7 +17,7 @@ docker build -t <dein-image-name> .
 ```
 ### Beispiel:
 ```bash
-docker build -t bsysbase
+docker build -t bsysbase .
 ```
 
 - `<dein-image-name>`: Ersetze dies durch den gewünschten Namen für dein Image.
