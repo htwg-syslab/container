@@ -29,13 +29,13 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         arm64) \
-            packages="qemu-system-arm" \
+            packages="qemu-system-x86" \
             ;; \
         amd64) \
             packages="gcc-aarch64-linux-gnu \
                       gdb-multiarch \
                       qemu \
-                      qemu-system-x86 \
+                      qemu-system-arm \
                       qemu-user-static \
                       libc6-dev-arm64-cross \
                       gcc-aarch64-linux-gnu" \
