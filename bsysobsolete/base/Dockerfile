@@ -14,7 +14,7 @@ ENV RUSTUP_HOME=/usr/local/rustup \
 
 # install software
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-	apt-transport-https ca-certificates \ 
+	apt-transport-https ca-certificates \
 	openssh-server \
 	locales \
 	software-properties-common apt-transport-https wget \
@@ -48,11 +48,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
      	strace \
      	python3-matplotlib \
      	python-tk \
-     	gpg dirmngr gnupg \ 
+     	gpg dirmngr gnupg \
 	build-essential \
 	sudo \
 	supervisor \
-	qemu-system libcurses-ocaml-dev zlib1g-dev libc6-dev-arm64-cross gcc-aarch64-linux-gnu gdb-multiarch \
+	libcurses-ocaml-dev zlib1g-dev libc6-dev-arm64-cross gcc-aarch64-linux-gnu gdb-multiarch \
 	curl gnupg lsb-release libnotify4
 
 
