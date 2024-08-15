@@ -1,4 +1,4 @@
-FROM tanguylemo/pocketlabtest:base
+FROM systemlabor/bsys:pocketlabbase
 
 # set to the same as in the base image (unsupport start_desktop.sh at name change)
 ARG my_user="pocketlab"
@@ -82,7 +82,7 @@ RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" 
     chmod -R a+w /opt/noVNC && \
     mv /opt/websockify-* /opt/websockify && \
     cd /opt/websockify && \
-    cd /opt/noVNC/utils 
+    cd /opt/noVNC/utils
 
 COPY xorg.conf /etc/X11/xorg.conf
 COPY index.html /opt/noVNC/index.html
