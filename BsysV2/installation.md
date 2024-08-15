@@ -1,5 +1,9 @@
 ## BSYS Pocketlab
 
+### Vorwort
+
+Zum installieren des  Pocketlab Docker Container, muss das GitHub-repository nicht geclont werden. Lokale Builds können nach System und .gitconfig einstellungen leicht variieren. Es ist empfohlen sich an folgender Anleitung zu halten.
+
 ### Ziel
 Mit dem BSYS Pocketlab sollen Sie in der Lage sein, alle AIN BSYS Laboraufgaben in einem Linux-Container auf dem Betriebssystem Ihrer Wahl zu bearbeiten. Dazu nutzen wir Docker, eine freie Software zur Isolierung von Anwendungen mittels Containervirtualisierung. Docker vereinfacht die Bereitstellung von Anwendungen, da Container, die alle nötigen Pakete enthalten, leicht als Dateien transportiert und installiert werden können. Ein Container ist eine leichtgewichtige, virtualisierte Umgebung, die den Anwendungsquellcode mit den Betriebssystembibliotheken und den Abhängigkeiten kombiniert, die zur Ausführung des Codes benötigt werden. Docker isoliert Code, Laufzeitmodul, Systemwerkzeuge und Systembibliotheken in einem Container, was die Entwicklung und Ausführung von Anwendungen in einer Sandbox erleichtert. Docker Hub ist ein öffentliches Repository für Docker-Images.
 
@@ -16,7 +20,9 @@ Im Folgenden werden die nötigen Schritte für "Docker Newbies" erklärt. Die Do
 
 ### Vorbereitung BSYS Pocketlab
 
-Für BSYS ist der Container bereits erstellt und kann nun - wenn Docker Desktop läuft - gestartet werden. Es werden zwei Typen von Docker-Containern angeboten: einmal mit und einmal ohne grafische Oberfläche. Die grafische Oberfläche ist nicht zwingend notwendig, erleichtert aber ggf. die Nutzung für Linux-Neulinge. Für alle Aufgaben im BSYS-Kurs reicht das Terminal mit Editoren (z.B. VSCode) völlig aus. Zu beachten: Der Container mit der grafischen Oberfläche benötigt ca. 2,5 GB mehr Speicherplatz als der Container ohne GUI.
+Für BSYS ist der Container bereits erstellt und kann nun - wenn Docker Desktop läuft - gestartet werden. Es werden zwei Typen von Docker-Containern angeboten: einmal mit und einmal ohne grafische Oberfläche. Die grafische Oberfläche ist nicht zwingend notwendig, erleichtert aber ggf. die Nutzung für Linux-Neulinge. Für alle Aufgaben im BSYS-Kurs reicht das Terminal mit Editoren (z.B. VSCode) völlig aus.
+
+#### X86 maschinen:
 
 Mit grafischer Oberfläche:
 
@@ -31,6 +37,22 @@ Standard:
 docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
 ```
 
+#### ARM Maschinen (Apple Mac mit M (1,2,3, ...) chips):
+
+
+Mit grafischer Oberfläche:
+
+```bash
+docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-arm64
+```
+
+
+Standard:
+
+```bash
+docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-arm64
+```
+
 
 Beim ersten Aufruf haben Sie dieses Image noch nicht lokal, und daher wird das Image von Docker Hub heruntergeladen. Das dauert je nach Ihrer Internetverbindung einige Minuten. Da hier eine Menge Daten heruntergeladen werden, sollten Sie dies zu Hause vorbereiten und nicht an der HTWG, da die WLAN-Verbindung an der HTWG nur eine geringe Datenrate erlaubt, wodurch der Download sehr lange dauern würde.
 
@@ -40,11 +62,13 @@ Der `-p 127.0.0.1:40405:22` Aufruf leitet den Port 22 (SSH) vom Container auf de
 
 Des Weiteren wird für beide Container-Typen ein X-Server benötigt, um GUI-Applikationen, die im Container laufen, auf der Host-Maschine anzuzeigen (wichtig gegen Ende des Kurses).
 
-#### X-Server für Windows:
+### X-Server
+
+#### für Windows:
 
 Wir nutzen hierzu "Xming". Xming ist ein Open-Source X-Server für Windows, der es ermöglicht, grafische Anwendungen von Unix- oder Linux-Systemen auf einem Windows-Rechner auszuführen. Es handelt sich um ein sehr kleines Programm, das weder Speicher- noch Rechenkapazität benötigt. [Download Xming](https://sourceforge.net/projects/xming/).
 
-###### Optional:
+###### Xming automatisch beim Systemstart ausführen:
 Nach dem Herunterladen und Installieren mit dem Installations-assistenten und den Standardeinstellungen wollen wir Xming beim Hochfahren mit starten:
 
 1. Suchen Sie den Pfad zum Xming-Shortcut (nicht den direkten Pfad, sonst begrüßt Sie jedes Mal ein Pop-up, wenn Sie Ihren PC starten). Drücken Sie die Windows-Taste, suchen Sie Xming, und öffnen Sie den Dateispeicherort.
@@ -52,6 +76,45 @@ Nach dem Herunterladen und Installieren mit dem Installations-assistenten und de
 4. Drücken Sie "WinKey + R" und geben Sie in das Fenster `shell:startup` ein, gefolgt von Enter.
 5. Es sollte sich ein Explorer-Fenster öffnen. Rechtsklicken Sie dort, wählen Sie "Neuer Shortcut" und geben Sie den gerade kopierten Pfad ein (Achtung: Es dürfen am Anfang und Ende keine Anführungszeichen stehen), dann drücken Sie Enter.
 ([Quelle](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd))
+
+Um zu überprüfen ob Xming im hintergrund läuft kannst du unten rechts unter "hidden Icons" schauen ob sich auch ein Xming symbol dort befindet.
+
+#### für Mac
+
+##### 1. Installation von XQuartz
+
+1. **Download**: Besuche die offizielle XQuartz-Webseite unter [https://www.xquartz.org/releases/XQuartz-2.8.5.html](https://www.xquartz.org/releases/XQuartz-2.8.5.html).
+2. **Download starten**: Klicke auf den Link, um die neueste Version von XQuartz herunterzuladen.
+3. **Installation**:
+   - Öffne die heruntergeladene `.dmg`-Datei.
+   - Folge den Anweisungen im Installationsprogramm. Klicke auf „Weiter“ und akzeptiere die Lizenzvereinbarung.
+   - Nach Abschluss der Installation wirst du möglicherweise aufgefordert, dich abzumelden und wieder anzumelden, um die Installation abzuschließen.
+
+##### 2. XQuartz automatisch beim Systemstart ausführen
+
+Damit XQuartz bei jedem Systemstart automatisch ausgeführt wird, kannst du es als Anmeldeobjekt hinzufügen:
+
+1. **Systemeinstellungen öffnen**: Gehe zu den „Systemeinstellungen“ auf deinem Mac.
+2. **Benutzer & Gruppen**: Wähle „Benutzer & Gruppen“ aus.
+3. **Anmeldeobjekte**:
+   - Wähle dein Benutzerkonto aus der Liste links.
+   - Klicke auf den Reiter „Anmeldeobjekte“.
+   - Klicke auf das Pluszeichen `+` unter der Liste der Anmeldeobjekte.
+   - Navigiere zu `Programme` und wähle „XQuartz“ aus der Liste der Programme aus.
+   - Klicke auf „Hinzufügen“, um XQuartz zur Liste der Anmeldeobjekte hinzuzufügen.
+
+Nun wird XQuartz bei jedem Start deines Macs automatisch ausgeführt.
+
+##### 3. XQuartz manuell starten
+
+Falls du XQuartz manuell starten möchtest:
+- Gehe zu „Programme“ > „Dienstprogramme“ und öffne XQuartz.
+
+Das war’s! Jetzt wird XQuartz bei jedem Start deines Macs automatisch ausgeführt und ist bereit für die Nutzung.
+
+#### für Linux
+
+X11 läuft nativ... [Stonks](https://surrealmemes.fandom.com/wiki/Stonks?file=2f0.png)
 
 ### Login
 
@@ -107,6 +170,8 @@ docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END 
 ```
 
 Dieser Befehl liest die Log-Datei des laufenden Pocketlab-Containers aus, filtert nur die Zeilen BEGIN, Key und END heraus und schreibt dann die gefilterten Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (`docker logs ... | sed`) hintereinander mit einer sogenannten Pipe (`|`) verbunden und ausgeführt, und das Ergebnis wird in eine Datei geschrieben, indem die Ausgabe mit '>' umgeleitet wird.
+
+
 
 Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar
 
@@ -170,4 +235,4 @@ Wenn Sie Ihr Betriebssystem herunterfahren, wird der Docker-Container gestoppt. 
 
 ### Quellen
 
-[Kurzinfo zum BSYS Pocketlab Dockerimage](https://github.com/htwg-syslab/container/blob/main/bsys/README.md)
+[Kurzinfo zum BSYS Pocketlab Dockerimage](https://github.com/htwg-syslab/container/tree/main/BsysV2/DockerExpertx.md)
