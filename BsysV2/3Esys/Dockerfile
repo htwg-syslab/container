@@ -1,4 +1,4 @@
-FROM tanguylemo/pocketlabtest:ui
+FROM systemlabor/bsys:pocketlabui
 
 
 ENV RUSTUP_HOME=/usr/local/rustup \
