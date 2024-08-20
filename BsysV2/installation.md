@@ -115,9 +115,29 @@ Falls gewünscht, können Sie XQuartz manuell starten: Gehen Sie zu „Programme
 
 Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
 
-### Login:
+### Login
 
-Für den Zugriff auf den Container verwenden Sie einen automatisch generierten SSH-Schlüssel. Dieser wird beim ersten Start des Containers erstellt und in den Logs angezeigt. Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
+#### Authentifizierung und Zugriff auf den Container
+
+Im Gegensatz zu herkömmlichen Systemen, bei denen ein festgelegtes Passwort zur Authentifizierung genutzt wird, verfolgt unser Ansatz einen sichereren und benutzerfreundlicheren Weg. Statt eines Passworts wird ein zufällig generierter SSH-Schlüssel zur Authentifizierung verwendet.
+
+#### Automatisierte Generierung des SSH-Schlüssels
+
+Beim Erstellen eines neuen Containers – das heißt, jedes Mal, wenn Sie den Container löschen und neu anlegen – führt der Container ein internes Skript aus, das automatisch einen neuen, einzigartigen SSH-Schlüssel generiert. Dieser Schlüssel ist notwendig, um Zugriff auf den Container zu erhalten.
+
+Es ist wichtig zu beachten, dass bei jedem Anlegen eines neuen Containers ein neuer SSH-Schlüssel erzeugt wird. Dies bedeutet, dass der zuvor verwendete Schlüssel nicht mehr gültig ist und durch den neu generierten ersetzt werden muss. Dies stellt sicher, dass der Zugriff auf den Container immer durch eine aktuelle und sichere Authentifizierungsmethode geschützt ist.
+
+#### Minimierung der Notwendigkeit zur Neuerstellung des Containers
+
+In der Praxis wird das vollständige Löschen und Neuanlegen eines Containers jedoch selten erforderlich sein. In den meisten Fällen reicht es aus, den Container einfach zu stoppen und bei Bedarf erneut zu starten. Dadurch bleiben alle Konfigurationen und der aktuelle SSH-Schlüssel unverändert, was den Zugriff auf den Container ohne zusätzlichen Aufwand ermöglicht.
+
+#### Einfacher Zugriff auf den SSH-Schlüssel
+
+Falls Sie den Container tatsächlich neu anlegen müssen, ist das Auslesen des neu generierten SSH-Schlüssels ein unkomplizierter Prozess. Der Schlüssel wird in den Container-Logs gespeichert, die Sie einfach über die Kommandozeile abrufen können. Sobald Sie den Schlüssel in Ihre SSH-Konfiguration übernommen haben, können Sie sich wie gewohnt und ohne weitere Eingaben im Container anmelden.
+
+Dieser Ansatz gewährleistet sowohl die Sicherheit als auch die Bequemlichkeit beim Zugriff auf den Container, indem er die Notwendigkeit für Passwörter eliminiert und gleichzeitig sicherstellt, dass jeder Zugangsschlüssel nur für eine begrenzte Zeit gültig ist.
+
+Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
 
 ```bash
 docker logs pocketlab
