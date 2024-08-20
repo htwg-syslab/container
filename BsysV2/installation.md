@@ -12,7 +12,9 @@ Ein Container ist eine leichtgewichtige, virtualisierte Umgebung, die den Anwend
 
 Wir nutzen Docker, um alle BSYS-Aufgaben in einem vorbereiteten Linux-Container zu bearbeiten und auszuführen. Ein fertig konfiguriertes Image steht dafür bereits auf Docker Hub zur Verfügung.
 
-**Bitte führen Sie die beiden Abschnitte "Vorbereitung..." unbedingt VOR dem ersten Labortermin durch,** da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden.
+Es wird empfohlen, die Vorbereitung auf dem mobilen System durchzuführen, das Sie während der Laborstunden verwenden werden. Selbstverständlich besteht auch die Möglichkeit, die erforderliche Software zusätzlich auf Ihrem Desktop-System für zu Hause zu installieren, um Flexibilität und eine nahtlose Arbeitsumgebung zu gewährleisten.
+
+**Bitte führen Sie die beiden Abschnitte "Vorbereitung..." unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden. 
 
 ### Vorbereitung Docker Desktop
 
@@ -48,7 +50,7 @@ ui:
 docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui
 ```
 
-#### ARM Maschinen (Apple Mac mit M (1,2,3, ...) chips):
+#### ARM Maschinen (Apple Mac mit M (1,2,3, ...) chips)
 
 base:
 
@@ -137,7 +139,9 @@ Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
 docker logs pocketlab
 ```
 
-Der Schlüssel ist zwischen den Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` zu finden. Speichern Sie diesen Schlüssel in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`, und stellen Sie sicher, dass nur Sie darauf zugreifen können:
+Der Schlüssel ist zwischen den Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` zu finden. Speichern Sie diesen Schlüssel in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`. **WICHTIG** Kopieren Sie auch die beiden Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` mit!
+
+Stellen Sie sicher, dass nur Sie darauf zugreifen können:
 
 ```bash
 chmod 600 ~/.ssh/id_rsa_pocketlab.key
@@ -148,6 +152,7 @@ Mit folgendem Befehl können Sie sich dann per SSH in den Container einloggen:
 ```bash
 ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
 ```
+Die Option -p40405 weist das SSH-Programm an, die Verbindung zum Remote-Server über den spezifischen Port 40405 herzustellen. In der Standardeinstellung nutzt SSH den Port 22 für Verbindungen. Durch die Angabe von -p40405 wird der Standardport überschrieben, sodass SSH stattdessen den angegebenen alternativen Port verwendet. Dies ist besonders nützlich, wenn der SSH-Dienst auf dem Remote-Server aus Sicherheits- oder Konfigurationsgründen auf einem anderen Port als dem Standardport läuft. Auf diese Weise können Sie sicherstellen, dass Ihre Verbindung über den korrekten Port erfolgt und Kommunikationsprobleme vermieden werden.
 
 ### GUI-Zugriff:
 
@@ -170,10 +175,11 @@ Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container ein
 
 ### VSCode-Integration
 
-1. Installieren Sie VSCode und die Remote-SSH-Extension.
-2. Öffnen Sie die Command Palette und wählen Sie "Remote-SSH: Connect to Host". Wählen Sie `pocketlab` aus der Liste aus, wenn Sie die `.ssh/config` entsprechend konfiguriert haben.
+1. **Installation von VSCode und der Remote-SSH-Erweiterung**: Beginnen Sie mit der Installation von Visual Studio Code (VSCode), einer leistungsstarken und vielseitigen Entwicklungsumgebung, die sich ideal für das Arbeiten mit Docker-Containern eignet. Nachdem Sie VSCode erfolgreich installiert haben, fügen Sie die Erweiterung "Remote - SSH" hinzu. Diese Erweiterung ermöglicht es Ihnen, sich über SSH mit entfernten Maschinen oder Containern zu verbinden, wodurch Sie nahtlos in einer Remote-Umgebung arbeiten können, als wäre es eine lokale Entwicklungsumgebung.
 
-Nun können Sie VSCode nutzen, um im Docker-Container zu arbeiten, C-Programme zu erstellen und auszuführen.
+2. **Verbindung zum Docker-Container herstellen**: Nach der Installation von VSCode und der Remote-SSH-Erweiterung öffnen Sie die Command Palette, indem Sie `Strg+Shift+P` (oder `Cmd+Shift+P` auf macOS) drücken. Geben Sie in der Suchleiste "Remote-SSH: Connect to Host" ein und wählen Sie diese Option aus. Es wird Ihnen eine Liste der verfügbaren Hosts angezeigt, die in Ihrer `.ssh/config` Datei konfiguriert sind. Wenn Sie die Konfiguration korrekt vorgenommen haben, sollte `pocketlab` als einer der Hosts in dieser Liste erscheinen. Wählen Sie `pocketlab` aus, um eine Verbindung zu Ihrem Docker-Container herzustellen.
+
+Nachdem die Verbindung erfolgreich hergestellt wurde, können Sie Visual Studio Code nutzen, um direkt im Docker-Container zu arbeiten. Dies umfasst das Erstellen, Bearbeiten und Ausführen von C-Programmen oder anderen Codeprojekten. Durch die Remote-SSH-Verbindung arbeiten Sie in der gewohnten VSCode-Oberfläche, während Ihre Projekte auf dem entfernten Container ausgeführt werden, was eine nahtlose Integration von Entwicklung und Deployment ermöglicht.
 
 ### Wichtiger Hinweis
 
