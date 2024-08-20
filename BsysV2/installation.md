@@ -61,13 +61,13 @@ docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab sy
 base:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-arm64
+docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
 ```
 
 ui:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-arm64
+docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-AMR64
 ```
 
 Beim erstmaligen Start des Images wird es noch nicht lokal auf Ihrem System vorhanden sein und muss daher von Docker Hub heruntergeladen werden. Dieser Vorgang kann abhängig von Ihrer Internetverbindung einige Minuten in Anspruch nehmen. Da hierbei eine beträchtliche Menge an Daten übertragen wird, wird dringend empfohlen, den Download vorab zu Hause durchzuführen. Die WLAN-Verbindung an der HTWG bietet nur eine begrenzte Datenrate, was den Download erheblich verlangsamen könnte.
@@ -78,150 +78,70 @@ Der Parameter `-p 127.0.0.1:40405:22` bei der Ausführung des Containers leitet 
 
 Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafische Benutzeroberflächen (GUIs) von Anwendungen, die im Container laufen, auf der Host-Maschine anzuzeigen. Dies wird besonders gegen Ende des Kurses relevant.
 
+### X-Server Windows:
 
-### X-Server
+Für die Ausführung von X-Anwendungen auf einem Windows-Rechner empfehlen wir die Verwendung von "Xming". Xming ist ein Open-Source X-Server für Windows, der es ermöglicht, grafische Anwendungen von Unix- oder Linux-Systemen auf einem Windows-Rechner darzustellen. Es handelt sich um ein äußerst ressourcenschonendes Programm, das sowohl im Speicher- als auch im Rechenkapazitätsverbrauch minimal ist. [Download Xming](https://sourceforge.net/projects/xming/).
 
-#### für Windows:
+#### Xming automatisch beim Systemstart ausführen:
+Nach der Installation von Xming mit dem Installationsassistenten und den Standardeinstellungen können Sie Xming so konfigurieren, dass es automatisch beim Hochfahren des Systems gestartet wird:
 
-Wir nutzen hierzu "Xming". Xming ist ein Open-Source X-Server für Windows, der es ermöglicht, grafische Anwendungen von Unix- oder Linux-Systemen auf einem Windows-Rechner auszuführen. Es handelt sich um ein sehr kleines Programm, das weder Speicher- noch Rechenkapazität benötigt. [Download Xming](https://sourceforge.net/projects/xming/).
+1. **Xming-Verknüpfung suchen**: Drücken Sie die Windows-Taste, geben Sie "Xming" ein und wählen Sie "Dateispeicherort öffnen".
+2. **Verknüpfung kopieren**: Ein Explorer-Fenster mit verschiedenen Xming-Verknüpfungen sollte sich öffnen. Suchen Sie die einfache "Xming"-Verknüpfung, klicken Sie mit der rechten Maustaste darauf und kopieren Sie den Pfad (dieser sollte standardmäßig unter `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Xming\Xming.lnk` gespeichert sein).
+3. **Startup-Ordner öffnen**: Drücken Sie "WinKey + R", geben Sie `shell:startup` ein und bestätigen Sie mit Enter.
+4. **Verknüpfung hinzufügen**: Im geöffneten Explorer-Fenster rechtsklicken Sie, wählen "Neue Verknüpfung", fügen den kopierten Pfad ein (ohne Anführungszeichen) und bestätigen Sie mit Enter.
 
-###### Xming automatisch beim Systemstart ausführen:
-Nach dem Herunterladen und Installieren mit dem Installations-assistenten und den Standardeinstellungen wollen wir Xming beim Hochfahren mit starten:
+Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die versteckten Symbole in der Taskleiste – dort sollte das Xming-Symbol angezeigt werden.
 
-1. Suchen Sie den Pfad zum Xming-Shortcut (nicht den direkten Pfad, sonst begrüßt Sie jedes Mal ein Pop-up, wenn Sie Ihren PC starten). Drücken Sie die Windows-Taste, suchen Sie Xming, und öffnen Sie den Dateispeicherort.
-3. Es sollte sich ein Explorer-Fenster mit mehreren Xming-Variationen öffnen. Suchen Sie den "reinen" Xming-Shortcut mit dem simplen Namen "Xming", rechts-klicken Sie darauf und kopieren den Pfad (standardmäßig sollte dieser unter "C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Xming\Xming.lnk" sein) in die Zwischenablage.
-4. Drücken Sie "WinKey + R" und geben Sie in das Fenster `shell:startup` ein, gefolgt von Enter.
-5. Es sollte sich ein Explorer-Fenster öffnen. Rechtsklicken Sie dort, wählen Sie "Neuer Shortcut" und geben Sie den gerade kopierten Pfad ein (Achtung: Es dürfen am Anfang und Ende keine Anführungszeichen stehen), dann drücken Sie Enter.
-([Quelle](https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd))
+### X-Server Mac:
 
-Um zu überprüfen ob Xming im hintergrund läuft kannst du unten rechts unter "hidden Icons" schauen ob sich auch ein Xming symbol dort befindet.
+#### 1. Installation von XQuartz:
 
-#### für Mac
+1. **Download**: Besuchen Sie die offizielle XQuartz-Webseite unter [https://www.xquartz.org/releases/XQuartz-2.8.5.html](https://www.xquartz.org/releases/XQuartz-2.8.5.html).
+2. **Installation starten**: Laden Sie die neueste Version herunter, öffnen Sie die `.dmg`-Datei und folgen Sie den Anweisungen des Installationsassistenten.
+3. **Neustart**: Nach Abschluss der Installation kann ein Neustart oder das Ab- und erneute Anmelden erforderlich sein.
 
-##### 1. Installation von XQuartz
+#### 2. XQuartz automatisch beim Systemstart ausführen:
 
-1. **Download**: Besuche die offizielle XQuartz-Webseite unter [https://www.xquartz.org/releases/XQuartz-2.8.5.html](https://www.xquartz.org/releases/XQuartz-2.8.5.html).
-2. **Download starten**: Klicke auf den Link, um die neueste Version von XQuartz herunterzuladen.
-3. **Installation**:
-   - Öffne die heruntergeladene `.dmg`-Datei.
-   - Folge den Anweisungen im Installationsprogramm. Klicke auf „Weiter“ und akzeptiere die Lizenzvereinbarung.
-   - Nach Abschluss der Installation wirst du möglicherweise aufgefordert, dich abzumelden und wieder anzumelden, um die Installation abzuschließen.
+Um XQuartz bei jedem Systemstart automatisch auszuführen, können Sie es zu den Anmeldeobjekten hinzufügen:
 
-##### 2. XQuartz automatisch beim Systemstart ausführen
+1. **Systemeinstellungen öffnen**: Öffnen Sie die „Systemeinstellungen“ und navigieren Sie zu „Benutzer & Gruppen“.
+2. **Anmeldeobjekte verwalten**: Wählen Sie Ihr Benutzerkonto, klicken Sie auf „Anmeldeobjekte“ und fügen Sie XQuartz über das Pluszeichen `+` hinzu.
 
-Damit XQuartz bei jedem Systemstart automatisch ausgeführt wird, kannst du es als Anmeldeobjekt hinzufügen:
+#### 3. XQuartz manuell starten:
 
-1. **Systemeinstellungen öffnen**: Gehe zu den „Systemeinstellungen“ auf deinem Mac.
-2. **Benutzer & Gruppen**: Wähle „Benutzer & Gruppen“ aus.
-3. **Anmeldeobjekte**:
-   - Wähle dein Benutzerkonto aus der Liste links.
-   - Klicke auf den Reiter „Anmeldeobjekte“.
-   - Klicke auf das Pluszeichen `+` unter der Liste der Anmeldeobjekte.
-   - Navigiere zu `Programme` und wähle „XQuartz“ aus der Liste der Programme aus.
-   - Klicke auf „Hinzufügen“, um XQuartz zur Liste der Anmeldeobjekte hinzuzufügen.
+Falls gewünscht, können Sie XQuartz manuell starten: Gehen Sie zu „Programme“ > „Dienstprogramme“ und öffnen Sie XQuartz.
 
-Nun wird XQuartz bei jedem Start deines Macs automatisch ausgeführt.
+### X-Server Linux:
 
-##### 3. XQuartz manuell starten
+Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
 
-Falls du XQuartz manuell starten möchtest:
-- Gehe zu „Programme“ > „Dienstprogramme“ und öffne XQuartz.
+### Login:
 
-Das war’s! Jetzt wird XQuartz bei jedem Start deines Macs automatisch ausgeführt und ist bereit für die Nutzung.
-
-#### für Linux
-
-X11 läuft nativ... [Stonks](https://surrealmemes.fandom.com/wiki/Stonks?file=2f0.png)
-
-### Login
-
-Nun fehlt nur noch das Passwort ... und das bekommen Sie auch nicht, denn es ist keines eingerichtet. Wir machen das auf eine bessere und professioneller Weise:
-
-Wenn der Container neu angelegt wird (also jedes Mal, wenn Sie den Container löschen und neu anlegen), durchläuft der Container ein internes Skript, das einen neuen 'random' Schlüssel anlegt. Diesen Schlüssel benötigen Sie, um sich einloggen zu können. Also Achtung: Wenn Sie den Container löschen und einen neuen Container anlegen, wird auch ein neuer Schlüssel erzeugt. Aber keine Sorge:
-
-1. Das wird nicht oft vorkommen (wenn überhaupt), dass Sie einen Container löschen und neu anlegen müssen. Es reicht, den Container zu stoppen und neu zu starten.
-2. Das Auslesen des Schlüssels ist sehr einfach.
-
-### BSYS Pocketlab Security
-
-Gehen Sie in Ihrem Docker Desktop auf den laufenden Container und schauen Sie dort in die Logs. Ziemlich am Ende des Logs steht der Key zwischen den beiden Zeilen:
-
-```
------BEGIN OPENSSH PRIVATE KEY-----
-...
------END OPENSSH PRIVATE KEY-----
-```
-
-Zeigt Docker Ihnen nichts unter dem Log-Reiter an, benutzen Sie einfach die Kommandozeile:
+Für den Zugriff auf den Container verwenden Sie einen automatisch generierten SSH-Schlüssel. Dieser wird beim ersten Start des Containers erstellt und in den Logs angezeigt. Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
 
 ```bash
 docker logs pocketlab
 ```
 
-Dieser Schlüssel wird nun Ihrem lokal installierten SSH-Client bekannt gegeben, und danach können Sie sich ohne Passwort direkt im Container einloggen.
-
-Für den Kommandozeilen-Client 'ssh' befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also mal in Ihrem Home-Verzeichnis nach diesem Verzeichnis. Haben Sie in der Vergangenheit SSH benutzt, sollten darin schon Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via SSH zuzugreifen:
+Der Schlüssel ist zwischen den Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` zu finden. Speichern Sie diesen Schlüssel in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`, und stellen Sie sicher, dass nur Sie darauf zugreifen können:
 
 ```bash
-ssh -p40405 -i -x .ssh/id_rsa_pocketlab.key pocketlab@localhost
+chmod 600 ~/.ssh/id_rsa_pocketlab.key
 ```
 
-Nach dem Akzeptieren der Verbindung das SSH-Programm mit STRG+C abbrechen. Nun sollte das `.ssh` Verzeichnis angelegt worden sein.
-
-Legen Sie in diesem `.ssh` Verzeichnis die selbst erstellte Datei `id_rsa_pocketlab.key` an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen:
-
-```
------BEGIN OPENSSH PRIVATE KEY-----
-...
------END OPENSSH PRIVATE KEY-----
-```
-
-gefolgt von einem Enter nach dem letzten `-`.
-
-## RSA key mit Linux / Mac
-
-Oben genanntes können Sie noch einfacher mit folgendem Kommandozeilen-Befehl (nur Linux, Mac), den Sie in Ihrem Home-Verzeichnis aufrufen:
+Mit folgendem Befehl können Sie sich dann per SSH in den Container einloggen:
 
 ```bash
-docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
 ```
 
-Dieser Befehl liest die Log-Datei des laufenden Pocketlab-Containers aus, filtert nur die Zeilen BEGIN, Key und END heraus und schreibt dann die gefilterten Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (`docker logs ... | sed`) hintereinander mit einer sogenannten Pipe (`|`) verbunden und ausgeführt, und das Ergebnis wird in eine Datei geschrieben, indem die Ausgabe mit '>' umgeleitet wird.
+### GUI-Zugriff:
 
+Für den Zugriff auf die grafische Benutzeroberfläche (GUI) geben Sie `localhost:40001` in die Adressleiste Ihres Browsers ein.
 
+### SSH-Konfiguration:
 
-Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar
-
- sein. Sind zu viele Lese- oder Schreibrechte auf die Datei möglich, beschwert sich das SSH-Programm entsprechend.
-
-Ist der Key gespeichert, können Sie sich nun mit folgendem Befehl aus der Kommandozeile auf dem Container einloggen (Achtung das X muss groß sein, sonst ist das X-forwarding deaktiviert.):
-
-```bash
-ssh -p40405 -i -X .ssh/id_rsa_pocketlab.key pocketlab@localhost
-```
-
-Bei Problemen überprüfen Sie bitte, ob wirklich der richtige und vollständige Key in der Datei `.ssh/id_rsa_pocketlab.key` steht, beginnend mit der Zeile `-----BEGIN OPENSSH PRIVATE KEY-----` und endend mit der Zeile `-----END OPENSSH PRIVATE KEY-----`.
-
-Die im Container installierte Python-Version können Sie mit
-
-```bash
-python3 --version
-```
-überprüfen.
-
-Um zu testen, ob der X-Server funktioniert, verwenden Sie den Befehl:
-```shell
-xeyes
-```
- Es sollten Squiggle Eyes aufploppen, die dem Cursor folgen.
-
-#### GUI-Zugriff
-
-Falls Sie Zugriff auf die GUI erhalten möchten, können Sie dies über Ihren Browser tun. Geben Sie dazu `localhost:40001` oder [127.0.0.1](http://127.0.0.1:40001/) in die URL-Leiste Ihres Browsers ein.
-
-### SSH-Konfigurationsdatei
-
-Damit Sie sich komfortabel von überall aus Ihrem System schnell in den laufenden Docker-Container einloggen können, konfigurieren wir SSH entsprechend. Konfigurationen Ihres SSH-Clients nehmen Sie in der Datei `.ssh/config` vor. Haben Sie diese Datei noch nicht im `.ssh/` Verzeichnis, speichern Sie einfach die folgenden Einträge als `.ssh/config` Datei ab. Ansonsten erweitern Sie die bestehende Datei entsprechend:
+Um den SSH-Zugriff auf den Container zu vereinfachen, fügen Sie die folgende Konfiguration zu Ihrer `.ssh/config` Datei hinzu:
 
 ```ssh
 Host pocketlab
@@ -232,24 +152,19 @@ Host pocketlab
     ForwardX11 yes
 ```
 
-Mit
-```shell
-ssh pocketlab
-```
+Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container einloggen.
 
-in einem Terminal können Sie sich nun ohne weitere Rückfragen nach Passwort oder Ähnlichem direkt in den Container einloggen.
+### VSCode-Integration:
 
-### VSCode Anbindung
+1. Installieren Sie VSCode und die Remote-SSH-Extension.
+2. Öffnen Sie die Command Palette und wählen Sie "Remote-SSH: Connect to Host". Wählen Sie `pocketlab` aus der Liste aus, wenn Sie die `.ssh/config` entsprechend konfiguriert haben.
 
-1. Installieren Sie VSCode.
-2. Installieren Sie die Remote-SSH-Extension.
-3. Unter der Command Palette können Sie nun "Remote-SSH: Connect to Host" aufrufen. Ist die `.ssh/config` wie oben angelegt, wird der pocketlab Host direkt angeboten. Wählen Sie den Host aus. Sie werden nach dem Typ des Hosts gefragt, wählen Sie hier Linux aus.
+Nun können Sie VSCode nutzen, um im Docker-Container zu arbeiten, C-Programme zu erstellen und auszuführen.
 
-Damit haben Sie nun ein VSCode-Entwickslungsfenster, welches den Docker-Container nutzt, sodass Sie Ihre C-Programme im Docker-Container erstellen, editieren und ausführen können. Plugins des VSCode können nun auch auf dem Container installiert werden und sind bei einem späteren Reconnect wieder verfügbar.
+### Wichtiger Hinweis:
 
-**ACHTUNG**
-Wenn Sie Ihr Betriebssystem herunterfahren, wird der Docker-Container gestoppt. Natürlich können Sie jederzeit den Container auch selbst stoppen. Starten Sie dann zu einem späteren Zeitpunkt den Container wieder, um weiterarbeiten zu können. Wenn Sie den Container löschen und neu anlegen, sind alle Ihre Einstellungen gelöscht. Sie müssen dann wieder mit der Konfiguration, beginnend mit dem Key (siehe oben), starten und die auf dem Container vorhandenen Dateien (wie z.B. die für den Container installierten VSCode-Plugins) neu installieren/kopieren.
+Beachten Sie, dass alle Einstellungen und Dateien im Container gelöscht werden, wenn dieser entfernt wird. Starten Sie den Container erneut, um Ihre Arbeit fortzusetzen, ohne ihn neu erstellen zu müssen.
 
-### Quellen
+### Quellen:
 
-[Kurzinfo zum BSYS Pocketlab Dockerimage](https://github.com/htwg-syslab/container/tree/main/BsysV2/DockerExpertx.md)
+[Kurzinfo zum BSYS Pocketlab Dockerimage](https://github.com/htwg-syslab/container/tree/main/BsysV2/DockerExperts.md)
