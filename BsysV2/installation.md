@@ -2,65 +2,82 @@
 
 ### Vorwort
 
-Zum installieren des  Pocketlab Docker Container, muss das GitHub-repository nicht geclont werden. Lokale Builds können nach System und .gitconfig einstellungen leicht variieren. Es ist empfohlen sich an folgender Anleitung zu halten.
+Für die Installation des Pocketlab Docker Containers ist es nicht erforderlich, das GitHub-Repository zu klonen. Lokale Builds können je nach Systemkonfiguration und `.gitconfig`-Einstellungen variieren. Es wird daher empfohlen, die nachfolgende Anleitung zu befolgen.
 
 ### Ziel
-Mit dem BSYS Pocketlab sollen Sie in der Lage sein, alle AIN BSYS Laboraufgaben in einem Linux-Container auf dem Betriebssystem Ihrer Wahl zu bearbeiten. Dazu nutzen wir Docker, eine freie Software zur Isolierung von Anwendungen mittels Containervirtualisierung. Docker vereinfacht die Bereitstellung von Anwendungen, da Container, die alle nötigen Pakete enthalten, leicht als Dateien transportiert und installiert werden können. Ein Container ist eine leichtgewichtige, virtualisierte Umgebung, die den Anwendungsquellcode mit den Betriebssystembibliotheken und den Abhängigkeiten kombiniert, die zur Ausführung des Codes benötigt werden. Docker isoliert Code, Laufzeitmodul, Systemwerkzeuge und Systembibliotheken in einem Container, was die Entwicklung und Ausführung von Anwendungen in einer Sandbox erleichtert. Docker Hub ist ein öffentliches Repository für Docker-Images.
 
-Wir verwenden Docker, um alle BSYS Homeworks in einem vorbereiteten Linux-Container zu bearbeiten und auszuführen. Ein fertiges Image steht dazu bereits auf Docker Hub bereit.
+Mit dem BSYS Pocketlab sollen Sie in die Lage versetzt werden, alle AIN BSYS Laboraufgaben in einem Linux-Container auf Ihrem bevorzugten Betriebssystem zu bearbeiten. Hierfür verwenden wir Docker, eine Open-Source-Software zur Isolierung von Anwendungen durch Containervirtualisierung. Docker vereinfacht die Bereitstellung von Anwendungen erheblich, da Container, die alle benötigten Pakete enthalten, leicht als Dateien transportiert und installiert werden können.
 
-Die zwei Abschnitte "Vorbereitung... " sollten Sie unbedingt VOR dem Start des ersten Labortermins durchführen, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und wir zum Einrichten einige große Dateien benötigen.
+Ein Container ist eine leichtgewichtige, virtualisierte Umgebung, die den Anwendungsquellcode mit den Betriebssystembibliotheken und den notwendigen Abhängigkeiten kombiniert, um den Code auszuführen. Docker isoliert den Code, das Laufzeitmodul, Systemwerkzeuge und Systembibliotheken in einem Container, was die Entwicklung und Ausführung von Anwendungen in einer Sandbox-Umgebung vereinfacht. Docker Hub dient als öffentliches Repository für Docker-Images.
+
+Wir nutzen Docker, um alle BSYS-Aufgaben in einem vorbereiteten Linux-Container zu bearbeiten und auszuführen. Ein fertig konfiguriertes Image steht dafür bereits auf Docker Hub zur Verfügung.
+
+**Bitte führen Sie die beiden Abschnitte "Vorbereitung..." unbedingt VOR dem ersten Labortermin durch,** da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden.
+
 
 ### Vorbereitung Docker Desktop
 
-Im Folgenden werden die nötigen Schritte für "Docker Newbies" erklärt. Die Docker-Profis unter Ihnen finden weiter unten unter dem Punkt Quellen eine Kurzinfo mit allen nötigen Informationen.
+Im Folgenden werden die erforderlichen Schritte für Einsteiger in Docker beschrieben. Erfahrene Nutzer finden weiter unten im Abschnitt „Quellen“ eine kompakte Übersicht mit allen notwendigen Informationen.
 
-1. Besuchen Sie die Docker [Homepage](https://www.docker.com/) und laden Sie dort die für Ihr Betriebssystem (Windows / Mac / Linux) nötige Version herunter. Achten Sie beim Mac auf die richtige Binary-Version, je nachdem ob Sie einen Intel- oder ARM-Chip haben.
-2. Starten Sie Docker Desktop. Unter Windows müssen Sie unter Umständen einen aktuellen WSL Windows Kernel installieren. Docker informiert Sie darüber in einem Popup-Fenster. Gehen Sie auf die Containers-Seite (Icon oben links) und schauen Sie sich die beiden Walkthroughs „What is a Container“ und "How do I run a Container" an. Damit bekommen Sie einen ersten Eindruck, was Docker Ihnen an Funktionalität bieten kann.
+1. Besuchen Sie die [Docker-Website](https://www.docker.com/) und laden Sie die für Ihr Betriebssystem (Windows, Mac, Linux) geeignete Version herunter. Achten Sie bei macOS darauf, die passende Version für Ihren Prozessor (Intel oder ARM) auszuwählen.
+2. Starten Sie Docker Desktop. Unter Windows kann es erforderlich sein, ein aktuelles WSL (Windows Subsystem for Linux) Kernel-Update zu installieren; Docker wird Sie gegebenenfalls durch ein Popup-Fenster darauf hinweisen. Wechseln Sie zur Containers-Übersicht (Symbol oben links) und sehen Sie sich die beiden Einführungsvideos „What is a Container“ und „How do I run a Container“ an, um einen ersten Eindruck von den Möglichkeiten und der Funktionalität von Docker zu gewinnen.
+
 
 ### Vorbereitung BSYS Pocketlab
 
-Für BSYS ist der Container bereits erstellt und kann nun - wenn Docker Desktop läuft - gestartet werden. Es werden zwei Typen von Docker-Containern angeboten: einmal mit und einmal ohne grafische Oberfläche. Die grafische Oberfläche ist nicht zwingend notwendig, erleichtert aber ggf. die Nutzung für Linux-Neulinge. Für alle Aufgaben im BSYS-Kurs reicht das Terminal mit Editoren (z.B. VSCode) völlig aus.
+Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft. Es stehen zwei Arten von Docker-Containern zur Verfügung:
 
-#### X86 maschinen:
+- **pocketlabbase**: Ein minimales Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die komplette Simulation und Code-Entwicklung kann ebenfalls über Visual Studio Code (VSCode) erfolgen. Weitere Informationen hierzu finden Sie weiter unten.
 
-Mit grafischer Oberfläche:
+- **pocketlabui**: Dieses Image umfasst zusätzlich zur Basisversion ein grafisches Benutzerinterface (GUI), das es Ihnen ermöglicht, Linux über Ihren Browser zu bedienen.
+
+Die Nutzung des GUI-Images ist optional und vor allem für Linux-Einsteiger gedacht. Für die Aufgaben im BSYS-Kurs reicht die Terminal-Nutzung oder die Integration mit Editoren wie VSCode vollkommen aus.
+
+### Architektur
+
+Je nach verwendeter CPU-Architektur müssen Sie das passende Docker-Image auswählen, um eine optimale Leistung sicherzustellen. Es ist entscheidend, das Image auszuwählen, das nativ auf Ihrer spezifischen Architektur ausgeführt werden kann, sei es x86_64 (Intel/AMD) oder ARM (Apple M1/M2 oder andere ARM-basierte Prozessoren). Nur durch die Auswahl des korrekten Images kann gewährleistet werden, dass die Container ohne die Notwendigkeit einer Architektur-Emulation betrieben werden. Dadurch wird eine maximale Geschwindigkeit und Effizienz erreicht, da die Emulation von Architekturen häufig zu Leistungseinbußen führen kann.
+
+
+#### X86 Architektur (Intel/AMD):
+
+
+base:
+
+```bash
+docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
+```
+
+ui:
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui
 ```
 
 
-Standard:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
-```
 
 #### ARM Maschinen (Apple Mac mit M (1,2,3, ...) chips):
 
 
-Mit grafischer Oberfläche:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-arm64
-```
-
-
-Standard:
+base:
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-arm64
 ```
 
+ui:
 
-Beim ersten Aufruf haben Sie dieses Image noch nicht lokal, und daher wird das Image von Docker Hub heruntergeladen. Das dauert je nach Ihrer Internetverbindung einige Minuten. Da hier eine Menge Daten heruntergeladen werden, sollten Sie dies zu Hause vorbereiten und nicht an der HTWG, da die WLAN-Verbindung an der HTWG nur eine geringe Datenrate erlaubt, wodurch der Download sehr lange dauern würde.
+```bash
+docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-arm64
+```
 
-Nach dem Download sehen Sie den laufenden Pocketlab-Laborcontainer unter ‚Containers‘ und das heruntergeladene `systemlabor/pocketlab` Image unter 'Images'.
+Beim erstmaligen Start des Images wird es noch nicht lokal auf Ihrem System vorhanden sein und muss daher von Docker Hub heruntergeladen werden. Dieser Vorgang kann abhängig von Ihrer Internetverbindung einige Minuten in Anspruch nehmen. Da hierbei eine beträchtliche Menge an Daten übertragen wird, wird dringend empfohlen, den Download vorab zu Hause durchzuführen. Die WLAN-Verbindung an der HTWG bietet nur eine begrenzte Datenrate, was den Download erheblich verlangsamen könnte.
 
-Der `-p 127.0.0.1:40405:22` Aufruf leitet den Port 22 (SSH) vom Container auf den lokalen Port 40405 Ihres Systems um. Wenn Sie sich nun via SSH auf den Container einloggen wollen, verwenden Sie dafür einen SSH-Client und verbinden sich mit Ihrem lokalen Port 40405.
+Nach Abschluss des Downloads sehen Sie den laufenden Pocketlab-Laborcontainer unter „Containers“ sowie das heruntergeladene `systemlabor/pocketlab` Image unter „Images“ in Docker Desktop.
 
-Des Weiteren wird für beide Container-Typen ein X-Server benötigt, um GUI-Applikationen, die im Container laufen, auf der Host-Maschine anzuzeigen (wichtig gegen Ende des Kurses).
+Der Parameter `-p 127.0.0.1:40405:22` bei der Ausführung des Containers leitet den Port 22 (SSH) des Containers auf den lokalen Port 40405 Ihres Systems um. Wenn Sie sich per SSH mit dem Container verbinden möchten, nutzen Sie einen SSH-Client und stellen die Verbindung über den lokalen Port 40405 her.
+
+Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafische Benutzeroberflächen (GUIs) von Anwendungen, die im Container laufen, auf der Host-Maschine anzuzeigen. Dies wird besonders gegen Ende des Kurses relevant.
+
 
 ### X-Server
 
