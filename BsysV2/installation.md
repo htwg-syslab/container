@@ -180,17 +180,27 @@ Nachdem die Verbindung erfolgreich hergestellt wurde, können Sie Visual Studio 
 
 ### OSTEP Homeworks
 
-Um das OSTEP Homework Repository in Ihrem laufenden Docker-Image zu installieren, folgen Sie bitte den nachstehenden Schritten:
+Das OSTEP Homework Repository wurde bereits in Ihrem Container installiert und befindet sich im Home-Verzeichnis unter dem Pfad `ostep-homework`. Dieses Verzeichnis enthält sämtliche Aufgaben und Materialien der Homeworks wie Sie vom OSTEP Author zu Verfügung gestellt werden.
 
-1. **Verbinden Sie sich via SSH mit dem Docker-Container**: Stellen Sie sicher, dass Ihr Docker-Container läuft, und verbinden Sie sich dann via SSH mit dem Container. 
+Um das OSTEP Homework Repository auf dem neuesten Stand zu halten, können Sie regelmäßig die neueste Version des Repositories von GitHub abrufen. Gehen Sie dazu wie folgt vor:
 
-2. **Repository klonen**: Sobald Sie mit dem Container verbunden sind, können Sie das OSTEP Homework Repository aus dem offiziellen GitHub-Repository klonen. Führen Sie dazu den folgenden Befehl im Terminal des Containers aus:
+1. **Navigieren Sie in das Repository-Verzeichnis**: Öffnen Sie ein Terminal in Ihrem Container und wechseln Sie in das Verzeichnis, in dem das Repository gespeichert ist:
 
     ```bash
-    git clone https://github.com/remzi-arpacidusseau/ostep-homework/
+    cd ~/ostep-homework
     ```
 
-Dieser Befehl lädt das gesamte Repository in das aktuelle Arbeitsverzeichnis des Containers herunter, sodass Sie sofort mit den bereitgestellten Materialien arbeiten können.
+2. **Aktualisieren Sie das Repository**: Führen Sie den folgenden Befehl aus, um die neuesten Änderungen vom Remote-Repository abzurufen und mit Ihrem lokalen Repository zu synchronisieren:
+
+    ```bash
+    git pull origin master
+    ```
+
+    Dieser Befehl zieht die neuesten Änderungen vom `master`-Branch des Repositories und integriert sie in Ihr lokales Verzeichnis.
+
+3. **Überprüfen Sie die Aktualisierungen**: Nachdem der `git pull`-Befehl ausgeführt wurde, werden alle neuen Dateien oder Änderungen in Ihrem lokalen Verzeichnis verfügbar sein.
+
+Indem Sie regelmäßig `git pull` ausführen, stellen Sie sicher, dass Sie immer mit den neuesten Aufgaben und Aktualisierungen des OSTEP Homework Repositorys arbeiten.
 
 ### X-Server Windows
 
