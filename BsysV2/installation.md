@@ -125,7 +125,7 @@ Legen Sie In diesem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In 
 Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
 
 ```bash
-docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
 ```
 
 Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden pocketlab Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird mit '>'.
@@ -178,6 +178,20 @@ Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container ein
 
 Nachdem die Verbindung erfolgreich hergestellt wurde, können Sie Visual Studio Code nutzen, um direkt im Docker-Container zu arbeiten. Dies umfasst das Erstellen, Bearbeiten und Ausführen von C-Programmen oder anderen Codeprojekten. Durch die Remote-SSH-Verbindung arbeiten Sie in der gewohnten VSCode-Oberfläche, während Ihre Projekte auf dem entfernten Container ausgeführt werden, was eine nahtlose Integration von Entwicklung und Deployment ermöglicht.
 
+### OSTEP Homeworks
+
+Um das OSTEP Homework Repository in Ihrem laufenden Docker-Image zu installieren, folgen Sie bitte den nachstehenden Schritten:
+
+1. **Verbinden Sie sich via SSH mit dem Docker-Container**: Stellen Sie sicher, dass Ihr Docker-Container läuft, und verbinden Sie sich dann via SSH mit dem Container. 
+
+2. **Repository klonen**: Sobald Sie mit dem Container verbunden sind, können Sie das OSTEP Homework Repository aus dem offiziellen GitHub-Repository klonen. Führen Sie dazu den folgenden Befehl im Terminal des Containers aus:
+
+    ```bash
+    git clone https://github.com/remzi-arpacidusseau/ostep-homework/
+    ```
+
+Dieser Befehl lädt das gesamte Repository in das aktuelle Arbeitsverzeichnis des Containers herunter, sodass Sie sofort mit den bereitgestellten Materialien arbeiten können.
+
 ### X-Server Windows
 
 Für die Ausführung von X-Anwendungen auf einem Windows-Rechner empfehlen wir die Verwendung von "Xming". Xming ist ein Open-Source X-Server für Windows, der es ermöglicht, grafische Anwendungen von Unix- oder Linux-Systemen auf einem Windows-Rechner darzustellen. Es handelt sich um ein äußerst ressourcenschonendes Programm, das sowohl im Speicher- als auch im Rechenkapazitätsverbrauch minimal ist. [Download Xming](https://sourceforge.net/projects/xming/).
@@ -215,26 +229,6 @@ Um XQuartz bei jedem Systemstart automatisch auszuführen, können Sie es zu den
 ### X-Server Linux
 
 Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
-
-
-### Xauthority
-
-Die Warnung `/usr/bin/xauth: file /home/pocketlab/.Xauthority does not exist` beim Einloggen via SSH kann wie folgt behoben werden:
-
-Nach dem Einloggen via SSH erstellen Sie die `.Xauthority`-Datei manuell, indem Sie den folgenden Befehl im pocketlab Container ausführen:
-
-```bash
-touch ~/.Xauthority
-```
-
-Nachdem die Datei erstellt wurde, verwenden Sie `xauth`, um die notwendigen Autorisierungsdaten zu generieren:
-
-```bash
-xauth generate $DISPLAY . trusted
-xauth list
-```
-
-Diese Befehle sollten die `.Xauthority`-Datei mit den erforderlichen Daten füllen und das Problem beheben.
 
 ### Quellen
 
