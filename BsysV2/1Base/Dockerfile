@@ -12,22 +12,22 @@ ENV CARGO_HOME=/usr/local/cargo \
 # Install required packages in a single RUN statement to reduce layers
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        openssh-server wget vim nano man-db htop curl \
-        tmux zsh netcat-openbsd git sl lolcat indent bats shellcheck gcc cmake \
-        xsel \
-        gdb \
-        gnupg \
-        valgrind \
-        gettext \
-        supervisor \
-        build-essential \
-        python3-tk\
-        python-is-python3\
-        sudo \
-        x11-apps -y \
-        bash bash-completion locales \
-        dos2unix \
-        clang
+    openssh-server wget vim nano man-db htop curl \
+    tmux zsh netcat-openbsd git sl lolcat indent bats shellcheck gcc cmake \
+    xsel \
+    gdb \
+    gnupg \
+    valgrind \
+    gettext \
+    supervisor \
+    build-essential \
+    python3-tk\
+    python-is-python3\
+    sudo \
+    x11-apps -y \
+    bash bash-completion locales \
+    dos2unix \
+    clang
 
 # Configure locale
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install tzdata -y
@@ -74,6 +74,17 @@ RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/se
 EXPOSE 22
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /
+
+# Create .XAuthority File
+RUN touch /home/pocketlab/.Xauthority
+RUN chown pocketlab:pocketlab /home/pocketlab/.Xauthority && chmod 600 /home/pocketlab/.Xauthority
+RUN echo "xauth generate $DISPLAY . trusted" >> /home/pocketlab/.bashrc
+
+# Clone the OSTEP Homework repository
+RUN git clone https://github.com/remzi-arpacidusseau/ostep-homework /home/pocketlab/ostep-homework
+# Set the correct ownership if needed
+RUN chown -R pocketlab:pocketlab /home/pocketlab/ostep-homework
+
 
 # Make entrypoint.sh executable on every Platfrom
 RUN dos2unix /etc/supervisor/conf.d/supervisord.conf ; \

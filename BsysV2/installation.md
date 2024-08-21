@@ -125,7 +125,7 @@ Legen Sie In diesem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In 
 Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
 
 ```bash
-docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
 ```
 
 Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden pocketlab Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird mit '>'.
@@ -178,6 +178,30 @@ Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container ein
 
 Nachdem die Verbindung erfolgreich hergestellt wurde, können Sie Visual Studio Code nutzen, um direkt im Docker-Container zu arbeiten. Dies umfasst das Erstellen, Bearbeiten und Ausführen von C-Programmen oder anderen Codeprojekten. Durch die Remote-SSH-Verbindung arbeiten Sie in der gewohnten VSCode-Oberfläche, während Ihre Projekte auf dem entfernten Container ausgeführt werden, was eine nahtlose Integration von Entwicklung und Deployment ermöglicht.
 
+### OSTEP Homeworks
+
+Das OSTEP Homework Repository wurde bereits in Ihrem Container installiert und befindet sich im Home-Verzeichnis unter dem Pfad `ostep-homework`. Dieses Verzeichnis enthält sämtliche Aufgaben und Materialien der Homeworks wie Sie vom OSTEP Author zu Verfügung gestellt werden.
+
+Um das OSTEP Homework Repository auf dem neuesten Stand zu halten, können Sie regelmäßig die neueste Version des Repositories von GitHub abrufen. Gehen Sie dazu wie folgt vor:
+
+1. **Navigieren Sie in das Repository-Verzeichnis**: Öffnen Sie ein Terminal in Ihrem Container und wechseln Sie in das Verzeichnis, in dem das Repository gespeichert ist:
+
+    ```bash
+    cd ~/ostep-homework
+    ```
+
+2. **Aktualisieren Sie das Repository**: Führen Sie den folgenden Befehl aus, um die neuesten Änderungen vom Remote-Repository abzurufen und mit Ihrem lokalen Repository zu synchronisieren:
+
+    ```bash
+    git pull origin master
+    ```
+
+    Dieser Befehl zieht die neuesten Änderungen vom `master`-Branch des Repositories und integriert sie in Ihr lokales Verzeichnis.
+
+3. **Überprüfen Sie die Aktualisierungen**: Nachdem der `git pull`-Befehl ausgeführt wurde, werden alle neuen Dateien oder Änderungen in Ihrem lokalen Verzeichnis verfügbar sein.
+
+Indem Sie regelmäßig `git pull` ausführen, stellen Sie sicher, dass Sie immer mit den neuesten Aufgaben und Aktualisierungen des OSTEP Homework Repositorys arbeiten.
+
 ### X-Server Windows
 
 Für die Ausführung von X-Anwendungen auf einem Windows-Rechner empfehlen wir die Verwendung von "Xming". Xming ist ein Open-Source X-Server für Windows, der es ermöglicht, grafische Anwendungen von Unix- oder Linux-Systemen auf einem Windows-Rechner darzustellen. Es handelt sich um ein äußerst ressourcenschonendes Programm, das sowohl im Speicher- als auch im Rechenkapazitätsverbrauch minimal ist. [Download Xming](https://sourceforge.net/projects/xming/).
@@ -215,26 +239,6 @@ Um XQuartz bei jedem Systemstart automatisch auszuführen, können Sie es zu den
 ### X-Server Linux
 
 Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
-
-
-### Xauthority
-
-Die Warnung `/usr/bin/xauth: file /home/pocketlab/.Xauthority does not exist` beim Einloggen via SSH kann wie folgt behoben werden:
-
-Nach dem Einloggen via SSH erstellen Sie die `.Xauthority`-Datei manuell, indem Sie den folgenden Befehl im pocketlab Container ausführen:
-
-```bash
-touch ~/.Xauthority
-```
-
-Nachdem die Datei erstellt wurde, verwenden Sie `xauth`, um die notwendigen Autorisierungsdaten zu generieren:
-
-```bash
-xauth generate $DISPLAY . trusted
-xauth list
-```
-
-Diese Befehle sollten die `.Xauthority`-Datei mit den erforderlichen Daten füllen und das Problem beheben.
 
 ### Quellen
 
