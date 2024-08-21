@@ -87,17 +87,27 @@ Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafi
 
 Beachten Sie, dass alle Einstellungen und Dateien im Container gelöscht werden, wenn dieser entfernt wird. Starten Sie den Container erneut, um Ihre Arbeit fortzusetzen, ohne ihn neu erstellen zu müssen.
 
-### Login
+### Anmeldung
 
-Für den Zugriff auf den Container verwenden Sie einen automatisch generierten SSH-Schlüssel. Dieser wird beim ersten Start des Containers erstellt und in den Logs angezeigt. Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
+Für den Zugriff auf den Container wird ein automatisch generierter SSH-Schlüssel verwendet. Dieser Schlüssel wird beim ersten Start des Containers erzeugt und in den Logs angezeigt. Um den Schlüssel auszulesen, können Sie die Docker-Logs aufrufen:
 
 ```bash
 docker logs pocketlab
 ```
 
-Der Schlüssel ist zwischen den Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` zu finden. Speichern Sie diesen Schlüssel in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`. **WICHTIG** Kopieren Sie auch die beiden Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` mit!
+Der Schlüssel befindet sich zwischen den Zeilen:
 
-Für den Kommandozeilen Client 'ssh' befinden sich die Konfigurationsdateien im versteckten Verzeichnis .ssh/ . Schauen Sie also mal in Ihrem Home Direktory Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit ssh benutzt sollten darin schon Dateien zu finden sein (z.B. die Datei .ssh/known_hosts). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte auf den laufenden Container via ssh zuzugreifen:
+`-----BEGIN OPENSSH PRIVATE KEY-----`
+
+und
+
+`-----END OPENSSH PRIVATE KEY-----`.
+
+Speichern Sie den gesamten Schlüssel, einschließlich der beiden oben genannten Zeilen, in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`.
+
+**WICHTIG:** Achten Sie darauf, die Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` ebenfalls vollständig zu kopieren!
+
+Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
 
 ```bash
 ssh -p40404 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
@@ -107,9 +117,10 @@ Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abbrechen. Nun so
 
 Legen Sie In diesem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl. der Zeilen
 
-
-    -----BEGIN OPENSSH PRIVATE KEY----- und
-    -----END OPENSSH PRIVATE KEY-----
+```text
+-----BEGIN OPENSSH PRIVATE KEY----- und
+-----END OPENSSH PRIVATE KEY-----
+```
 
 Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
 
