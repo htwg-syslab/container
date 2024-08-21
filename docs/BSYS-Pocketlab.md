@@ -2,21 +2,11 @@
 
 ### Vorwort
 
-Für die Installation des Pocketlab Docker Containers ist es nicht erforderlich, das GitHub-Repository zu klonen. Lokale Builds können je nach Systemkonfiguration und `.gitconfig`-Einstellungen variieren. Es wird daher empfohlen, die nachfolgende Anleitung zu befolgen.
-
-### Ziel
-
-Mit dem BSYS Pocketlab sollen Sie in die Lage versetzt werden, alle AIN BSYS Laboraufgaben in einem Linux-Container auf Ihrem bevorzugten Betriebssystem zu bearbeiten. Hierfür verwenden wir Docker, eine Open-Source-Software zur Isolierung von Anwendungen durch Containervirtualisierung. Docker vereinfacht die Bereitstellung von Anwendungen erheblich, da Container, die alle benötigten Pakete enthalten, leicht als Dateien transportiert und installiert werden können.
-
-Ein Container ist eine leichtgewichtige, virtualisierte Umgebung, die den Anwendungsquellcode mit den Betriebssystembibliotheken und den notwendigen Abhängigkeiten kombiniert, um den Code auszuführen. Docker isoliert den Code, das Laufzeitmodul, Systemwerkzeuge und Systembibliotheken in einem Container, was die Entwicklung und Ausführung von Anwendungen in einer Sandbox-Umgebung vereinfacht. Docker Hub dient als öffentliches Repository für Docker-Images.
-
-Wir nutzen Docker, um alle BSYS-Aufgaben in einem vorbereiteten Linux-Container zu bearbeiten und auszuführen. Ein fertig konfiguriertes Image steht dafür bereits auf Docker Hub zur Verfügung.
-
 Es wird empfohlen, die Vorbereitung auf dem mobilen System durchzuführen, das Sie während der Laborstunden verwenden werden. Selbstverständlich besteht auch die Möglichkeit, die erforderliche Software zusätzlich auf Ihrem Desktop-System für zu Hause zu installieren, um Flexibilität und eine nahtlose Arbeitsumgebung zu gewährleisten.
 
 ### Vorbereitung
 
-**WICHTIG: Bitte führen Sie die beiden folgenden Abschnitte "Vorbereitung..." unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden. 
+**WICHTIG: Bitte führen Sie die "Vorbereitung des BSYS Pocketlab" unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden. 
 
 In der ersten Laborstunde werden wir uns mit den Themen:
 
@@ -25,13 +15,6 @@ In der ersten Laborstunde werden wir uns mit den Themen:
 - der Einrichtung von VS Code
   
 beschäftigen. Diese Schritte können Sie selbstverständlich auch bereits im Vorfeld eigenständig durchführen, um optimal vorbereitet zu sein.
-
-#### Vorbereitung Docker Desktop
-
-Im Folgenden werden die erforderlichen Schritte für Einsteiger in Docker beschrieben. Erfahrene Nutzer finden weiter unten im Abschnitt „Quellen“ eine kompakte Übersicht mit allen notwendigen Informationen.
-
-1. Besuchen Sie die [Docker-Website](https://www.docker.com/) und laden Sie die für Ihr Betriebssystem (Windows, Mac, Linux) geeignete Version herunter. Achten Sie bei macOS darauf, die passende Version für Ihren Prozessor (Intel oder ARM) auszuwählen.
-2. Starten Sie Docker Desktop. Unter Windows kann es erforderlich sein, ein aktuelles WSL (Windows Subsystem for Linux) Kernel-Update zu installieren; Docker wird Sie gegebenenfalls durch ein Popup-Fenster darauf hinweisen. Wechseln Sie zur Containers-Übersicht (Symbol oben links) und sehen Sie sich die beiden Einführungsvideos „What is a Container“ und „How do I run a Container“ an, um einen ersten Eindruck von den Möglichkeiten und der Funktionalität von Docker zu gewinnen.
 
 #### Vorbereitung des BSYS Pocketlab
 
@@ -177,30 +160,6 @@ Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container ein
 2. **Verbindung zum Docker-Container herstellen**: Nach der Installation von VSCode und der Remote-SSH-Erweiterung öffnen Sie die Command Palette, indem Sie `Strg+Shift+P` (oder `Cmd+Shift+P` auf macOS) drücken. Geben Sie in der Suchleiste "Remote-SSH: Connect to Host" ein und wählen Sie diese Option aus. Es wird Ihnen eine Liste der verfügbaren Hosts angezeigt, die in Ihrer `.ssh/config` Datei konfiguriert sind. Wenn Sie die Konfiguration korrekt vorgenommen haben, sollte `pocketlab` als einer der Hosts in dieser Liste erscheinen. Wählen Sie `pocketlab` aus, um eine Verbindung zu Ihrem Docker-Container herzustellen.
 
 Nachdem die Verbindung erfolgreich hergestellt wurde, können Sie Visual Studio Code nutzen, um direkt im Docker-Container zu arbeiten. Dies umfasst das Erstellen, Bearbeiten und Ausführen von C-Programmen oder anderen Codeprojekten. Durch die Remote-SSH-Verbindung arbeiten Sie in der gewohnten VSCode-Oberfläche, während Ihre Projekte auf dem entfernten Container ausgeführt werden, was eine nahtlose Integration von Entwicklung und Deployment ermöglicht.
-
-### OSTEP Homeworks
-
-Das OSTEP Homework Repository wurde bereits in Ihrem Container installiert und befindet sich im Home-Verzeichnis unter dem Pfad `ostep-homework`. Dieses Verzeichnis enthält sämtliche Aufgaben und Materialien der Homeworks wie Sie vom OSTEP Author zu Verfügung gestellt werden.
-
-Um das OSTEP Homework Repository auf dem neuesten Stand zu halten, können Sie regelmäßig die neueste Version des Repositories von GitHub abrufen. Gehen Sie dazu wie folgt vor:
-
-1. **Navigieren Sie in das Repository-Verzeichnis**: Öffnen Sie ein Terminal in Ihrem Container und wechseln Sie in das Verzeichnis, in dem das Repository gespeichert ist:
-
-    ```bash
-    cd ~/ostep-homework
-    ```
-
-2. **Aktualisieren Sie das Repository**: Führen Sie den folgenden Befehl aus, um die neuesten Änderungen vom Remote-Repository abzurufen und mit Ihrem lokalen Repository zu synchronisieren:
-
-    ```bash
-    git pull origin master
-    ```
-
-    Dieser Befehl zieht die neuesten Änderungen vom `master`-Branch des Repositories und integriert sie in Ihr lokales Verzeichnis.
-
-3. **Überprüfen Sie die Aktualisierungen**: Nachdem der `git pull`-Befehl ausgeführt wurde, werden alle neuen Dateien oder Änderungen in Ihrem lokalen Verzeichnis verfügbar sein.
-
-Indem Sie regelmäßig `git pull` ausführen, stellen Sie sicher, dass Sie immer mit den neuesten Aufgaben und Aktualisierungen des OSTEP Homework Repositorys arbeiten.
 
 ### X-Server Windows
 

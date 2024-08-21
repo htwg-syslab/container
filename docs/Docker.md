@@ -1,0 +1,9 @@
+## Docker
+
+[Docker](https://www.docker.com/) ist eine **Open-Source-Plattform**, die es Entwicklern und IT-Administratoren ermöglicht, Anwendungen in **isolierten Containern** zu verpacken, bereitzustellen und auszuführen. Diese Container enthalten alle Komponenten, die eine Anwendung benötigt, um in jeder Umgebung **konsistent** und **zuverlässig** zu funktionieren, einschließlich **Code**, **Laufzeitumgebung**, **Bibliotheken** und **Systemwerkzeuge**.
+
+Ein zentraler Vorteil von Docker ist die **Portabilität**: Anwendungen, die in Containern laufen, verhalten sich unabhängig von der zugrunde liegenden Infrastruktur stets gleich. Dies erleichtert nicht nur die **Entwicklung** und das **Testen**, sondern auch den **Einsatz** von Software, da der Container überall ausgeführt werden kann – ob auf einem lokalen Rechner, in einer privaten Cloud oder auf großen **Cloud-Plattformen** wie [AWS](https://aws.amazon.com/de/docker/), [Azure](https://azure.microsoft.com/de-de/services/container-instances/), oder [Google Cloud](https://cloud.google.com/run/docs/quickstarts/build-and-deploy/deploy-docker-image).
+
+Docker bietet durch die Nutzung von Containern eine **schnellere** und **effizientere** Möglichkeit, Anwendungen zu skalieren und zu verwalten, verglichen mit herkömmlichen **virtuellen Maschinen**. Dabei wird sichergestellt, dass Anwendungen in einer **konsistenten Umgebung** ausgeführt werden, wodurch potenzielle Fehler durch unterschiedliche Entwicklungs- oder Produktionsumgebungen minimiert werden.
+
+Mit Tools wie [Docker Compose](https://docs.docker.com/compose/) können zudem komplexe Anwendungen, die aus mehreren Containern bestehen, einfach orchestriert und verwaltet werden. Diese Flexibilität macht Docker zu einem unverzichtbaren Werkzeug in modernen **DevOps**- und **Continuous Integration/Continuous Deployment (CI/CD)**-Prozessen.
