@@ -1,0 +1,5 @@
+## Installation von Docker Desktop
+
+1. Besuchen Sie die [Docker-Website](https://www.docker.com/) und laden Sie die für Ihr **Betriebssystem** (Windows, macOS, Linux) geeignete Version von **Docker Desktop** herunter. Achten Sie bei macOS darauf, die passende Version für Ihren Prozessor (Intel oder ARM) auszuwählen.
+2. Installieren und starten Sie **Docker Desktop**. Auf Windows-Systemen kann es erforderlich sein, ein aktuelles Update für das **Windows Subsystem for Linux (WSL)** zu installieren; Docker wird Sie gegebenenfalls durch eine entsprechende Benachrichtigung darauf hinweisen. 
+3. Nach dem Start von **Docker Desktop** wechseln Sie zur Übersicht der **Container** (über das Symbol oben links) und sehen sich die beiden Einführungsvideos „**What is a Container**“ und „**How do I run a Container**“ an, um einen umfassenden Überblick über die Möglichkeiten und Funktionen von Docker zu erhalten.
