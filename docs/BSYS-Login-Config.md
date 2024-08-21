@@ -60,10 +60,21 @@ Zur Erinnerung: In einem vorherigen Schritt haben wir das Docker-Image gestartet
 
 Die Option `-X` bei `ssh` aktiviert **X11-Forwarding**, wodurch grafische Anwendungen, die auf einem Remote-Server laufen, auf Ihrem lokalen Rechner angezeigt werden können. Dadurch können Sie die Benutzeroberfläche von Programmen, die auf dem Remote-Server ausgeführt werden, nutzen, als ob sie lokal laufen würden. Dies ist besonders nützlich, wenn Sie auf einem entfernten Server arbeiten, aber dennoch Zugriff auf grafische Anwendungen benötigen.
 
+Sollten Sie noch keinen XServer lokal gestartet haben, könnte Ihnen die folgende Fehlermeldung angezeigt werden:
 
-## GUI-Zugriff
+```text
+xauth: (argv):1:  unable to open display "host.docker.internal:0".
+```
 
-Für den Zugriff auf die grafische Benutzeroberfläche (GUI) geben Sie `localhost:40001` in die Adressleiste Ihres Browsers ein.
+Die Konfiguration des XServers wird im weiteren Verlauf erläutert.
+
+## Zugriff auf die grafische Benutzeroberfläche (GUI)
+
+Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein. 
+
+Nach dem Aufruf dieser Adresse wird die grafische Oberfläche des Containers direkt in Ihrem Browser angezeigt. Sie können die Oberfläche wie gewohnt verwenden, indem Sie **Maus** und **Tastatur** nutzen. Dies ermöglicht Ihnen eine vollständige Interaktion mit dem Container, als ob Sie direkt vor einem physischen System sitzen würden.
+
+Durch diese Methode können Sie komfortabel auf die GUI-basierten Anwendungen innerhalb des Containers zugreifen und diese in Ihrer gewohnten Arbeitsumgebung bedienen.
 
 ## SSH-Konfiguration
 

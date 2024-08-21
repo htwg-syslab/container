@@ -13,6 +13,7 @@
     * [VSCode Integration](BSYS-VSCode.md)
     * [XServer Konfiguration](BSYS-XServer.md)
     * [OSTEP](Ostep.md)
+    * [Weitere Software](BSYS-WeitereSoftware.md)
 
 ## HOWTO​
 
