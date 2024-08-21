@@ -8,7 +8,7 @@
 
 * [AIN BSYS](docs/BSYS.md)
     * [Installation](BSYS-Pocketlab.md)
-    * [OSTEP](ostep.md)
+    * [OSTEP](Ostep.md)
 
 ## HOWTO​
 
