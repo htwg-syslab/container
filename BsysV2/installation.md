@@ -33,15 +33,15 @@ Im Folgenden werden die erforderlichen Schritte für Einsteiger in Docker beschr
 1. Besuchen Sie die [Docker-Website](https://www.docker.com/) und laden Sie die für Ihr Betriebssystem (Windows, Mac, Linux) geeignete Version herunter. Achten Sie bei macOS darauf, die passende Version für Ihren Prozessor (Intel oder ARM) auszuwählen.
 2. Starten Sie Docker Desktop. Unter Windows kann es erforderlich sein, ein aktuelles WSL (Windows Subsystem for Linux) Kernel-Update zu installieren; Docker wird Sie gegebenenfalls durch ein Popup-Fenster darauf hinweisen. Wechseln Sie zur Containers-Übersicht (Symbol oben links) und sehen Sie sich die beiden Einführungsvideos „What is a Container“ und „How do I run a Container“ an, um einen ersten Eindruck von den Möglichkeiten und der Funktionalität von Docker zu gewinnen.
 
-#### Vorbereitung BSYS Pocketlab
+#### Vorbereitung des BSYS Pocketlab
 
-Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft. Es stehen zwei Arten von Docker-Containern zur Verfügung:
+Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop ausgeführt wird. Es stehen zwei Varianten des Docker-Containers zur Verfügung:
 
-- **pocketlabbase**: Ein minimales Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die komplette Simulation und Code-Entwicklung kann ebenfalls über Visual Studio Code (VSCode) erfolgen. Weitere Informationen hierzu finden Sie weiter unten.
+- **pocketlabbase**: Ein schlankes Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die gesamte Simulation sowie die Code-Entwicklung können ebenfalls über Visual Studio Code (VSCode) durchgeführt werden. Detaillierte Informationen hierzu finden Sie weiter unten.
 
-- **pocketlabui**: Dieses Image umfasst zusätzlich zur Basisversion ein grafisches Benutzerinterface (GUI), das es Ihnen ermöglicht, Linux über Ihren Browser zu bedienen.
+- **pocketlabui**: Dieses Image erweitert die Basisversion um eine grafische Benutzeroberfläche (GUI), die Ihnen die Bedienung des Linux-Systems über Ihren Browser ermöglicht.
 
-Die Nutzung des GUI-Images ist optional und vor allem für Linux-Einsteiger gedacht. Für die Aufgaben im BSYS-Kurs reicht die Terminal-Nutzung oder die Integration mit Editoren wie VSCode vollkommen aus.
+Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die weniger Erfahrung mit Linux haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` ausreichend.
 
 #### Architektur
 
@@ -75,29 +75,62 @@ ui:
 docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-AMR64
 ```
 
-**Bitte beachten Sie, dass die im Folgenden dargestellten Beispiele speziell für die X86-Architektur ausgelegt sind. Wenn Sie auf einem System mit ARM64-Architektur arbeiten, ist es unerlässlich, die entsprechenden Images für ARM64 auszuwählen und Ihre Befehle entsprechend anzupassen (z.B. `pocketlabbase` mit `pocketlabbase-ARM64` ersetzen).**
-
 Beim erstmaligen Start des Images wird es noch nicht lokal auf Ihrem System vorhanden sein und muss daher von Docker Hub heruntergeladen werden. Dieser Vorgang kann abhängig von Ihrer Internetverbindung einige Minuten in Anspruch nehmen. Da hierbei eine beträchtliche Menge an Daten übertragen wird, wird dringend empfohlen, den Download vorab zu Hause durchzuführen. Die WLAN-Verbindung an der HTWG bietet nur eine begrenzte Datenrate, was den Download erheblich verlangsamen könnte.
 
 Nach Abschluss des Downloads sehen Sie den laufenden Pocketlab-Laborcontainer unter „Containers“ sowie das heruntergeladene `systemlabor/pocketlab` Image unter „Images“ in Docker Desktop.
 
 Der Parameter `-p 127.0.0.1:40405:22` bei der Ausführung des Containers leitet den Port 22 (SSH) des Containers auf den lokalen Port 40405 Ihres Systems um. Wenn Sie sich per SSH mit dem Container verbinden möchten, nutzen Sie einen SSH-Client und stellen die Verbindung über den lokalen Port 40405 her. Detaillierte Anweisungen zur Konfiguration der SSH-Verbindung finden Sie in einem späteren Abschnitt dieses Dokuments. Dort wird der gesamte Prozess Schritt für Schritt erläutert, um sicherzustellen, dass die Verbindung korrekt und sicher eingerichtet wird.
-
+g
 Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafische Benutzeroberflächen (GUIs) von Anwendungen, die im Container laufen, auf der Host-Maschine anzuzeigen. Dies wird besonders gegen Ende des Kurses relevant.
 
 ### Wichtiger Hinweis
 
 Beachten Sie, dass alle Einstellungen und Dateien im Container gelöscht werden, wenn dieser entfernt wird. Starten Sie den Container erneut, um Ihre Arbeit fortzusetzen, ohne ihn neu erstellen zu müssen.
 
-### Login
+### Anmeldung
 
-Für den Zugriff auf den Container verwenden Sie einen automatisch generierten SSH-Schlüssel. Dieser wird beim ersten Start des Containers erstellt und in den Logs angezeigt. Zum Auslesen des Schlüssels können Sie die Docker-Logs einsehen:
+Für den Zugriff auf den Container wird ein automatisch generierter SSH-Schlüssel verwendet. Dieser Schlüssel wird beim ersten Start des Containers erzeugt und in den Logs angezeigt. Um den Schlüssel auszulesen, können Sie die Docker-Logs aufrufen:
 
 ```bash
 docker logs pocketlab
 ```
 
-Der Schlüssel ist zwischen den Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` zu finden. Speichern Sie diesen Schlüssel in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`. **WICHTIG** Kopieren Sie auch die beiden Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` mit!
+Der Schlüssel befindet sich zwischen den Zeilen:
+
+`-----BEGIN OPENSSH PRIVATE KEY-----`
+
+und
+
+`-----END OPENSSH PRIVATE KEY-----`.
+
+Speichern Sie den gesamten Schlüssel, einschließlich der beiden oben genannten Zeilen, in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`.
+
+**WICHTIG:** Achten Sie darauf, die Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` ebenfalls vollständig zu kopieren!
+
+Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
+
+```bash
+ssh -p40404 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+```
+
+Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abbrechen. Nun sollte das `.ssh/` Verzeichnis angelegt worden sein.
+
+Legen Sie In diesem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl. der Zeilen
+
+```text
+-----BEGIN OPENSSH PRIVATE KEY----- und
+-----END OPENSSH PRIVATE KEY-----
+```
+
+Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
+
+```bash
+docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+```
+
+Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden pocketlab Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird mit '>'.
+
+Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar sein. Sind zu viele Lese- oder Schreibrechte auf die Datei möglich, so beschwert sich das ssh Programm entsprechend.
 
 Stellen Sie sicher, dass nur Sie darauf zugreifen können:
 
@@ -114,6 +147,9 @@ Die Option `-p40405` weist das SSH-Programm an, die Verbindung zum Remote-Server
 
 Zur Erinnerung: In einem vorherigen Schritt haben wir das Docker-Image gestartet und dabei den im Docker-Image laufenden SSH-Server so konfiguriert, dass externe Zugriffe über den Port 40405 erfolgen.
 
+Die Option `-X` bei `ssh` aktiviert **X11-Forwarding**, wodurch grafische Anwendungen, die auf einem Remote-Server laufen, auf Ihrem lokalen Rechner angezeigt werden können. Dadurch können Sie die Benutzeroberfläche von Programmen, die auf dem Remote-Server ausgeführt werden, nutzen, als ob sie lokal laufen würden. Dies ist besonders nützlich, wenn Sie auf einem entfernten Server arbeiten, aber dennoch Zugriff auf grafische Anwendungen benötigen.
+
+
 ### GUI-Zugriff
 
 Für den Zugriff auf die grafische Benutzeroberfläche (GUI) geben Sie `localhost:40001` in die Adressleiste Ihres Browsers ein.
@@ -129,6 +165,7 @@ Host pocketlab
     Port 40405
     IdentityFile ~/.ssh/id_rsa_pocketlab.key
     ForwardX11 yes
+    ForwardX11Trusted yes
 ```
 
 Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container einloggen.
@@ -159,9 +196,13 @@ Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die verst
 
 #### 1. Installation von XQuartz
 
-1. **Download**: Besuchen Sie die offizielle XQuartz-Webseite unter [https://www.xquartz.org/releases/XQuartz-2.8.5.html](https://www.xquartz.org/releases/XQuartz-2.8.5.html).
+1. **Download**: Besuchen Sie die offizielle XQuartz-Webseite unter [https://www.xquartz.org](https://www.xquartz.org).
 2. **Installation starten**: Laden Sie die neueste Version herunter, öffnen Sie die `.dmg`-Datei und folgen Sie den Anweisungen des Installationsassistenten.
-3. **Neustart**: Nach Abschluss der Installation kann ein Neustart oder das Ab- und erneute Anmelden erforderlich sein.
+3. **XQuartz starten**: Auf macOS können Sie das **Spotlight-Suchfeld** mit der Tastenkombination `Command + Leertaste` öffnen. Geben Sie anschließend **XQuartz** ein und bestätigen Sie mit der Eingabetaste (`Return`), um das Programm zu starten.
+4.**Konfiguration**:
+1. Stellen Sie sicher, dass im Reiter „Sicherheit“ in den Einstellungen von XQuartz die Optionen „Verbindungen authentifizieren“ sowie „Verbindungen zu Netzwerk-Clients erlauben“ aktiviert sind.
+2. Bitte beachten Sie, dass XQuartz nach jeder Änderung der Konfiguration neu gestartet werden muss, damit die Änderungen wirksam werden.
+3. Öffnen Sie ein Terminal auf Ihrem macOS-System und führen Sie den Befehl `xhost +localhost` aus. Dieser Befehl autorisiert den X-Server (z. B. XQuartz), Verbindungen von lokal ausgeführten Anwendungen zu akzeptieren, sodass Programme, die auf demselben Rechner (localhost) ausgeführt werden, Zugriff auf die grafische Oberfläche (Display) erhalten.
 
 #### 2. XQuartz automatisch beim Systemstart ausführen
 
@@ -170,14 +211,30 @@ Um XQuartz bei jedem Systemstart automatisch auszuführen, können Sie es zu den
 1. **Systemeinstellungen öffnen**: Öffnen Sie die „Systemeinstellungen“ und navigieren Sie zu „Benutzer & Gruppen“.
 2. **Anmeldeobjekte verwalten**: Wählen Sie Ihr Benutzerkonto, klicken Sie auf „Anmeldeobjekte“ und fügen Sie XQuartz über das Pluszeichen `+` hinzu.
 
-#### 3. XQuartz manuell starten
-
-Falls gewünscht, können Sie XQuartz manuell starten: Gehen Sie zu „Programme“ > „Dienstprogramme“ und öffnen Sie XQuartz.
 
 ### X-Server Linux
 
 Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
 
+
+### Xauthority
+
+Die Warnung `/usr/bin/xauth: file /home/pocketlab/.Xauthority does not exist` beim Einloggen via SSH kann wie folgt behoben werden:
+
+Nach dem Einloggen via SSH erstellen Sie die `.Xauthority`-Datei manuell, indem Sie den folgenden Befehl im pocketlab Container ausführen:
+
+```bash
+touch ~/.Xauthority
+```
+
+Nachdem die Datei erstellt wurde, verwenden Sie `xauth`, um die notwendigen Autorisierungsdaten zu generieren:
+
+```bash
+xauth generate $DISPLAY . trusted
+xauth list
+```
+
+Diese Befehle sollten die `.Xauthority`-Datei mit den erforderlichen Daten füllen und das Problem beheben.
 
 ### Quellen
 
