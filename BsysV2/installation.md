@@ -33,15 +33,15 @@ Im Folgenden werden die erforderlichen Schritte für Einsteiger in Docker beschr
 1. Besuchen Sie die [Docker-Website](https://www.docker.com/) und laden Sie die für Ihr Betriebssystem (Windows, Mac, Linux) geeignete Version herunter. Achten Sie bei macOS darauf, die passende Version für Ihren Prozessor (Intel oder ARM) auszuwählen.
 2. Starten Sie Docker Desktop. Unter Windows kann es erforderlich sein, ein aktuelles WSL (Windows Subsystem for Linux) Kernel-Update zu installieren; Docker wird Sie gegebenenfalls durch ein Popup-Fenster darauf hinweisen. Wechseln Sie zur Containers-Übersicht (Symbol oben links) und sehen Sie sich die beiden Einführungsvideos „What is a Container“ und „How do I run a Container“ an, um einen ersten Eindruck von den Möglichkeiten und der Funktionalität von Docker zu gewinnen.
 
-#### Vorbereitung BSYS Pocketlab
+#### Vorbereitung des BSYS Pocketlab
 
-Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft. Es stehen zwei Arten von Docker-Containern zur Verfügung:
+Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop ausgeführt wird. Es stehen zwei Varianten des Docker-Containers zur Verfügung:
 
-- **pocketlabbase**: Ein minimales Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die komplette Simulation und Code-Entwicklung kann ebenfalls über Visual Studio Code (VSCode) erfolgen. Weitere Informationen hierzu finden Sie weiter unten.
+- **pocketlabbase**: Ein schlankes Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die gesamte Simulation sowie die Code-Entwicklung können ebenfalls über Visual Studio Code (VSCode) durchgeführt werden. Detaillierte Informationen hierzu finden Sie weiter unten.
 
-- **pocketlabui**: Dieses Image umfasst zusätzlich zur Basisversion ein grafisches Benutzerinterface (GUI), das es Ihnen ermöglicht, Linux über Ihren Browser zu bedienen.
+- **pocketlabui**: Dieses Image erweitert die Basisversion um eine grafische Benutzeroberfläche (GUI), die Ihnen die Bedienung des Linux-Systems über Ihren Browser ermöglicht.
 
-Die Nutzung des GUI-Images ist optional und vor allem für Linux-Einsteiger gedacht. Für die Aufgaben im BSYS-Kurs reicht die Terminal-Nutzung oder die Integration mit Editoren wie VSCode vollkommen aus.
+Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die weniger Erfahrung mit Linux haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` ausreichend.
 
 #### Architektur
 
