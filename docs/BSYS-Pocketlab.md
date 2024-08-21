@@ -4,8 +4,6 @@
 
 Es wird empfohlen, die Vorbereitung auf dem mobilen System durchzuführen, das Sie während der Laborstunden verwenden werden. Selbstverständlich besteht auch die Möglichkeit, die erforderliche Software zusätzlich auf Ihrem Desktop-System für zu Hause zu installieren, um Flexibilität und eine nahtlose Arbeitsumgebung zu gewährleisten.
 
-### Vorbereitung
-
 **WICHTIG: Bitte führen Sie die "Vorbereitung des BSYS Pocketlab" unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden. 
 
 In der ersten Laborstunde werden wir uns mit den Themen:
@@ -16,7 +14,7 @@ In der ersten Laborstunde werden wir uns mit den Themen:
   
 beschäftigen. Diese Schritte können Sie selbstverständlich auch bereits im Vorfeld eigenständig durchführen, um optimal vorbereitet zu sein.
 
-#### Vorbereitung des BSYS Pocketlab
+#### Installation des BSYS Pocketlab
 
 Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop ausgeführt wird. Es stehen zwei Varianten des Docker-Containers zur Verfügung:
 
