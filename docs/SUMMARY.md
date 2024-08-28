@@ -14,6 +14,7 @@
   - [VSCode Integration](BSYS-VSCode.md)
   - [XServer Konfiguration](BSYS-XServer.md)
   - [OSTEP](Ostep.md)
+  - [Git config](BSYS-GitConfig.md)
   - [Dateiaustausch Host<->Container](BSYS-FileCopy.md)
   - [Weitere Software](BSYS-WeitereSoftware.md)
 
