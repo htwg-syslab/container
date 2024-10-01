@@ -16,12 +16,18 @@ und
 
 Speichern Sie den gesamten Schlüssel, einschließlich der beiden oben genannten Zeilen, in einer Datei, beispielsweise `~/.ssh/id_rsa_pocketlab.key`.
 
-**WICHTIG:** Achten Sie darauf, die Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` ebenfalls vollständig zu kopieren!
+**WICHTIG:** Achten Sie darauf, die Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` ebenfalls vollständig zu kopieren! Bei Windows muss am Ende der Datei noch ein Return Zeichen eingefügt werden.
 
 Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
 
 ```bash
 ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+```
+
+Um bei Problemen erweiterte Informationen des `ssh` Befehls zu erhalten benutzen Sie die `-v` Option, z.B.:
+
+```bash
+ssh -p40405 -v -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
 ```
 
 Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abbrechen. Nun sollte das `.ssh/` Verzeichnis angelegt worden sein.
