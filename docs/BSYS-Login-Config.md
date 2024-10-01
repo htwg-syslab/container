@@ -21,7 +21,7 @@ Speichern Sie den gesamten Schlüssel, einschließlich der beiden oben genannten
 Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
 
 ```bash
-ssh -p40404 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
 ```
 
 Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abbrechen. Nun sollte das `.ssh/` Verzeichnis angelegt worden sein.
@@ -54,6 +54,7 @@ Mit folgendem Befehl können Sie sich dann per SSH in den Container einloggen:
 ```bash
 ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
 ```
+
 Die Option `-p40405` weist das SSH-Programm an, die Verbindung zum Remote-Server über den spezifischen Port 40405 herzustellen. In der Standardeinstellung nutzt SSH den Port 22 für Verbindungen. Durch die Angabe von `-p40405` wird der Standardport überschrieben, sodass SSH stattdessen den angegebenen alternativen Port verwendet. Dies ist besonders nützlich, wenn der SSH-Dienst auf dem Remote-Server aus Sicherheits- oder Konfigurationsgründen auf einem anderen Port als dem Standardport läuft.
 
 Zur Erinnerung: In einem vorherigen Schritt haben wir das Docker-Image gestartet und dabei den im Docker-Image laufenden SSH-Server so konfiguriert, dass externe Zugriffe über den Port 40405 erfolgen.
@@ -70,7 +71,7 @@ Die Konfiguration des XServers wird im weiteren Verlauf erläutert.
 
 ## Zugriff auf die grafische Benutzeroberfläche (GUI)
 
-Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein. 
+Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein.
 
 Nach dem Aufruf dieser Adresse wird die grafische Oberfläche des Containers direkt in Ihrem Browser angezeigt. Sie können die Oberfläche wie gewohnt verwenden, indem Sie **Maus** und **Tastatur** nutzen. Dies ermöglicht Ihnen eine vollständige Interaktion mit dem Container, als ob Sie direkt vor einem physischen System sitzen würden.
 
