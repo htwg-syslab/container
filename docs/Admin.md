@@ -113,7 +113,18 @@ Check for new releases: https://github.com/ClementTsang/bottom/releases/
 ```bash
 curl -LO https://github.com/ClementTsang/bottom/releases/download/0.10.2/bottom_0.10.2-1_arm64.deb
 sudo dpkg -i bottom_0.10.2-1_arm64.deb
+```
 
+### fzf
+
+```bash
+sudo apt-get install fzf
+```
+
+### zoide
+
+```bash
+sudo apt-get install fzf
 ```
 
 ## Man pages of Linux on MacOS
@@ -124,23 +135,6 @@ sudo dpkg -i bottom_0.10.2-1_arm64.deb
 2. `sudo apt reinstall manpages manpages-dev manpages-posix-dev`
 3. `sudo cp /usr/bin/man.REAL /usr/bin/man`
 4. evtl `sudo mandb -c`
-
-### Configure fzf in docker container
-
-```bash
-sudo apt-get install fzf
-```
-
-#### Alias for fzf reading manpages (add to `.bashrc`)
-
-```text
-tm ()
-{
-    local man_page;
-    man_page=$(man -k . | sort | fzf --prompt='Man Pages> ' --preview='echo {} | awk "{print \$1}" | xargs man' --preview-window=right:60%:wrap);
-    man "$(echo "$man_page" | awk '{print $1}')"
-}
-```
 
 ### Pull a new debian image and extract manpages
 
@@ -173,3 +167,18 @@ export LESS_TERMCAP_us=$'\e[1;4;31m'
 ```bash
 source /usr/share/doc/fzf/examples/key-bindings.bash
 ```
+
+### Alias for fzf reading manpages
+
+```text
+tm ()
+{
+    local man_page;
+    man_page=$(man -k . | sort | fzf --prompt='Man Pages> ' --preview='echo {} | awk "{print \$1}" | xargs man' --preview-window=right:60%:wrap);
+    man "$(echo "$man_page" | awk '{print $1}')"
+}
+```
+
+### init fuer zoide
+
+`eval "$(zoxide init bash)"`
