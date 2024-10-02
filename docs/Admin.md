@@ -104,21 +104,34 @@ docker-compose up
 
 Open http://localhost:4000, after docker containers are started.
 
+## Additional tools
+
+### bottom
+
+Check for new releases: https://github.com/ClementTsang/bottom/releases/
+
+```bash
+curl -LO https://github.com/ClementTsang/bottom/releases/download/0.10.2/bottom_0.10.2-1_arm64.deb
+sudo dpkg -i bottom_0.10.2-1_arm64.deb
+
+```
+
 ## Man pages of Linux on MacOS
 
 ### Install manpages in docker container
 
+1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes`und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (für fzf Skript)
+2. `sudo apt reinstall manpages manpages-dev manpages-posix-dev`
+3. `sudo cp /usr/bin/man.REAL /usr/bin/man`
+4. evtl `sudo mandb -c`
+
+### Configure fzf in docker container
+
 ```bash
-sudo unminimize
+sudo apt-get install fzf
 ```
 
-### Configure fsf in docker container
-
-```bash
-sudo apt-get install fsf
-```
-
-#### Alias for fsf reading manpages (add to `.bashrc`)
+#### Alias for fzf reading manpages (add to `.bashrc`)
 
 ```text
 tm ()
@@ -139,4 +152,24 @@ docker run -v $HOME/debian-man:/host-debian-man -it debian bash -c "apt update &
 
 ```bash
 alias lman="man -M $HOME/debian-man"
+```
+
+## .bashrc Config
+
+### colored manpages
+
+```bash
+export LESS_TERMCAP_mb=$'\e[1;32m'
+export LESS_TERMCAP_md=$'\e[1;32m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[01;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;4;31m'
+```
+
+### keybinding für fzf
+
+```bash
+source /usr/share/doc/fzf/examples/key-bindings.bash
 ```
