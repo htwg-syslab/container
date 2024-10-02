@@ -1,5 +1,3 @@
-
-
 ## Docker-Images auf einem Mac M1 hochladen
 
 ### Voraussetzungen
@@ -15,7 +13,9 @@ Zunächst musst du ein Docker-Image bauen. Navigiere dazu in das Verzeichnis, in
 ```bash
 docker build -t <dein-image-name> .
 ```
+
 #### Beispiel:
+
 ```bash
 docker build -t bsysbase .
 ```
@@ -38,7 +38,6 @@ docker tag <dein-image-name> <dein-repository>/<dein-image-name>:<tag>
 ```bash
 docker tag bsysbase syslab/bsys:base
 ```
-
 
 ### 3. Bei der Docker-Registry anmelden
 
@@ -71,6 +70,7 @@ Stelle sicher, dass das Image erfolgreich hochgeladen wurde, indem du dein Repos
 ```bash
 docker image ls
 ```
+
 ## Xauthority
 
 Die Warnung `/usr/bin/xauth: file /home/pocketlab/.Xauthority does not exist` beim Einloggen via SSH kann wie folgt behoben werden:
@@ -99,7 +99,44 @@ Quelle: https://github.com/HeRoMo/gitbook-template/tree/master
 Run the following command, to start gitbook server.
 
 ```bash
-$ docker-compose up
+docker-compose up
 ```
 
 Open http://localhost:4000, after docker containers are started.
+
+## Man pages of Linux on MacOS
+
+### Install manpages in docker container
+
+```bash
+sudo unminimize
+```
+
+### Configure fsf in docker container
+
+```bash
+sudo apt-get install fsf
+```
+
+#### Alias for fsf reading manpages (add to `.bashrc`)
+
+```text
+tm ()
+{
+    local man_page;
+    man_page=$(man -k . | sort | fzf --prompt='Man Pages> ' --preview='echo {} | awk "{print \$1}" | xargs man' --preview-window=right:60%:wrap);
+    man "$(echo "$man_page" | awk '{print $1}')"
+}
+```
+
+### Pull a new debian image and extract manpages
+
+```bash
+docker run -v $HOME/debian-man:/host-debian-man -it debian bash -c "apt update && apt install -y build-essential apt-utils locales man-db nano sudo manpages manpages-dev net-tools; cp -Rf /usr/share/man/* /host-debian-man"
+```
+
+#### Alias to read manpages on macos (for zsh)
+
+```bash
+alias lman="man -M $HOME/debian-man"
+```
