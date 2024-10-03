@@ -18,6 +18,7 @@
   - [Weitere Software](BSYS-WeitereSoftware.md)
 - [Command Line Tools](Commandline-Tools.md)
   - [zoxide](zoxide.md)
+  - [starship](starship.md)
 
 ## HOWTO​
 
