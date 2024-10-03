@@ -16,6 +16,8 @@
   - [Git config](BSYS-GitConfig.md)
   - [Dateiaustausch Host<->Container](BSYS-FileCopy.md)
   - [Weitere Software](BSYS-WeitereSoftware.md)
+- [Command Line Tools](Commandline-Tools.md)
+  - [zoxide](zoxide.md)
 
 ## HOWTO​
 

@@ -8,10 +8,10 @@
 
 ### 1. Docker-Image erstellen
 
-Zunächst musst du ein Docker-Image bauen. Navigiere dazu in das Verzeichnis, in dem sich dein `Dockerfile` befindet, und führe folgenden Befehl aus:
+Zunächst müssen Sie ein Docker-Image bauen. Navigieren Sie dazu in das Verzeichnis, in dem sich Ihr `Dockerfile` befindet, und führen Sie folgenden Befehl aus:
 
 ```bash
-docker build -t <dein-image-name> .
+docker build -t <Ihr-image-name> .
 ```
 
 #### Beispiel:
@@ -20,17 +20,17 @@ docker build -t <dein-image-name> .
 docker build -t bsysbase .
 ```
 
-- `<dein-image-name>`: Ersetze dies durch den gewünschten Namen für dein Image.
+- `<Ihr-image-name>`: Ersetzen Sie dies durch den gewünschten Namen für Ihr Image.
 
 ### 2. Docker-Image taggen
 
-Um das Image hochzuladen, musst du es mit dem Ziel-Repository taggen. Das geht mit folgendem Befehl:
+Um das Image hochzuladen, müssen Sie es mit dem Ziel-Repository taggen. Das geht mit folgendem Befehl:
 
 ```bash
-docker tag <dein-image-name> <dein-repository>/<dein-image-name>:<tag>
+docker tag <Ihr-image-name> <Ihr-repository>/<Ihr-image-name>:<tag>
 ```
 
-- `<dein-repository>`: Der Name deines Repositories (z.B. `docker.io/username` für Docker Hub).
+- `<Ihr-repository>`: Der Name Ihres Repositories (z.B. `docker.io/username` für Docker Hub).
 - `<tag>`: Optional, z.B. `latest` oder eine Versionsnummer.
 
 #### Beispiel:
@@ -41,20 +41,20 @@ docker tag bsysbase syslab/bsys:base
 
 ### 3. Bei der Docker-Registry anmelden
 
-Melde dich bei der Registry an, in die du das Image hochladen möchtest. Für Docker Hub geht das mit:
+Melden Sie sich bei der Registry an, in die Sie das Image hochladen möchten. Für Docker Hub geht das mit:
 
 ```bash
 docker login
 ```
 
-- Gib deine Docker Hub Zugangsdaten ein, wenn du dazu aufgefordert wirst.
+- Geben Sie Ihre Docker Hub Zugangsdaten ein, wenn Sie dazu aufgefordert werden.
 
 ### 4. Docker-Image hochladen
 
-Lade das getaggte Image mit folgendem Befehl hoch:
+Laden Sie das getaggte Image mit folgendem Befehl hoch:
 
 ```bash
-docker push <dein-repository>/<dein-image-name>:<tag>
+docker push <Ihr-repository>/<Ihr-image-name>:<tag>
 ```
 
 #### Beispiel:
@@ -65,7 +65,7 @@ docker push syslab/bsys:base
 
 ### 5. Überprüfung
 
-Stelle sicher, dass das Image erfolgreich hochgeladen wurde, indem du dein Repository in der Registry besuchst oder mit folgendem Befehl die hochgeladenen Images auflistest:
+Stellen Sie sicher, dass das Image erfolgreich hochgeladen wurde, indem Sie Ihr Repository in der Registry besuchen oder mit folgendem Befehl die hochgeladenen Images auflisten:
 
 ```bash
 docker image ls
@@ -131,7 +131,7 @@ sudo apt-get install fzf
 
 ### Install manpages in docker container
 
-1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes`und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (für fzf Skript)
+1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes`und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (für z.B. das fzf Skript, welches in usr/doc Scripts installiert)
 2. `sudo apt reinstall manpages manpages-dev manpages-posix-dev`
 3. `sudo cp /usr/bin/man.REAL /usr/bin/man`
 4. evtl `sudo mandb -c`
