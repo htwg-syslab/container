@@ -4,7 +4,7 @@ Beim Arbeiten mit Docker-Containern kann es häufig notwendig sein, Dateien zwis
 
 ### 1. Dateiaustausch mit `scp`
 
-Wenn dein Docker-Container über SSH erreichbar ist, kannst du das `scp`-Kommando verwenden, um Dateien sicher zwischen deinem Host und dem Container zu übertragen.
+Wenn Ihr Docker-Container über SSH erreichbar ist, können Sie das `scp`-Kommando verwenden, um Dateien sicher zwischen Ihrem Host und dem Container zu übertragen.
 
 **Beispiel: Eine Datei vom Host in den Container kopieren**
 
@@ -12,7 +12,7 @@ Wenn dein Docker-Container über SSH erreichbar ist, kannst du das `scp`-Kommand
 scp /path/to/local/file pocketlab:/path/in/container/
 ```
 
-In diesem Beispiel kopierst du eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Parameter `-P 2222` gibt den Port an, auf dem der SSH-Dienst im Container läuft.
+In diesem Beispiel kopieren Sie eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Parameter `-P 2222` gibt den Port an, auf dem der SSH-Dienst im Container läuft.
 
 **Beispiel: Eine Datei vom Container auf den Host kopieren**
 
@@ -20,11 +20,11 @@ In diesem Beispiel kopierst du eine lokale Datei (`/path/to/local/file`) in das 
 scp pocketlab:/path/in/container/file /path/to/local/
 ```
 
-Hier kopierst du eine Datei aus dem Container (`/path/in/container/file`) auf deinen lokalen Rechner (`/path/to/local/`).
+Hier kopieren Sie eine Datei aus dem Container (`/path/in/container/file`) auf Ihren lokalen Rechner (`/path/to/local/`).
 
 ### 2. Dateiaustausch über ein Git-Repository
 
-Eine weitere Methode, um Dateien zwischen dem Host und dem Container zu synchronisieren, ist die Verwendung eines Git-Repositories. Diese Methode ist besonders nützlich, wenn du regelmäßig Dateien austauschen musst oder Versionskontrolle benötigst.
+Eine weitere Methode, um Dateien zwischen dem Host und dem Container zu synchronisieren, ist die Verwendung eines Git-Repositories. Diese Methode ist besonders nützlich, wenn Sie regelmäßig Dateien austauschen müssen oder Versionskontrolle benötigen.
 
 **Beispiel: Klonen eines Repositories im Container**
 
@@ -32,7 +32,7 @@ Eine weitere Methode, um Dateien zwischen dem Host und dem Container zu synchron
 git clone https://github.com/username/repository.git /path/in/container/
 ```
 
-Mit diesem Befehl klonst du ein Git-Repository in ein Verzeichnis innerhalb des Containers. Änderungen am Code können dann direkt im Container vorgenommen werden.
+Mit diesem Befehl klonen Sie ein Git-Repository in ein Verzeichnis innerhalb des Containers. Änderungen am Code können dann direkt im Container vorgenommen werden.
 
 **Beispiel: Änderungen vom Container pushen**
 
@@ -43,7 +43,7 @@ git commit -m "Changes made in container"
 git push origin main
 ```
 
-Nach dem Bearbeiten der Dateien im Container kannst du die Änderungen zurück in das Remote-Repository pushen. Dadurch bleiben deine Änderungen gesichert und können bei Bedarf auch auf dem Host wieder abgerufen werden.
+Nach dem Bearbeiten der Dateien im Container können Sie die Änderungen zurück in das Remote-Repository pushen. Dadurch bleiben Ihre Änderungen gesichert und können bei Bedarf auch auf dem Host wieder abgerufen werden.
 
 **Beispiel: Änderungen vom Host auf den Container holen**
 
@@ -51,15 +51,15 @@ Nach dem Bearbeiten der Dateien im Container kannst du die Änderungen zurück i
 git pull origin main
 ```
 
-Wenn du auf dem Host Änderungen vorgenommen hast, kannst du diese einfach in den Container ziehen, indem du das Repository im Container aktualisierst.
+Wenn Sie auf dem Host Änderungen vorgenommen haben, können Sie diese einfach in den Container ziehen, indem Sie das Repository im Container aktualisieren.
 
 ### Fazit
 
-Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die BSYS Aufgaben wird dringend zum Anlegen eines eigenen Git Repository geraten.
+Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die BSYS-Aufgaben wird dringend zum Anlegen eines eigenen Git Repository geraten.
 
 ## Git Repo vs Z-Drive
 
-Ein Git-Repository bietet im Vergleich zu einem geteilten Laufwerk (Shared Drive z.B. z-Drive) zahlreiche Vorteile, insbesondere wenn es um die Verwaltung von Quellcode oder anderen versionierten Dateien geht. Hier sind einige der wichtigsten Vorteile:
+Ein Git-Repository bietet im Vergleich zu einem geteilten Laufwerk (Shared Drive z.B. Z-Drive) zahlreiche Vorteile, insbesondere wenn es um die Verwaltung von Quellcode oder anderen versionierten Dateien geht. Hier sind einige der wichtigsten Vorteile:
 
 ### 1. Versionierung und Historie
 
