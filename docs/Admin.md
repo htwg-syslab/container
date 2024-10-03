@@ -108,7 +108,7 @@ Open http://localhost:4000, after docker containers are started.
 
 ### bottom
 
-Check for new releases: https://github.com/ClementTsang/bottom/releases/
+Check for new releases: https://github.com/ClementTsang/bottom/releases/ z.B arm hier
 
 ```bash
 curl -LO https://github.com/ClementTsang/bottom/releases/download/0.10.2/bottom_0.10.2-1_arm64.deb
