@@ -19,6 +19,7 @@
 - [Command Line Tools](Commandline-Tools.md)
   - [zoxide](zoxide.md)
   - [starship](starship.md)
+  - [bat](bat.md)
 
 ## HOWTO​
 

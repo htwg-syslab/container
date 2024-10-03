@@ -121,10 +121,10 @@ sudo dpkg -i bottom_0.10.2-1_arm64.deb
 sudo apt-get install fzf
 ```
 
-### zoide
+### zxoide
 
 ```bash
-sudo apt-get install fzf
+sudo apt-get install zxoide
 ```
 
 ## Man pages of Linux on MacOS
