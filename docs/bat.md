@@ -2,7 +2,7 @@
 
 Das Konsolentool **bat** ist ein leistungsstarker Ersatz für den traditionellen Unix-Befehl `cat`, der zum Anzeigen von Dateien im Terminal verwendet wird. **bat** erweitert die Funktionalität von `cat` durch Syntax-Highlighting, was es besonders nützlich für das Lesen von Quellcode und Konfigurationsdateien macht. Zudem verfügt **bat** über eine integrierte Git-Integration, die Änderungen an Dateien farblich hervorhebt, sodass Unterschiede leicht erkennbar sind. Es zeigt außerdem Dateinummern an, was die Navigation in großen Dateien erleichtert. Mit seiner Benutzerfreundlichkeit und der erweiterten Funktionalität ist **bat** eine großartige Wahl für Entwickler und Systemadministratoren, die regelmäßig mit der Kommandozeile arbeiten. Weitere Informationen und Downloads finden Sie auf der [offiziellen Bat-Homepage](https://github.com/sharkdp/bat).
 
-## Installation unter Debian
+## Installation unter Debian (Docker Image)
 
 Um **bat** unter Debian zu installieren und es in Ihrer `.bashrc` zu konfigurieren, folgen Sie diesen Schritten:
 
