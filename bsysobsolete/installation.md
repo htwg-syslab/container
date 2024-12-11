@@ -22,11 +22,11 @@ Im Folgenden werden die nötigen Schritte für "Docker Newbies" erklärt. Die Do
 Für BSYS ist der Container bereits erstellt und dieser kann nun - wenn Docker Desktop läuft - gestartet werden.
 Dazu öffnen Sie eine Konsole/Terminal auf Ihrem OS und geben folgenden Befehl ein (hier Beispiel Intel Chip /AMD64):
 
-    docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base
+    docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:base
 
 Für Mac ARM64 Systeme verwenden Sie bitte das tag 'base-arm64', somit:
 
-    docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base-arm64
+    docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:base-arm64
 
 Im weiteren werden alle Beispiele und Aufrufe mit dem Intel/AMD64 base gezeigt. Wenn Sie Mac ARM64 benötigen, bitte entsprechend das Tag ('base' -> 'base-arm64') ändern.
 
@@ -34,7 +34,7 @@ Mit dem Befehl wird versucht einen Container aus dem Image `bsys:base` zu starte
 
 Nach dem Download sehen Sie den laufenden BSYS Labor Container unter ‚Containers‘ und unter Image das heruntergeladene `systemlabor/bsys` Image.
 
-Der `-p 127.0.0.1:40404:22` Aufruf biegt den Port 22 (ssh) von dem Container um auf den lokalen Port 40404 Ihres Systems. Wenn Sie sich nun also via ssh auf den Container einloggen wollen, so benutzen Sie dafür ein ssh Client mit welchem Sie sich auf Ihren lokalen Port 40404 verbinden.
+Der `-p 127.0.0.1:40405:22` Aufruf biegt den Port 22 (ssh) von dem Container um auf den lokalen Port 40405 Ihres Systems. Wenn Sie sich nun also via ssh auf den Container einloggen wollen, so benutzen Sie dafür ein ssh Client mit welchem Sie sich auf Ihren lokalen Port 40405 verbinden.
 
 Allerdings können Sie sich noch nicht einloggen, denn das dafür nötig Passwort haben Sie nicht. Und das bekommen Sie auch nicht, denn es ist keines eingerichtet .... somit machen wir das auf eine bessere und professionellere Weise:
 
@@ -59,7 +59,7 @@ Dieser Schlüssel (Key) wird nun Ihrem lokal installierten ssh Client bekannt ge
 
 Für den Kommandozeilen Client 'ssh' befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/` . Schauen Sie also mal in Ihrem Home Direktory Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit ssh benutzt sollten darin schon Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). Gibt es das Verzeichnis noch nicht, versuchen Sie bitte auf den laufenden Container via ssh zuzugreifen:
 
-    ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
+    ssh -p40405 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 
 Nach dem Akzeptieren der Verbindung das ssh Programm mit CTL-C abbrechen. Nun sollte das `.ssh` Verzeichnis angelegt worden sein.
 
@@ -78,7 +78,7 @@ Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar sein. Sin
 
 Ist der Key gespeichert können Sie sich nun mit folgendem Befehl aus der Kommandozeile auf dem Container einloggen:
 
-    ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
+    ssh -p40405 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 
 Bei Problemen bitte überprüfen, ob wirklich der richtige und vollständige Key in der Datei `.ssh/id_rsa_bsyslab.key` steht, beginnend mit der
     -----BEGIN OPENSSH PRIVATE KEY----- Zeile und am Ende die
@@ -99,7 +99,7 @@ Damit wir nun komfortabel von überall aus unserem System uns schnell in den lau
     Host pocketlab
         HostName localhost
         User bsys
-        Port 40404
+        Port 40405
         IdentityFile ~/.ssh/id_rsa_bsyslab.key
 
 Mit `ssh pocketlab` in einem Terminal können Sie sich nun ohne weitere Rückfragen nach Passwort oder ähnlichem direkt in den Container einloggen.

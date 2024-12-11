@@ -6,13 +6,13 @@ Install [Ubuntu](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview)
 ### Intel/amd64 Architecture
 Building is not necessary. The image can be pulled from DockerHub. 
 ```
-docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base
+docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:base
 ```
 
 ### Apple arm64 Architecture
 
 ```
-docker run -d -p 127.0.0.1:40404:22 --name=bsys systemlabor/bsys:base-arm64
+docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:base-arm64
 ```
 
 ## login (shown with Intel/amd64 Architecture)
@@ -28,11 +28,11 @@ The **.ssh/id_rsa_bsyslab.key** file should be only readable by you (the owner).
 
 Login to running docker image:
 ```
-ssh -p40404 -i path/to/rsa bsys@localhost
+ssh -p40405 -i path/to/rsa bsys@localhost
 ```
 with above **.ssh/id_rsa_bsyslab.key** file e.g.:
 ```
-ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
+ssh -p40405 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 ```
 
 ## .ssh/config 
@@ -41,7 +41,7 @@ ssh -p40404 -i  .ssh/id_rsa_bsyslab.key bsys@localhost
 Host pocketbsys
     HostName localhost
     User bsys
-    Port 40404
+    Port 40405
     IdentityFile ~/.ssh/id_rsa_bsyslab.key
 ```
 
