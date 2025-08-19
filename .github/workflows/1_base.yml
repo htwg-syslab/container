@@ -1,0 +1,13 @@
+name: Build Base Docker Image
+
+on:
+  push:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build Base Docker Image
+        run: docker build BsysV2/1Base/
