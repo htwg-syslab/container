@@ -1,0 +1,13 @@
+name: Build ESYS Docker Image
+
+on:
+  push:
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build ESYS Docker Image
+        run: docker build BsysV2/3Esys/
