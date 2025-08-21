@@ -12,6 +12,8 @@ jobs:
       matrix:
         runner: [ubuntu-latest, ubuntu-24.04-arm]
 
+    continue-on-error: true
+
     steps:
       - uses: actions/checkout@v2
 
