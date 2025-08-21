@@ -5,6 +5,7 @@ on:
 
 jobs:
   docker-build:
+    name: Build Docker Image
     runs-on: ${{ matrix.runner }}
 
     strategy:
