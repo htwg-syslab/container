@@ -5,6 +5,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
+  IMAGE_TYPE: minimal-python
 
 jobs:
   docker-build:
@@ -32,4 +33,27 @@ jobs:
         with:
           context: BsysV2/0Minimal/
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/minimal-python:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_TYPE }}:latest_${{ runner.arch }}
+
+  merge-arches:
+    name: Merge Docker Images
+    runs-on: ubuntu-latest
+
+    needs:
+      - docker-build
+
+    steps:
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create manifest and push
+        run: |
+          docker manifest create \
+          ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_TYPE }}:latest \
+          --amend ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_TYPE }}:latest_X64 \
+          --amend ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_TYPE }}:latest_ARM64 && \
+          docker manifest push ${{ env.REGISTRY }}/${{ github.repository }}/${{ env.IMAGE_TYPE }}:latest
