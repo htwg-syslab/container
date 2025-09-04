@@ -49,9 +49,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create manifest list
+      - name: Create manifest and push
         run: |
           docker manifest create \
           ${{ env.REGISTRY }}/${{ github.repository }}/base:latest \
           --amend ${{ env.REGISTRY }}/${{ github.repository }}/base:latest_X64 \
-          --amend ${{ env.REGISTRY }}/${{ github.repository }}/base:latest_ARM64
+          --amend ${{ env.REGISTRY }}/${{ github.repository }}/base:latest_ARM64 && \
+          docker manifest push ${{ env.REGISTRY }}/${{ github.repository }}/base:latest
