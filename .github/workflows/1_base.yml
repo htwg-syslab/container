@@ -32,4 +32,4 @@ jobs:
         with:
           context: BsysV2/1Base/
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}/base:latest
+          tags: ${{ env.REGISTRY }}/${{ github.repository }}/base:latest_${{ runner.arch }}
