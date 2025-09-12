@@ -3,6 +3,8 @@ name: Build Base Docker Image
 on:
   push:
   workflow_dispatch:
+  pull_request_review:
+    types: [submitted]
 
 env:
   REGISTRY: ghcr.io
