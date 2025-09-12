@@ -2,6 +2,7 @@ name: Build Base Docker Image
 
 on:
   push:
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
