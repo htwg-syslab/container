@@ -12,9 +12,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     ca-certificates curl wget less sudo lsof git net-tools psmisc xz-utils nemo \
     vim net-tools iputils-ping traceroute bmon tmux sudo geany \
     xubuntu-desktop xterm zenity make cmake gcc libc6-dev dbus-x11 \
-    x11-xkb-utils xauth xfonts-base xkb-data mesa-utils xvfb libgl1-mesa-dri \
-    libgl1-mesa-glx libglib2.0-0 libxext6 libsm6 libxrender1 libglu1 \
-    libxv1 libegl1-mesa libpython-all-dev libsuitesparse-dev \
+    x11-xkb-utils xauth xfonts-base xkb-data mesa-utils xvfb libgl1 \
+    libglx-mesa0 libglib2.0-0 libxext6 libsm6 libxrender1 libglu1 \
+    libxv1 libpython3-all-dev libsuitesparse-dev \
     libgtest-dev openssl libeigen3-dev libsdl1.2-dev libsdl-image1.2-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/* dos2unix
 
