@@ -6,6 +6,10 @@ on:
       - '.github/workflows/2_ui.yml'
       - 'BsysV2/2UI/**'
   workflow_dispatch:
+  workflow_run:
+    workflows: [Build Base Docker Image]
+    types:
+      - completed
 
 env:
   REGISTRY: ghcr.io
