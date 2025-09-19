@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/2_ui.yml'
       - 'BsysV2/2UI/**'
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
