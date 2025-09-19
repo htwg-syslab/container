@@ -76,8 +76,8 @@ RUN set -eux;cd /tmp; \
 #---------------------------------------------------------------------
 # Install noVNC
 #---------------------------------------------------------------------
-RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" | tar -xzf - -C /opt && \
-    curl -fsSL "https://github.com/novnc/websockify/archive/refs/tags/v0.11.0.tar.gz" | tar -xzf - -C /opt && \
+RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.6.0.tar.gz" | tar -xzf - -C /opt && \
+    curl -fsSL "https://github.com/novnc/websockify/archive/refs/tags/v0.13.0.tar.gz" | tar -xzf - -C /opt && \
     mv /opt/noVNC-* /opt/noVNC && \
     chmod -R a+w /opt/noVNC && \
     mv /opt/websockify-* /opt/websockify && \
