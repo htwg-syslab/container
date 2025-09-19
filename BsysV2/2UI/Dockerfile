@@ -1,4 +1,4 @@
-FROM systemlabor/bsys:pocketlabbase
+FROM ghcr.io/htwg-syslab/container/base:latest
 
 # set to the same as in the base image (unsupport start_desktop.sh at name change)
 ARG my_user="pocketlab"
