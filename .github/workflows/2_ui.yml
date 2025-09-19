@@ -2,6 +2,9 @@ name: Build UI Docker Image
 
 on:
   push:
+    paths:
+      - '.github/workflows/2_ui.yml'
+      - 'BsysV2/2UI/**'
 
 env:
   REGISTRY: ghcr.io
