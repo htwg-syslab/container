@@ -10,6 +10,7 @@ Nach der Installation von Xming mit dem Installationsassistenten und den Standar
 2. **Verknüpfung kopieren**: Ein Explorer-Fenster mit verschiedenen Xming-Verknüpfungen sollte sich öffnen. Suchen Sie die einfache "Xming"-Verknüpfung, klicken Sie mit der rechten Maustaste darauf und kopieren Sie den Pfad (dieser sollte standardmäßig unter `C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Xming\Xming.lnk` gespeichert sein).
 3. **Startup-Ordner öffnen**: Drücken Sie "WinKey + R", geben Sie `shell:startup` ein und bestätigen Sie mit Enter.
 4. **Verknüpfung hinzufügen**: Im geöffneten Explorer-Fenster rechtsklicken Sie, wählen "Neue Verknüpfung", fügen den kopierten Pfad ein (ohne Anführungszeichen) und bestätigen Sie mit Enter.
+5. Zugriff auf pocketlab so dass die DISPLAY Variable entspr. gesetzt wird: `ssh -Y pocketlab`.
 
 Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die versteckten Symbole in der Taskleiste – dort sollte das Xming-Symbol angezeigt werden.
 
@@ -23,7 +24,8 @@ Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die verst
 4. Stellen Sie sicher, dass im Reiter „Sicherheit“ in den Einstellungen von XQuartz die Optionen „Verbindungen authentifizieren“ sowie „Verbindungen zu Netzwerk-Clients erlauben“ aktiviert sind.
 5. Bitte beachten Sie, dass XQuartz nach jeder Änderung der Konfiguration neu gestartet werden muss, damit die Änderungen wirksam werden.
 6. Öffnen Sie ein Terminal auf Ihrem macOS-System und führen Sie den Befehl `xhost +localhost` aus. Dieser Befehl autorisiert den X-Server (z. B. XQuartz), Verbindungen von lokal ausgeführten Anwendungen zu akzeptieren, sodass Programme, die auf demselben Rechner (localhost) ausgeführt werden, Zugriff auf die grafische Oberfläche (Display) erhalten.
-7. Sollte `xhost` den Fehler "unable to open DISPLAY" melden, können Sie die DISPLAY-Variable manuell setzen, bevor Sie den ssh-Befehl ausführen. Ermitteln Sie dazu zunächst Ihre aktuelle IP-Adresse und führen Sie in der Shell, von der aus Sie den ssh-Befehl starten möchten, den folgenden Befehl aus: `export DISPLAY=<Ihre_IP>:0.0` . Anschließend sollte xhost korrekt funktionieren, und Sie können sich wie gewohnt per ssh mit pocketlab verbinden.
+7. Sollte `xhost` den Fehler "unable to open DISPLAY" melden, können Sie die DISPLAY-Variable manuell setzen, bevor Sie den ssh-Befehl ausführen. Ermitteln Sie dazu zunächst Ihre aktuelle IP-Adresse und führen Sie in der Shell, von der aus Sie den ssh-Befehl starten möchten, den folgenden Befehl aus: `export DISPLAY=:0`oder `export DISPLAY=<Ihre_IP>:0.0` .
+8. Anschließend sollte xhost korrekt funktionieren, und Sie können sich über den Befehl `ssh -Y -o ForwardX11=yes -o ForwardX11Trusted=yes pocketlab` mit pocketlab verbinden.
 
 ### 2. XQuartz automatisch beim Systemstart ausführen
 
@@ -34,4 +36,4 @@ Um XQuartz bei jedem Systemstart automatisch auszuführen, können Sie es zu den
 
 ## X-Server Linux
 
-Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich.
+Unter Linux läuft X11 nativ, daher sind keine weiteren Schritte erforderlich. Zum korrekten Setzen der DISPLAY Variable den ssh Zugriff via `ssh -Y pocketlab` starten.
