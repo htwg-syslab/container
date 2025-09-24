@@ -49,7 +49,7 @@ RUN set -eux; \
     case "${dpkgArch##*-}" in \
         amd64) \
             dpkg --add-architecture i386; \
-            apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libxtst6:i386 libglu1 libglu1:i386 libxv1 libxv1:i386 libegl1-mesa:i386 && apt-get clean && rm -rf /var/lib/apt/lists/* ;; \
+            apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libxtst6:i386 libglu1 libglu1:i386 libxv1 libxv1:i386 libegl1-mesa-dev:i386 && apt-get clean && rm -rf /var/lib/apt/lists/* ;; \
         arm64) ;; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac;
