@@ -55,17 +55,30 @@ RUN set -eux; \
     esac;
 
 RUN set -eux;cd /tmp; \
+    repos="TurboVNC/turbovnc libjpeg-turbo/libjpeg-turbo VirtualGL/virtualgl"; \
     dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         amd64) \
-        curl -fsSL -O "https://github.com/TurboVNC/turbovnc/releases/download/3.2/turbovnc_3.2_amd64.deb" \
-        -O "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.2/libjpeg-turbo-official_3.1.2_amd64.deb" \
-        -O "https://github.com/VirtualGL/virtualgl/releases/download/3.1.3/virtualgl_3.1.3_amd64.deb" \
+            for repo in $repos; do \
+                curl -s "https://api.github.com/repos/$repo/releases/latest" \
+                  | grep "browser_download_url.*amd64.deb" \
+                  | cut -d : -f 2,3 \
+                  | tr -d \" \
+                  | while read url; do \
+                      curl -fsSL -O "$url"; \
+                    done; \
+            done \
         ;; \
         arm64) \
-        curl -fsSL -O "https://github.com/TurboVNC/turbovnc/releases/download/3.2/turbovnc_3.2_arm64.deb" \
-        -O "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.2/libjpeg-turbo-official_3.1.2_arm64.deb" \
-        -O "https://github.com/VirtualGL/virtualgl/releases/download/3.1.3/virtualgl_3.1.3_arm64.deb" \
+            for repo in $repos; do \
+                curl -s "https://api.github.com/repos/$repo/releases/latest" \
+                  | grep "browser_download_url.*arm64.deb" \
+                  | cut -d : -f 2,3 \
+                  | tr -d \" \
+                  | while read url; do \
+                      curl -fsSL -O "$url"; \
+                    done; \
+            done \
         ;; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac; \
