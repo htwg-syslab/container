@@ -1,5 +1,5 @@
-# Use the latest Debian 11 slim image
-FROM ubuntu:22.04
+# Use the latest Ubuntu 24.04 image
+FROM ubuntu:24.04
 #benutzername und passwort (beachte: bei änderungen muss man layer2 (UI) auch anpassen (siehe: ./2 UI./Dockerfile))
 ARG my_user="pocketlab"
 ARG my_password="pocketlab"
