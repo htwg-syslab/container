@@ -4,10 +4,8 @@ FROM ubuntu:24.04
 ARG my_user="pythonlab"
 ARG my_password="pythonlab"
 
-#args
-ENV CARGO_HOME=/usr/local/cargo \
-    PATH=/usr/local/cargo/bin:$PATH \
-    TZ=Europe/Berlin
+# Args
+ENV TZ=Europe/Berlin
 
 # Install required packages in a single RUN statement to reduce layers
 RUN apt-get update && \
