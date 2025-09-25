@@ -30,6 +30,9 @@ RUN adduser --disabled-password --gecos "" pythonlab && \
     usermod -aG sudo pythonlab && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
+# Install Pyenv for user pythonlab
+RUN curl https://pyenv.run | su - pythonlab -c 'bash'
+
 # Configure SSH
 COPY sshd_config /etc/ssh/sshd_config
 
@@ -55,6 +58,14 @@ COPY set_display.sh /usr/local/bin/set_display.sh
 
 RUN dos2unix /usr/local/bin/set_display.sh ; \
     chmod +x /usr/local/bin/set_display.sh
+
+# Update the bash config for pyenv
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/pythonlab/.bashrc; \
+    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/pythonlab/.bashrc; \
+    echo 'eval "$(pyenv init - bash)"' >> /home/pythonlab/.bashrc; \
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/pythonlab/.profile; \
+    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/pythonlab/.profile; \
+    echo 'eval "$(pyenv init - bash)"' >> /home/pythonlab/.profile
 
 # Modify the .bashrc file for the pythonlab user
 RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pythonlab/.bashrc; \
