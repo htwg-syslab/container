@@ -71,11 +71,6 @@ RUN touch /home/pythonlab/.Xauthority
 RUN chown pythonlab:pythonlab /home/pythonlab/.Xauthority && chmod 600 /home/pythonlab/.Xauthority
 RUN echo "xauth generate $DISPLAY . trusted" >> /home/pythonlab/.bashrc
 
-# Clone the OSTEP Homework repository
-RUN git clone https://github.com/remzi-arpacidusseau/ostep-homework /home/pocketlab/ostep-homework
-# Set the correct ownership if needed
-RUN chown -R pocketlab:pocketlab /home/pocketlab/ostep-homework
-
 
 # Make entrypoint.sh executable on every Platfrom
 RUN dos2unix /etc/supervisor/conf.d/supervisord.conf ; \
