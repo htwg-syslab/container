@@ -1,8 +1,8 @@
 # Use the latest Ubuntu 24.04 image
 FROM ubuntu:24.04
-#benutzername und passwort (beachte: bei änderungen muss man layer2 (UI) auch anpassen (siehe: ./2 UI./Dockerfile))
-ARG my_user="pocketlab"
-ARG my_password="pocketlab"
+# Benutzername und Passwort
+ARG my_user="pythonlab"
+ARG my_password="pythonlab"
 
 #args
 ENV CARGO_HOME=/usr/local/cargo \
@@ -27,9 +27,9 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install tzdata -y
 
 
 # Add user and configure sudo
-RUN adduser --disabled-password --gecos "" pocketlab && \
-    echo "pocketlab:pocketlab" | chpasswd && \
-    usermod -aG sudo pocketlab && \
+RUN adduser --disabled-password --gecos "" pythonlab && \
+    echo "pythonlab:pythonlab" | chpasswd && \
+    usermod -aG sudo pythonlab && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Configure SSH
@@ -58,8 +58,8 @@ COPY set_display.sh /usr/local/bin/set_display.sh
 RUN dos2unix /usr/local/bin/set_display.sh ; \
     chmod +x /usr/local/bin/set_display.sh
 
-# Modify the .bashrc file for the pocketlab user
-RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc; \
+# Modify the .bashrc file for the pythonlab user
+RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pythonlab/.bashrc; \
     echo "alias gcc='clang'" >> /etc/bash.bashrc
 
 
@@ -69,9 +69,9 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY entrypoint.sh /
 
 # Create .XAuthority File
-RUN touch /home/pocketlab/.Xauthority
-RUN chown pocketlab:pocketlab /home/pocketlab/.Xauthority && chmod 600 /home/pocketlab/.Xauthority
-RUN echo "xauth generate $DISPLAY . trusted" >> /home/pocketlab/.bashrc
+RUN touch /home/pythonlab/.Xauthority
+RUN chown pythonlab:pythonlab /home/pythonlab/.Xauthority && chmod 600 /home/pythonlab/.Xauthority
+RUN echo "xauth generate $DISPLAY . trusted" >> /home/pythonlab/.bashrc
 
 # Clone the OSTEP Homework repository
 RUN git clone https://github.com/remzi-arpacidusseau/ostep-homework /home/pocketlab/ostep-homework
