@@ -14,7 +14,7 @@ docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase
 
 ### Apple arm64 Architecture
 
-Or Base:
+Base:
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase-ARM64
