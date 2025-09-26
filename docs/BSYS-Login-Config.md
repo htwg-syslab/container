@@ -36,7 +36,6 @@ Allgemein: Um bei Problemen erweiterte Informationen des `ssh` Befehls zu erhalt
 ssh -p40405 -v -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
 ```
 
-
 ### SSH-Schlüssel speichern
 
 Legen Sie in dem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl. der Zeilen
@@ -80,7 +79,6 @@ Bitte die Datei zuerst manuell loeschen, bevor das Skript erneut gestartet wird.
     exit 1
 }
 
-
 # Key manuell extrahieren (wie sed '/BEGIN/,/END/p')
 $inBlock = $false
 $keyLines = @()
@@ -122,7 +120,6 @@ Dann können Sie das Skript ausführen.
 
 Ist bereits die key Datei vorhanden so muss diese zuerst gelöscht werden.
 
-
 #### Mac/Linux-Lösung
 
 Unter Mac und Linux gibts mit dem Editor weniger Probleme oder man kopiert noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
@@ -146,11 +143,13 @@ chmod 600 ~/.ssh/id_rsa_pocketlab.key
 ### Fehlerbehandlung
 
 Wichtig: Sollten Sie schon mit keys experimentiert haben und wieder durch das image starten neue keys erzeugt haben ist es möglich dass sich der ssh Befehl beschwert:
+
 ```
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 @    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
+
 Dann müssen Sie die localhost Einträge in der  `.ssh/known_hosts` Datei löschen. ssh merkt nämlich, dass sie bereits auf diesem Host waren aber mit einem anderen Key ....
 
 ## SSH-Konfiguration
@@ -199,8 +198,8 @@ Die Konfiguration des XServers wird im weiteren Verlauf erläutert.
 
 ## GUI-Zugriff (Alternative)
 
-Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein.
+Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, müssen Sie statt des `base` Containers den 'ui' Container gestartet und eingerichtet haben. Öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein.
 
 Nach dem Aufruf dieser Adresse wird die grafische Oberfläche des Containers direkt in Ihrem Browser angezeigt. Sie können die Oberfläche wie gewohnt verwenden, indem Sie **Maus** und **Tastatur** nutzen. Dies ermöglicht Ihnen eine vollständige Interaktion mit dem Container, als ob Sie direkt vor einem physischen System sitzen würden.
 
-Durch diese Methode können Sie komfortabel auf die GUI-basierten Anwendungen innerhalb des Containers zugreifen und diese in Ihrer gewohnten Arbeitsumgebung bedienen.
+Durch diese Methode können Sie komfortabel auf die GUI-basierten Anwendungen innerhalb des Containers zugreifen und diese in Ihrer gewohnten Arbeitsumgebung bedienen. Für das Praktikum wird die GUI-Version jedoch nicht benötigt. Sie bietet sich eher für den unerfahrenen Computer-User an.
