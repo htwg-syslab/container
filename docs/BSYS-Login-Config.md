@@ -39,7 +39,77 @@ Legen Sie In diesem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In 
 -----END OPENSSH PRIVATE KEY-----
 ```
 
-Das können Sie mit einem Editor machen oder noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
+Wenn man den Private Key aus `docker logs` per **Copy & Paste** unter Windows in einen Editor übernimmt, kommt es oft zu Problemen:
+
+- Unsichtbare **Steuerzeichen** oder ANSI-Codes  
+- Falsches **Encoding** (z. B. UTF-16 mit BOM statt UTF-8/ASCII)  
+- Falsche **Zeilenenden** (CRLF statt LF)  
+- Extra-Leerzeilen am Ende  
+
+➡️ Ergebnis beim Login:
+`Load key "...id_rsa_pocketlab.key": error in libcrypto`
+
+Dieses ps1 Skript für Windows kopiert den key sauber in die key datei:
+```ps1
+# get-pocketlab-key.ps1
+# Extrahiert den Private Key aus Docker Logs und speichert ihn 1:1 sauber
+
+# Konsolenausgabe auf UTF-8 umstellen
+$OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
+
+$keyPath = "$env:USERPROFILE\.ssh\id_rsa_pocketlab.key"
+
+Write-Host ">> Erzeuge SSH-Key unter: $keyPath"
+
+# Abbruch, falls Datei schon existiert
+if (Test-Path $keyPath) {
+    Write-Error "Die Datei $keyPath existiert bereits! 
+Bitte die Datei zuerst manuell loeschen, bevor das Skript erneut gestartet wird."
+    exit 1
+}
+
+
+# Key manuell extrahieren (wie sed '/BEGIN/,/END/p')
+$inBlock = $false
+$keyLines = @()
+
+docker logs pocketlab | ForEach-Object {
+    if ($_ -match "-----BEGIN OPENSSH PRIVATE KEY-----") { $inBlock = $true }
+    if ($inBlock) { $keyLines += $_ }
+    if ($_ -match "-----END OPENSSH PRIVATE KEY-----") { $inBlock = $false }
+}
+
+if (-not $keyLines) {
+    Write-Error "Konnte keinen Key in den Logs finden!"
+    exit 1
+}
+
+# Datei exakt so schreiben, wie extrahiert (UTF8 ohne BOM, nur LF)
+$bytes = [System.Text.Encoding]::UTF8.GetBytes(($keyLines -join "`n") + "`n")
+[System.IO.File]::WriteAllBytes($keyPath, $bytes)
+
+# Rechte setzen
+icacls $keyPath /inheritance:r /grant:r "$($env:USERNAME):(R)" | Out-Null
+
+# Test
+Write-Host ">> Prüfe Key..."
+ssh-keygen -y -f $keyPath
+
+Write-Host "`n>> Fertig! Key gespeichert unter: $keyPath"
+Write-Host "Teste Verbindung mit:"
+Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
+```
+Ist bereits die key Datei vorhanden so muss diese zuerst gelöscht werden. 
+
+Wichtig: Sollten Sie schon mit keys experimentiert haben und wieder durch das image starten neue keys erzeugt haben ist es möglich dass sich der ssh Befehl beschwert:
+`
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+`
+Dann müssen Sie die localhost Einträge in der  `.ssh/known_hosts` Datei löschen. ssh merkt nämlich, dass sie bereits auf diesem Host waren aber mit einem anderen Key ....
+
+Unter Mac und Linux gibts mit dem Editor weniger Probleme oder man kopiert noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
 
 ```bash
 docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
