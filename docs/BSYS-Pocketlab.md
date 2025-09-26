@@ -4,14 +4,14 @@
 
 Es wird empfohlen, die Vorbereitung auf dem mobilen System durchzuführen, das Sie während der Laborstunden verwenden werden. Selbstverständlich besteht auch die Möglichkeit, die erforderliche Software zusätzlich auf Ihrem Desktop-System für zu Hause zu installieren, um Flexibilität und eine nahtlose Arbeitsumgebung zu gewährleisten.
 
-**WICHTIG: Bitte führen Sie die "Vorbereitung des BSYS Pocketlab" unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden. 
+**WICHTIG: Bitte führen Sie die "Vorbereitung des BSYS Pocketlab" unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden.
 
 In der ersten Laborstunde werden wir uns mit den Themen:
 
 - Login,
 - SSH-Konfiguration und
 - der Einrichtung von VS Code
-  
+
 beschäftigen. Diese Schritte können Sie selbstverständlich auch bereits im Vorfeld eigenständig durchführen, um optimal vorbereitet zu sein.
 
 #### Installation des BSYS Pocketlab
@@ -22,7 +22,7 @@ Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald
 
 - **pocketlabui**: Dieses Image erweitert die Basisversion um eine grafische Benutzeroberfläche (GUI), die Ihnen die Bedienung des Linux-Systems über Ihren Browser ermöglicht.
 
-Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die weniger Erfahrung mit Linux haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` ausreichend.
+Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die nur sehr wenig Computer Erfahrung haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` völlig ausreichend und sollte bevorzugt benutzt werden.
 
 #### Architektur
 
