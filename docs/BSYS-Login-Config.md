@@ -20,7 +20,7 @@ und
 
 ### SSH-Verzeichnis vorbereiten
 
-Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`). 
+Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`).
 
 Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
 
@@ -28,7 +28,7 @@ Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Conta
 ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
 ```
 
-Der Zugriff funktioniert noch nicht, da der Key erst noch kopiert werden muss. 
+Der Zugriff funktioniert noch nicht, da der Key erst noch kopiert werden muss.
 
 Allgemein: Um bei Problemen erweiterte Informationen des `ssh` Befehls zu erhalten benutzen Sie die `-v` Option, z.B.:
 
@@ -51,10 +51,10 @@ Legen Sie in dem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In die
 
 Wenn man den Private Key aus `docker logs` per **Copy & Paste** unter Windows in einen Editor übernimmt, kommt es oft zu Problemen:
 
-- Unsichtbare **Steuerzeichen** oder ANSI-Codes  
-- Falsches **Encoding** (z. B. UTF-16 mit BOM statt UTF-8/ASCII)  
-- Falsche **Zeilenenden** (CRLF statt LF)  
-- Extra-Leerzeilen am Ende  
+- Unsichtbare **Steuerzeichen** oder ANSI-Codes
+- Falsches **Encoding** (z. B. UTF-16 mit BOM statt UTF-8/ASCII)
+- Falsche **Zeilenenden** (CRLF statt LF)
+- Extra-Leerzeilen am Ende
 
 ➡️ Ergebnis beim Login:
 `Load key "...id_rsa_pocketlab.key": error in libcrypto`
@@ -74,7 +74,7 @@ Write-Host ">> Erzeuge SSH-Key unter: $keyPath"
 
 # Abbruch, falls Datei schon existiert
 if (Test-Path $keyPath) {
-    Write-Error "Die Datei $keyPath existiert bereits! 
+    Write-Error "Die Datei $keyPath existiert bereits!
 Bitte die Datei zuerst manuell loeschen, bevor das Skript erneut gestartet wird."
     exit 1
 }
@@ -116,7 +116,7 @@ Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-Dann können Sie das Skript ausführen.
+Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer ps1 Datei und dessen Ausführung finden Sie hier: [Anleitung PowerShell Script](Anleitung_PowerShell_Script.md)
 
 Ist bereits die key Datei vorhanden so muss diese zuerst gelöscht werden.
 
@@ -150,7 +150,7 @@ Wichtig: Sollten Sie schon mit keys experimentiert haben und wieder durch das im
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-Dann müssen Sie die localhost Einträge in der  `.ssh/known_hosts` Datei löschen. ssh merkt nämlich, dass sie bereits auf diesem Host waren aber mit einem anderen Key ....
+Dann müssen Sie die localhost Einträge in der `.ssh/known_hosts` Datei löschen. ssh merkt nämlich, dass sie bereits auf diesem Host waren aber mit einem anderen Key ....
 
 ## SSH-Konfiguration
 
