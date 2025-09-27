@@ -116,7 +116,8 @@ Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer ps1 Datei und dessen Ausführung finden Sie hier: [Anleitung PowerShell Script](./Anleitung_PowerShell_Script.md)
+Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer ps1 Datei und dessen Ausführung finden Sie hier: [Anleitung PowerShell Script]
+(Anleitung_PowerShell_Script.md)
 
 Ist bereits die key Datei vorhanden so muss diese zuerst gelöscht werden.
 
