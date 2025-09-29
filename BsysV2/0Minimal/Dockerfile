@@ -17,8 +17,10 @@ RUN apt-get update && \
     supervisor \
     python3-tk\
     python-is-python3\
+    sudo \
     dos2unix \
-    bash bash-completion locales
+    bash bash-completion locales \
+    clang
 
 # Configure locale
 RUN apt update && DEBIAN_FRONTEND=noninteractive apt install tzdata -y
