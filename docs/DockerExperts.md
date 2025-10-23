@@ -1,14 +1,10 @@
 # Host System
+
 Install [Ubuntu](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) with [Docker](https://docs.docker.com/engine/install/ubuntu/) and build the Docker-Image.
 
 ### Intel/amd64 Architecture
+
 Local building is not necessary. The image can be pulled from DockerHub.
-
-UI:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabui
-```
 
 Base:
 
@@ -18,13 +14,7 @@ docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase
 
 ### Apple arm64 Architecture
 
-UI:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabui-ARM64
-```
-
-Or Base:
+Base:
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase-ARM64
@@ -64,7 +54,6 @@ Host pocketbsys
     ForwardX11 yes
     ForwardX11Trusted yes
 ```
-
 
 ## Install X Server
 
