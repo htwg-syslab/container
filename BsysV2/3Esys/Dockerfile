@@ -1,10 +1,13 @@
 FROM systemlabor/bsys:pocketlabbase
 
-
+ARG INSTALL_RUST=false
+ARG KEEP_OSTEP=false
 ENV RUSTUP_HOME=/usr/local/rustup \
     RUST_VERSION=1.71.0 \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH
+
+RUN if [ "$KEEP_OSTEP" != "true" ]; then rm -rf /home/pocketlab/ostep-homework; fi
 
 #---------------------------------------------------------------------
 #install cross-platform tools and libraries
@@ -46,14 +49,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 
 #---------------------------------------------------------------------
-# install rust
+# install rust (optional: docker build --build-arg INSTALL_RUST=true)
 #---------------------------------------------------------------------
-RUN set -x && \
-    apt-get update --fix-missing && \
-    apt-get install -y --no-install-recommends \
-    cmake
-
-RUN set -eux; \
+RUN if [ "$INSTALL_RUST" = "true" ]; then \
+    set -eux; \
     dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         amd64) url="https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init";; \
@@ -68,7 +67,10 @@ RUN set -eux; \
     rustup default stable; \
     rustup --version; \
     cargo --version; \
-    rustc --version;
+    rustc --version; \
+    echo 'if [ -d "/usr/local/cargo/bin" ]; then export PATH="/usr/local/cargo/bin:$PATH"; fi' >> /home/pocketlab/.bashrc; \
+    echo 'rustup default stable' >> /home/pocketlab/.bashrc; \
+    fi
 
 # Add the script to set DISPLAY variable
 COPY set_display.sh /usr/local/bin/set_display.sh
@@ -78,8 +80,6 @@ RUN dos2unix /usr/local/bin/set_display.sh ; chmod +x /usr/local/bin/set_display
 RUN dos2unix entrypoint.sh ; chmod +x entrypoint.sh
 
 # Modify the .bashrc file for the pocketlab user
-RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc;\
-    echo 'if [ -d "/usr/local/cargo/bin" ]; then export PATH="/usr/local/cargo/bin:$PATH"; fi' >> /home/pocketlab/.bashrc ; \
-    echo 'rustup default stable' >> /home/pocketlab/.bashrc ;
+RUN echo 'if [ -f /usr/local/bin/set_display.sh ]; then source /usr/local/bin/set_display.sh; fi' >> /home/pocketlab/.bashrc;
 
 CMD ["/entrypoint.sh"]
