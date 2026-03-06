@@ -1,4 +1,4 @@
-FROM systemlabor/bsys:pocketlabui
+FROM systemlabor/bsys:pocketlabbase
 
 
 ENV RUSTUP_HOME=/usr/local/rustup \
@@ -34,11 +34,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         amd64) \
             packages="gcc-aarch64-linux-gnu \
                       gdb-multiarch \
-                      qemu \
                       qemu-system-arm \
                       qemu-user-static \
-                      libc6-dev-arm64-cross \
-                      gcc-aarch64-linux-gnu" \
+                      libc6-dev-arm64-cross" \
             ;; \
         *) \
             echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 \
