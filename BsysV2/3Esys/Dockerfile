@@ -27,7 +27,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     lsb-release \
     dos2unix \
     cmake \
-    libnotify4
+    libnotify4 \
+    bc \
+    expect \
+    act
 
     RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
@@ -37,6 +40,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
         amd64) \
             packages="gcc-aarch64-linux-gnu \
                       gdb-multiarch \
+                      qemu-system-x86 \
                       qemu-system-arm \
                       qemu-user-static \
                       libc6-dev-arm64-cross" \
