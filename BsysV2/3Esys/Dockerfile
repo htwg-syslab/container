@@ -30,7 +30,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libnotify4 \
     bc \
     expect \
-    act
+    act \
+    cpio
 
     RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
