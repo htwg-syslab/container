@@ -30,8 +30,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     libnotify4 \
     bc \
     expect \
-    act \
-    cpio
+    cpio \
+    curl
+
+# Install act (run GitHub Actions locally)
+RUN curl -fsSL https://raw.githubusercontent.com/nektos/act/master/install.sh | bash
 
     RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
