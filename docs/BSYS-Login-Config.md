@@ -59,7 +59,7 @@ Wenn man den Private Key aus `docker logs` per **Copy & Paste** unter Windows in
 ➡️ Ergebnis beim Login:
 `Load key "...id_rsa_pocketlab.key": error in libcrypto`
 
-Dieses ps1 Skript für Windows kopiert den key sauber in die key datei:
+Dieses PS1-Skript für Windows kopiert den Key sauber in die Key-Datei:
 
 ```powershell
 # get-pocketlab-key.ps1
@@ -116,19 +116,19 @@ Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer ps1 Datei und dessen Ausführung finden Sie unter [PowerShell scripten](Anleitung_PowerShell_Script.md).
+Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer PS1-Datei und deren Ausführung finden Sie unter [PowerShell scripten](Anleitung_PowerShell_Script.md).
 
-Ist bereits die key Datei vorhanden so muss diese zuerst gelöscht werden.
+Ist die Key-Datei bereits vorhanden, so muss diese zuerst gelöscht werden.
 
 #### Mac/Linux-Lösung
 
-Unter Mac und Linux gibts mit dem Editor weniger Probleme oder man kopiert noch einfacher mit folgendem Kommandozeilen Befehl (Linux, Mac) den Sie in Ihrem Home Direktory aufrufen:
+Unter Mac und Linux gibt es mit dem Editor weniger Probleme, oder man kopiert noch einfacher mit folgendem Kommandozeilen-Befehl (Linux, Mac), den Sie in Ihrem Home-Directory aufrufen:
 
 ```bash
 docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
 ```
 
-Dieser Kommandozeile (alles in einer Zeile schrieben und mit Return ausführen!) liest die Log Datei des laufenden pocketlab Containers aus, filtern nur die Zeilen BEGIN, Key und der END Zeile aus und schreibt dann die gefilterte Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole sondern in eine Datei geschrieben, in dem die Ausgabe umgeleitet wird mit '>'.
+Dieser Kommandozeilen-Befehl (alles in einer Zeile schreiben und mit Return ausführen!) liest die Log-Datei des laufenden pocketlab Containers aus, filtert nur die Zeilen BEGIN, Key und END heraus und schreibt dann die gefilterten Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole, sondern in eine Datei geschrieben, indem die Ausgabe umgeleitet wird mit '>'.
 
 ### Berechtigungen setzen
 
@@ -142,7 +142,7 @@ chmod 600 ~/.ssh/id_rsa_pocketlab.key
 
 ### Fehlerbehandlung
 
-Wichtig: Sollten Sie schon mit keys experimentiert haben und wieder durch das image starten neue keys erzeugt haben ist es möglich dass sich der ssh Befehl beschwert:
+Wichtig: Sollten Sie schon mit Keys experimentiert haben und durch Neustart des Images neue Keys erzeugt haben, ist es möglich, dass sich der SSH-Befehl beschwert:
 
 ```
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -150,7 +150,7 @@ Wichtig: Sollten Sie schon mit keys experimentiert haben und wieder durch das im
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-Dann müssen Sie die localhost Einträge in der `.ssh/known_hosts` Datei löschen. ssh merkt nämlich, dass sie bereits auf diesem Host waren aber mit einem anderen Key ....
+Dann müssen Sie die localhost-Einträge in der `.ssh/known_hosts`-Datei löschen. SSH merkt nämlich, dass Sie bereits auf diesem Host waren, aber mit einem anderen Key.
 
 ## SSH-Konfiguration
 

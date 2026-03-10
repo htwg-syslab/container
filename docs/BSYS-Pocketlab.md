@@ -22,7 +22,7 @@ Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald
 
 - **pocketlabui**: Dieses Image erweitert die Basisversion um eine grafische Benutzeroberfläche (GUI), die Ihnen die Bedienung des Linux-Systems über Ihren Browser ermöglicht.
 
-Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die nur sehr wenig Computer Erfahrung haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` völlig ausreichend und sollte bevorzugt benutzt werden.
+Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die nur sehr wenig Computererfahrung haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` völlig ausreichend und sollte bevorzugt benutzt werden.
 
 #### Architektur
 
@@ -58,10 +58,10 @@ docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab sy
 
 Beim erstmaligen Start des Images wird es noch nicht lokal auf Ihrem System vorhanden sein und muss daher von Docker Hub heruntergeladen werden. Dieser Vorgang kann abhängig von Ihrer Internetverbindung einige Minuten in Anspruch nehmen. Da hierbei eine beträchtliche Menge an Daten übertragen wird, wird dringend empfohlen, den Download vorab zu Hause durchzuführen. Die WLAN-Verbindung an der HTWG bietet nur eine begrenzte Datenrate, was den Download erheblich verlangsamen könnte.
 
-Nach Abschluss des Downloads sehen Sie den laufenden Pocketlab-Laborcontainer unter „Containers“ sowie das heruntergeladene `systemlabor/pocketlab` Image unter „Images“ in Docker Desktop.
+Nach Abschluss des Downloads sehen Sie den laufenden Pocketlab-Laborcontainer unter „Containers“ sowie das heruntergeladene `systemlabor/bsys` Image unter „Images“ in Docker Desktop.
 
 Der Parameter `-p 127.0.0.1:40405:22` bei der Ausführung des Containers leitet den Port 22 (SSH) des Containers auf den lokalen Port 40405 Ihres Systems um. Wenn Sie sich per SSH mit dem Container verbinden möchten, nutzen Sie einen SSH-Client und stellen die Verbindung über den lokalen Port 40405 her. Detaillierte Anweisungen zur Konfiguration der SSH-Verbindung finden Sie in einem späteren Abschnitt dieses Dokuments. Dort wird der gesamte Prozess Schritt für Schritt erläutert, um sicherzustellen, dass die Verbindung korrekt und sicher eingerichtet wird.
-g
+
 Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafische Benutzeroberflächen (GUIs) von Anwendungen, die im Container laufen, auf der Host-Maschine anzuzeigen. Dies wird besonders gegen Ende des Kurses relevant.
 
 ### Wichtiger Hinweis

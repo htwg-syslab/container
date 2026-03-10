@@ -36,7 +36,7 @@ docker tag <Ihr-image-name> <Ihr-repository>/<Ihr-image-name>:<tag>
 #### Beispiel:
 
 ```bash
-docker tag bsysbase syslab/bsys:base
+docker tag bsysbase systemlabor/bsys:pocketlabbase
 ```
 
 ### 3. Bei der Docker-Registry anmelden
@@ -60,7 +60,7 @@ docker push <Ihr-repository>/<Ihr-image-name>:<tag>
 #### Beispiel:
 
 ```bash
-docker push syslab/bsys:base
+docker push systemlabor/bsys:pocketlabbase
 ```
 
 ### 5. Überprüfung
@@ -108,7 +108,7 @@ Open http://localhost:4000, after docker containers are started.
 
 ### bottom
 
-Check for new releases: https://github.com/ClementTsang/bottom/releases/ z.B arm hier
+Check for new releases: https://github.com/ClementTsang/bottom/releases/ z. B. ARM hier:
 
 ```bash
 curl -LO https://github.com/ClementTsang/bottom/releases/download/0.10.2/bottom_0.10.2-1_arm64.deb
@@ -121,17 +121,17 @@ sudo dpkg -i bottom_0.10.2-1_arm64.deb
 sudo apt-get install fzf
 ```
 
-### zxoide
+### zoxide
 
 ```bash
-sudo apt-get install zxoide
+sudo apt-get install zoxide
 ```
 
 ## Man pages of Linux on MacOS
 
 ### Install manpages in docker container
 
-1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes`und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (für z.B. das fzf Skript, welches in usr/doc Scripts installiert)
+1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes` und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (z. B. für das fzf-Skript, welches in /usr/doc Scripts installiert wird)
 2. `sudo apt reinstall manpages manpages-dev manpages-posix-dev`
 3. `sudo cp /usr/bin/man.REAL /usr/bin/man`
 4. evtl `sudo mandb -c`
@@ -179,6 +179,6 @@ tm ()
 }
 ```
 
-### init fuer zoide
+### init fuer zoxide
 
 `eval "$(zoxide init bash)"`
