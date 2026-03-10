@@ -19,7 +19,8 @@ ubuntu:22.04
 - **0Minimal**: Standalone, Ubuntu 24.04, user `pythonlab`, pyenv
 - **1Base**: Ubuntu 22.04, user `pocketlab`, SSH + dev toolchain + OSTEP repo
 - **2UI**: FROM `systemlabor/bsys:pocketlabbase` - adds Xfce desktop, TurboVNC, noVNC, Firefox, VSCode
-- **3Esys**: FROM `systemlabor/bsys:pocketlabbase` - adds qemu, cross-compile tools (arch-dependent)
+- **3Esys**: FROM `systemlabor/bsys:pocketlabbase` - adds qemu, cross-compile tools (arch-dependent), act
+  - Build args: `INSTALL_RUST=true` (optional Rust toolchain), `KEEP_OSTEP=true` (keep OSTEP homework from Base)
 
 ## Docker Hub Tags (`systemlabor/bsys`)
 - `pocketlabbase`, `pocketlabbase-ARM64`
