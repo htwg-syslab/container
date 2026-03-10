@@ -9,7 +9,7 @@ Local building is not necessary. The image can be pulled from DockerHub.
 Base:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase
+docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
 ```
 
 ### Apple arm64 Architecture
@@ -17,7 +17,7 @@ docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase
 Base:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsys systemlabor/bsys:pocketlabbase-ARM64
+docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
 ```
 
 ## login (shown with Intel/amd64 Architecture)
@@ -26,7 +26,7 @@ Get your RSA from the logs, the user is default set to pocketlab.
 Copy this key into a new file, e.g. **.ssh/id_rsa_pocketlab.key** :
 
 ```text
-docker logs bsys |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+docker logs pocketlab |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
 ```
 
 The **.ssh/id_rsa_pocketlab.key** file should be only readable by you (the owner).
@@ -40,7 +40,7 @@ ssh -p40405 -i path/to/rsa pocketlab@localhost
 with above **.ssh/id_rsa_pocketlab.key** file e.g.:
 
 ```text
-ssh -p40405 -i  .ssh/id_rsa_pocketlab.key bsys@localhost
+ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
 ```
 
 ## .ssh/config
@@ -48,7 +48,7 @@ ssh -p40405 -i  .ssh/id_rsa_pocketlab.key bsys@localhost
 ```text
 Host pocketbsys
     HostName localhost
-    User bsys
+    User pocketlab
     Port 40405
     IdentityFile ~/.ssh/id_rsa_pocketlab.key
     ForwardX11 yes
@@ -67,7 +67,7 @@ Install Xquartz, with basic configuration, X11 forward to be configured!
 
 ### Linux
 
-nativly installed
+natively installed
 
 ## access
 
@@ -76,11 +76,4 @@ via Browser to http://localhost:40001
 ```text
 username: pocketlab
 password: pocketlab
-```
-
-in case of problems try:
-
-```text
-username: syslab
-password: syslab
 ```

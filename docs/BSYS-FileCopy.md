@@ -12,7 +12,7 @@ Wenn Ihr Docker-Container über SSH erreichbar ist, können Sie das `scp`-Komman
 scp /path/to/local/file pocketlab:/path/in/container/
 ```
 
-In diesem Beispiel kopieren Sie eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Parameter `-P 2222` gibt den Port an, auf dem der SSH-Dienst im Container läuft.
+In diesem Beispiel kopieren Sie eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Host-Alias `pocketlab` nutzt die Konfiguration aus Ihrer `.ssh/config` (siehe [SSH-Schlüssel einrichten](BSYS-Login-Config.md)).
 
 **Beispiel: Eine Datei vom Container auf den Host kopieren**
 
@@ -55,7 +55,7 @@ Wenn Sie auf dem Host Änderungen vorgenommen haben, können Sie diese einfach i
 
 ### Fazit
 
-Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die BSYS-Aufgaben wird dringend zum Anlegen eines eigenen Git Repository geraten.
+Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die BSYS-Aufgaben wird dringend zum Anlegen eines eigenen Git-Repositorys geraten.
 
 ## Git Repo vs Z-Drive
 

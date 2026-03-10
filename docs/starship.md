@@ -15,7 +15,7 @@ Dank seiner geringen Ressourcenanforderungen und schnellen Reaktionszeit verbess
 
 ### Installation und Anpassung
 
-Um das bestmögliche visuelle Erlebnis zu erhalten, empfiehlt es sich, fancy Nerd Fonts zu installieren, die von Starship verwendet werden. Für Debian-basierte Systeme gibt es einen praktischen [Nerd Fonts Installer](https://github.com/officialrajdeepsingh/nerd-fonts-installer), der die Installation dieser Schriftarten vereinfacht.
+Um das bestmögliche visuelle Erlebnis zu erhalten, empfiehlt es sich, fancy Nerd Fonts zu installieren, die von Starship verwendet werden. Für Ubuntu gibt es einen praktischen [Nerd Fonts Installer](https://github.com/officialrajdeepsingh/nerd-fonts-installer), der die Installation dieser Schriftarten vereinfacht.
 
 Zudem bietet Starship eine Reihe von [möglichen Presets](https://starship.rs/presets/), die als Ausgangspunkt für die Anpassung Ihres Prompts dienen können.
 

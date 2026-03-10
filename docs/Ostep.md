@@ -1,6 +1,6 @@
 ## OSTEP Homeworks
 
-Das OSTEP Homework Repository wurde bereits in Ihrem Container installiert und befindet sich im Home-Verzeichnis unter dem Pfad `ostep-homework`. Dieses Verzeichnis enthält sämtliche Aufgaben und Materialien der Homeworks wie Sie vom OSTEP Author zu Verfügung gestellt werden.
+Das OSTEP Homework Repository wurde bereits in Ihrem Container installiert und befindet sich im Home-Verzeichnis unter dem Pfad `ostep-homework`. Dieses Verzeichnis enthält sämtliche Aufgaben und Materialien der Homeworks wie sie vom OSTEP-Autor zur Verfügung gestellt werden.
 
 Um das OSTEP Homework Repository auf dem neuesten Stand zu halten, können Sie regelmäßig die neueste Version des Repositories von GitHub abrufen. Gehen Sie dazu wie folgt vor:
 
