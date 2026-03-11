@@ -21,8 +21,7 @@ Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die verst
 1. **Download**: Besuchen Sie die offizielle XQuartz-Webseite unter [https://www.xquartz.org](https://www.xquartz.org).
 2. **Installation starten**: Laden Sie die neueste Version herunter, öffnen Sie die `.dmg`-Datei und folgen Sie den Anweisungen des Installationsassistenten.
 3. **XQuartz starten**: Auf macOS können Sie das **Spotlight-Suchfeld** mit der Tastenkombination `Command + Leertaste` öffnen. Geben Sie anschließend **XQuartz** ein und bestätigen Sie mit der Eingabetaste (`Return`), um das Programm zu starten.
-4. **Konfiguration**:
-5. Stellen Sie sicher, dass im Reiter „Sicherheit“ in den Einstellungen von XQuartz die Optionen „Verbindungen authentifizieren“ sowie „Verbindungen zu Netzwerk-Clients erlauben“ aktiviert sind.
+4. **Konfiguration**: Stellen Sie sicher, dass im Reiter „Sicherheit” in den Einstellungen von XQuartz die Optionen „Verbindungen authentifizieren” sowie „Verbindungen zu Netzwerk-Clients erlauben” aktiviert sind.
 5. Bitte beachten Sie, dass XQuartz nach jeder Änderung der Konfiguration neu gestartet werden muss, damit die Änderungen wirksam werden.
 6. Öffnen Sie ein Terminal auf Ihrem macOS-System und führen Sie den Befehl `xhost +localhost` aus. Dieser Befehl autorisiert den X-Server (z. B. XQuartz), Verbindungen von lokal ausgeführten Anwendungen zu akzeptieren, sodass Programme, die auf demselben Rechner (localhost) ausgeführt werden, Zugriff auf die grafische Oberfläche (Display) erhalten.
 7. Sollte `xhost` den Fehler "unable to open DISPLAY" melden, können Sie die DISPLAY-Variable manuell setzen, bevor Sie den ssh-Befehl ausführen. Ermitteln Sie dazu zunächst Ihre aktuelle IP-Adresse und führen Sie in der Shell, von der aus Sie den ssh-Befehl starten möchten, den folgenden Befehl aus: `export DISPLAY=:0` oder `export DISPLAY=<Ihre_IP>:0.0` .
