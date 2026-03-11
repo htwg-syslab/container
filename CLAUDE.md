@@ -2,7 +2,7 @@
 
 ## Overview
 This repo builds Docker images for university lab environments (Bsys/Esys courses).
-Images are built via GitHub Actions; 0Minimal and 1Base are pushed to `ghcr.io`, while 2UI and 3Esys are currently only built (no automated publish step).
+Images are built via GitHub Actions; 0Minimal and 1Base are pushed to `ghcr.io`, while 2UI and 3Esys are currently only built (no automated publish step). Docker Hub (`systemlabor/bsys`) is updated separately/manually from `ghcr.io`.
 
 ## Container Dependency Chain (BsysV2)
 
