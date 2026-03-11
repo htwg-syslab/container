@@ -34,7 +34,15 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     curl
 
 # Install act (run GitHub Actions locally)
-RUN curl -fsSL https://raw.githubusercontent.com/nektos/act/master/install.sh | bash
+# Uses the GitHub releases redirect (always latest) to download a pre-built
+# binary instead of piping a remote script to bash, reducing supply-chain risk.
+RUN ARCH="$(dpkg --print-architecture)" && \
+    case "$ARCH" in \
+        amd64) ACT_ARCH="x86_64" ;; \
+        arm64) ACT_ARCH="arm64" ;; \
+        *) echo "unsupported architecture: $ARCH"; exit 1 ;; \
+    esac && \
+    curl -fsSL "https://github.com/nektos/act/releases/latest/download/act_Linux_${ACT_ARCH}.tar.gz" | tar xz -C /usr/local/bin act
 
     RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
