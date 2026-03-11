@@ -77,7 +77,6 @@ RUN if [ "$INSTALL_RUST" = "true" ]; then \
     cargo --version; \
     rustc --version; \
     echo 'if [ -d "/usr/local/cargo/bin" ]; then export PATH="/usr/local/cargo/bin:$PATH"; fi' >> /home/pocketlab/.bashrc; \
-    echo 'rustup default stable' >> /home/pocketlab/.bashrc; \
     fi
 
 # Add the script to set DISPLAY variable

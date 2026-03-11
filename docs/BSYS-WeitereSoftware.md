@@ -16,7 +16,7 @@ Der Befehl `unminimize` installiert nicht nur die **man pages** (Handbuchseiten)
 Falls Sie lediglich Zugriff auf die **man pages** benötigen, gibt es auch andere Optionen, ohne den gesamten `unminimize`-Prozess durchzuführen. Sie können auf eine Vielzahl von Online-Quellen zugreifen, die Linux-**man pages** bereitstellen. Diese Seiten bieten oft auch eine besonders schöne und gut lesbare Formatierung.
 
 - **DashDash.io**: [dashdash.io](https://dashdash.io) - Eine moderne und gut gestaltete Quelle für **man pages**, die eine klare und benutzerfreundliche Oberfläche bietet.
-- **Ubuntu Man Pages**: [manpages.debian.org](https://manpages.debian.org) - Eine offizielle Quelle für Ubuntu **man pages**.
+- **Ubuntu Man Pages**: [manpages.ubuntu.com](https://manpages.ubuntu.com/) - Eine offizielle Quelle für Ubuntu **man pages**.
 - **Linux Man Pages**: [man7.org](https://man7.org) - Eine umfassende Ressource für Linux-**man pages** mit einer klaren und strukturierten Präsentation.
 - **TLDR Pages**: [tldr.sh](https://tldr.sh) - Bietet kürzere und einfachere Versionen von **man pages** für eine schnelle Referenz.
 
