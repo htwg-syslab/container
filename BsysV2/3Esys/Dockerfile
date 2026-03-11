@@ -44,7 +44,7 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     esac && \
     curl -fsSL "https://github.com/nektos/act/releases/latest/download/act_Linux_${ACT_ARCH}.tar.gz" | tar xz -C /usr/local/bin act
 
-    RUN dpkgArch="$(dpkg --print-architecture)"; \
+RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         arm64) \
             packages="qemu-system-x86" \

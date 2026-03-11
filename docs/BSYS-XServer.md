@@ -24,7 +24,7 @@ Um sicherzustellen, dass Xming im Hintergrund läuft, überprüfen Sie die verst
 4. **Konfiguration**: Stellen Sie sicher, dass im Reiter „Sicherheit” in den Einstellungen von XQuartz die Optionen „Verbindungen authentifizieren” sowie „Verbindungen zu Netzwerk-Clients erlauben” aktiviert sind.
 5. Bitte beachten Sie, dass XQuartz nach jeder Änderung der Konfiguration neu gestartet werden muss, damit die Änderungen wirksam werden.
 6. Öffnen Sie ein Terminal auf Ihrem macOS-System und führen Sie den Befehl `xhost +localhost` aus. Dieser Befehl autorisiert den X-Server (z. B. XQuartz), Verbindungen von lokal ausgeführten Anwendungen zu akzeptieren, sodass Programme, die auf demselben Rechner (localhost) ausgeführt werden, Zugriff auf die grafische Oberfläche (Display) erhalten.
-7. Sollte `xhost` den Fehler "unable to open DISPLAY" melden, können Sie die DISPLAY-Variable manuell setzen, bevor Sie den ssh-Befehl ausführen. Ermitteln Sie dazu zunächst Ihre aktuelle IP-Adresse und führen Sie in der Shell, von der aus Sie den ssh-Befehl starten möchten, den folgenden Befehl aus: `export DISPLAY=:0` oder `export DISPLAY=<Ihre_IP>:0.0` .
+7. Sollte `xhost` den Fehler „unable to open DISPLAY" melden, können Sie die DISPLAY-Variable manuell setzen, bevor Sie den ssh-Befehl ausführen. Ermitteln Sie dazu zunächst Ihre aktuelle IP-Adresse und führen Sie in der Shell, von der aus Sie den ssh-Befehl starten möchten, den folgenden Befehl aus: `export DISPLAY=:0` oder `export DISPLAY=<Ihre_IP>:0.0`.
 8. Anschließend sollte xhost korrekt funktionieren, und Sie können sich über den Befehl `ssh -Y -o ForwardX11=yes -o ForwardX11Trusted=yes pocketlab` mit pocketlab verbinden.
 
 ### 2. XQuartz automatisch beim Systemstart ausführen
