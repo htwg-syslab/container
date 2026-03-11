@@ -61,7 +61,7 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
             echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 \
             ;; \
     esac; \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
 
 
 #---------------------------------------------------------------------
