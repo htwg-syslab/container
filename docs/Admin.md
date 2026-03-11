@@ -131,7 +131,7 @@ sudo apt-get install zoxide
 
 ### Install manpages in docker container
 
-1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes` und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (z. B. für das fzf-Skript, welches in /usr/doc Scripts installiert wird)
+1. `sudo vim /etc/dpkg/dpkg.cfg.d/excludes` und die 1. Zeile mit den man paths auskommentieren und evtl. die 3. Zeile mit den doc (z. B. für das fzf-Skript, welches in /usr/share/doc Scripts installiert wird)
 2. `sudo apt reinstall manpages manpages-dev manpages-posix-dev`
 3. `sudo cp /usr/bin/man.REAL /usr/bin/man`
 4. evtl `sudo mandb -c`
