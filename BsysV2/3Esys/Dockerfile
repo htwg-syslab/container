@@ -3,7 +3,7 @@ FROM systemlabor/bsys:pocketlabbase
 ARG INSTALL_RUST=false
 ARG KEEP_OSTEP=false
 ENV RUSTUP_HOME=/usr/local/rustup \
-    RUST_VERSION=1.71.0 \
+    RUST_VERSION=stable \
     CARGO_HOME=/usr/local/cargo \
     PATH=/usr/local/cargo/bin:$PATH
 
@@ -79,8 +79,7 @@ RUN if [ "$INSTALL_RUST" = "true" ]; then \
     chmod +x rustup-init; \
     ./rustup-init -y --no-modify-path --default-toolchain $RUST_VERSION; \
     rm rustup-init; \
-    chmod -R a+w $RUSTUP_HOME $CARGO_HOME; \
-    rustup default stable; \
+    chown -R pocketlab:pocketlab $RUSTUP_HOME $CARGO_HOME; \
     rustup --version; \
     cargo --version; \
     rustc --version; \
