@@ -31,7 +31,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bc \
     expect \
     cpio \
-    curl
+    curl \
+    rsync
 
 # Install act (run GitHub Actions locally)
 # Uses the GitHub releases redirect (always latest) to download a pre-built
