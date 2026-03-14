@@ -13,9 +13,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     vim net-tools iputils-ping traceroute bmon tmux sudo geany \
     xubuntu-desktop xterm zenity make cmake gcc libc6-dev dbus-x11 \
     x11-xkb-utils xauth xfonts-base xkb-data mesa-utils xvfb libgl1-mesa-dri \
-    libgl1-mesa-glx libglib2.0-0 libxext6 libsm6 libxrender1 libglu1 \
-    libxv1 libegl1-mesa libpython-all-dev libsuitesparse-dev \
-    libgtest-dev openssl libeigen3-dev libsdl1.2-dev libsdl-image1.2-dev \
+    libgl1 libglib2.0-0 libxext6 libsm6 libxrender1 libglu1 \
+    libxv1 libegl1 python3-dev libsuitesparse-dev \
+    libgtest-dev openssl libeigen3-dev libsdl2-dev libsdl2-image-dev \
+    software-properties-common \
     && apt-get clean && rm -rf /var/lib/apt/lists/* dos2unix
 
 # install firefox
@@ -65,7 +66,6 @@ RUN set -eux;cd /tmp; \
         arm64) \
         curl -fsSL -O "https://sourceforge.net/projects/turbovnc/files/3.0.3/turbovnc_3.0.3_arm64.deb" \
         -O "https://sourceforge.net/projects/libjpeg-turbo/files/2.1.5.1/libjpeg-turbo-official_2.1.5.1_arm64.deb" \
-        -O "https://sourceforge.net/projects/virtualgl/files/3.1/virtualgl_3.1_arm64.deb" \
         ;; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac; \
