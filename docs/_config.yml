@@ -2,5 +2,9 @@ title: Pocketlab Container Docs
 description: Docker-Container für Laborumgebungen
 theme: jekyll-theme-cayman
 
-exclude:
-  - SUMMARY.md
+plugins:
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: true
