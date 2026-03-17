@@ -1,18 +1,20 @@
 <script>
   (function() {
-    var html = document.documentElement;
-    var isLight = localStorage.getItem('jtd-theme') === 'light';
+    var saved = localStorage.getItem('jtd-theme');
+    if (saved && saved !== jtd.getTheme()) {
+      jtd.setTheme(saved);
+    }
 
     var btn = document.createElement('button');
     btn.className = 'theme-toggle';
     btn.setAttribute('aria-label', 'Toggle light/dark mode');
-    btn.textContent = isLight ? '\uD83C\uDF19' : '\u2600\uFE0F';
+    btn.textContent = jtd.getTheme() === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
 
     btn.addEventListener('click', function() {
-      var goLight = !html.classList.contains('light-mode');
-      html.classList.toggle('light-mode', goLight);
-      localStorage.setItem('jtd-theme', goLight ? 'light' : 'dark');
-      btn.textContent = goLight ? '\uD83C\uDF19' : '\u2600\uFE0F';
+      var next = jtd.getTheme() === 'dark' ? 'light' : 'dark';
+      jtd.setTheme(next);
+      localStorage.setItem('jtd-theme', next);
+      btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
     });
 
     document.body.appendChild(btn);

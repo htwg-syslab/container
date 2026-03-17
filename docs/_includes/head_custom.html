@@ -1,52 +1,10 @@
 <style>
-  html.light-mode,
-  html.light-mode body {
-    --body-background-color: #fff !important;
-    --sidebar-color: #f5f6fa !important;
-    --body-text-color: #27262b !important;
-    --link-color: #7253ed !important;
-    --body-heading-color: #27262b !important;
-    --nav-child-link-color: #27262b !important;
-    --search-result-preview-color: #27262b !important;
-    --border-color: #eeebee !important;
-    --code-background-color: #f5f6fa !important;
-    --table-background-color: #fff !important;
-    --search-background-color: #fff !important;
-    --feedback-color: #27262b !important;
-    --btn-primary-color: #7253ed !important;
-  }
-  html.light-mode .side-bar {
-    background-color: #f5f6fa !important;
-  }
-  html.light-mode .site-title,
-  html.light-mode .nav-list-link,
-  html.light-mode .main-content,
-  html.light-mode .main-content h1,
-  html.light-mode .main-content h2,
-  html.light-mode .main-content h3,
-  html.light-mode .main-content h4 {
-    color: #27262b !important;
-  }
-  html.light-mode .nav-list-link.active {
-    color: #7253ed !important;
-  }
-  html.light-mode .search-input {
-    background-color: #fff !important;
-    color: #27262b !important;
-    border-color: #eeebee !important;
-  }
-  html.light-mode .site-footer {
-    color: #959396 !important;
-  }
-
   .theme-toggle {
     position: fixed;
     bottom: 1rem;
     right: 1rem;
     z-index: 100;
-    background: #2f3237;
-    color: #fff;
-    border: 1px solid #444;
+    border: 1px solid #888;
     border-radius: 50%;
     width: 2.5rem;
     height: 2.5rem;
@@ -56,20 +14,8 @@
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-    transition: all 0.2s;
-  }
-  html.light-mode .theme-toggle {
-    background: #f5f6fa;
-    color: #333;
-    border-color: #ccc;
+    background: inherit;
+    color: inherit;
   }
   .theme-toggle:hover { opacity: 0.8; }
 </style>
-
-<script>
-  (function() {
-    if (localStorage.getItem('jtd-theme') === 'light') {
-      document.documentElement.classList.add('light-mode');
-    }
-  })();
-</script>
