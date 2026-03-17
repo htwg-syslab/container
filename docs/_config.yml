@@ -1,10 +1,147 @@
 title: Pocketlab Container Docs
 description: Docker-Container für Laborumgebungen
-theme: jekyll-theme-cayman
+remote_theme: just-the-docs/just-the-docs@v0.10.1
 
 plugins:
+  - jekyll-remote-theme
   - jekyll-relative-links
 
 relative_links:
   enabled: true
   collections: true
+
+color_scheme: dark
+
+# Navigation über defaults steuern, ohne .md-Dateien zu ändern
+defaults:
+  # --- Pocket Lab: Docker und SSH ---
+  - scope:
+      path: "Docker.md"
+    values:
+      title: "Docker und SSH"
+      nav_order: 1
+  - scope:
+      path: "Docker-Container.md"
+    values:
+      title: "Docker Container"
+      parent: "Docker und SSH"
+      nav_order: 1
+  - scope:
+      path: "Docker-Pocketlab.md"
+    values:
+      title: "Pocketlab Container"
+      parent: "Docker und SSH"
+      nav_order: 2
+  - scope:
+      path: "Docker-Desktop.md"
+    values:
+      title: "Installation Docker Desktop"
+      parent: "Docker und SSH"
+      nav_order: 3
+  - scope:
+      path: "BSYS-SSH-Clients.md"
+    values:
+      title: "SSH Client (Windows)"
+      parent: "Docker und SSH"
+      nav_order: 4
+
+  # --- AIN BSYS ---
+  - scope:
+      path: "BSYS-Pocketlab.md"
+    values:
+      title: "AIN BSYS"
+      nav_order: 2
+      has_children: true
+  - scope:
+      path: "BSYS-Login-Config.md"
+    values:
+      title: "Anmeldung und Konfiguration"
+      parent: "AIN BSYS"
+      nav_order: 1
+  - scope:
+      path: "BSYS-VSCode.md"
+    values:
+      title: "VSCode Integration"
+      parent: "AIN BSYS"
+      nav_order: 2
+  - scope:
+      path: "BSYS-XServer.md"
+    values:
+      title: "XServer Konfiguration"
+      parent: "AIN BSYS"
+      nav_order: 3
+  - scope:
+      path: "Ostep.md"
+    values:
+      title: "OSTEP"
+      parent: "AIN BSYS"
+      nav_order: 4
+  - scope:
+      path: "BSYS-GitConfig.md"
+    values:
+      title: "Git config"
+      parent: "AIN BSYS"
+      nav_order: 5
+  - scope:
+      path: "BSYS-FileCopy.md"
+    values:
+      title: "Dateiaustausch Host-Container"
+      parent: "AIN BSYS"
+      nav_order: 6
+  - scope:
+      path: "BSYS-WeitereSoftware.md"
+    values:
+      title: "Weitere Software"
+      parent: "AIN BSYS"
+      nav_order: 7
+
+  # --- Command Line Tools ---
+  - scope:
+      path: "Commandline-Tools.md"
+    values:
+      title: "Command Line Tools"
+      nav_order: 3
+      has_children: true
+  - scope:
+      path: "zoxide.md"
+    values:
+      title: "zoxide"
+      parent: "Command Line Tools"
+      nav_order: 1
+  - scope:
+      path: "starship.md"
+    values:
+      title: "starship"
+      parent: "Command Line Tools"
+      nav_order: 2
+  - scope:
+      path: "bat.md"
+    values:
+      title: "bat"
+      parent: "Command Line Tools"
+      nav_order: 3
+
+  # --- HOWTO ---
+  - scope:
+      path: "Anleitung_PowerShell_Script.md"
+    values:
+      title: "PowerShell scripten"
+      nav_order: 4
+  - scope:
+      path: "DockerExperts.md"
+    values:
+      title: "Docker Experts"
+      nav_order: 5
+
+  # --- Admin (nicht in SUMMARY, aber vorhanden) ---
+  - scope:
+      path: "Admin.md"
+    values:
+      title: "Admin"
+      nav_order: 6
+
+  # SUMMARY.md aus Navigation ausschließen
+  - scope:
+      path: "SUMMARY.md"
+    values:
+      nav_exclude: true
