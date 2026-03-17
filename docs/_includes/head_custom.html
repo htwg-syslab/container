@@ -1,48 +1,42 @@
 <style>
-  /* Light mode overrides - applied when body has class "light-mode" */
-  body.light-mode {
-    --body-background-color: #fff;
-    --sidebar-color: #f5f6fa;
-    --body-text-color: #27262b;
-    --link-color: #7253ed;
-    --body-heading-color: #27262b;
-    --nav-child-link-color: #27262b;
-    --search-result-preview-color: #27262b;
-    --border-color: #eeebee;
-    --code-background-color: #f5f6fa;
-    --table-background-color: #fff;
-    --search-background-color: #fff;
-    --feedback-color: #27262b;
-    --btn-primary-color: #7253ed;
+  html.light-mode,
+  html.light-mode body {
+    --body-background-color: #fff !important;
+    --sidebar-color: #f5f6fa !important;
+    --body-text-color: #27262b !important;
+    --link-color: #7253ed !important;
+    --body-heading-color: #27262b !important;
+    --nav-child-link-color: #27262b !important;
+    --search-result-preview-color: #27262b !important;
+    --border-color: #eeebee !important;
+    --code-background-color: #f5f6fa !important;
+    --table-background-color: #fff !important;
+    --search-background-color: #fff !important;
+    --feedback-color: #27262b !important;
+    --btn-primary-color: #7253ed !important;
   }
-  body.light-mode .side-bar {
-    background-color: #f5f6fa;
+  html.light-mode .side-bar {
+    background-color: #f5f6fa !important;
   }
-  body.light-mode .site-title {
-    color: #27262b;
+  html.light-mode .site-title,
+  html.light-mode .nav-list-link,
+  html.light-mode .main-content,
+  html.light-mode .main-content h1,
+  html.light-mode .main-content h2,
+  html.light-mode .main-content h3,
+  html.light-mode .main-content h4 {
+    color: #27262b !important;
   }
-  body.light-mode .nav-list-link {
-    color: #27262b;
+  html.light-mode .nav-list-link.active {
+    color: #7253ed !important;
   }
-  body.light-mode .nav-list-link.active {
-    color: #7253ed;
+  html.light-mode .search-input {
+    background-color: #fff !important;
+    color: #27262b !important;
+    border-color: #eeebee !important;
   }
-  body.light-mode .search-input {
-    background-color: #fff;
-    color: #27262b;
-    border-color: #eeebee;
-  }
-  body.light-mode .main-content {
-    color: #27262b;
-  }
-  body.light-mode .main-content h1,
-  body.light-mode .main-content h2,
-  body.light-mode .main-content h3,
-  body.light-mode .main-content h4 {
-    color: #27262b;
-  }
-  body.light-mode .site-footer {
-    color: #959396;
+  html.light-mode .site-footer {
+    color: #959396 !important;
   }
 
   .theme-toggle {
@@ -64,7 +58,7 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     transition: all 0.2s;
   }
-  body.light-mode .theme-toggle {
+  html.light-mode .theme-toggle {
     background: #f5f6fa;
     color: #333;
     border-color: #ccc;
@@ -73,7 +67,6 @@
 </style>
 
 <script>
-  // Sofort anwenden bevor die Seite rendert
   (function() {
     if (localStorage.getItem('jtd-theme') === 'light') {
       document.documentElement.classList.add('light-mode');
