@@ -1,4 +1,50 @@
 <style>
+  /* Light mode overrides - applied when body has class "light-mode" */
+  body.light-mode {
+    --body-background-color: #fff;
+    --sidebar-color: #f5f6fa;
+    --body-text-color: #27262b;
+    --link-color: #7253ed;
+    --body-heading-color: #27262b;
+    --nav-child-link-color: #27262b;
+    --search-result-preview-color: #27262b;
+    --border-color: #eeebee;
+    --code-background-color: #f5f6fa;
+    --table-background-color: #fff;
+    --search-background-color: #fff;
+    --feedback-color: #27262b;
+    --btn-primary-color: #7253ed;
+  }
+  body.light-mode .side-bar {
+    background-color: #f5f6fa;
+  }
+  body.light-mode .site-title {
+    color: #27262b;
+  }
+  body.light-mode .nav-list-link {
+    color: #27262b;
+  }
+  body.light-mode .nav-list-link.active {
+    color: #7253ed;
+  }
+  body.light-mode .search-input {
+    background-color: #fff;
+    color: #27262b;
+    border-color: #eeebee;
+  }
+  body.light-mode .main-content {
+    color: #27262b;
+  }
+  body.light-mode .main-content h1,
+  body.light-mode .main-content h2,
+  body.light-mode .main-content h3,
+  body.light-mode .main-content h4 {
+    color: #27262b;
+  }
+  body.light-mode .site-footer {
+    color: #959396;
+  }
+
   .theme-toggle {
     position: fixed;
     bottom: 1rem;
@@ -18,25 +64,19 @@
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     transition: all 0.2s;
   }
-  .theme-toggle.light {
+  body.light-mode .theme-toggle {
     background: #f5f6fa;
     color: #333;
     border-color: #ccc;
   }
-  .theme-toggle:hover {
-    opacity: 0.8;
-  }
+  .theme-toggle:hover { opacity: 0.8; }
 </style>
 
-<!-- Sofort Stylesheet tauschen falls light gespeichert, bevor Seite rendert -->
 <script>
+  // Sofort anwenden bevor die Seite rendert
   (function() {
-    var saved = localStorage.getItem('jtd-theme');
-    if (saved === 'light') {
-      var link = document.querySelector('link[rel="stylesheet"][href*="just-the-docs"]');
-      if (link) {
-        link.href = link.href.replace(/just-the-docs-\w+/, 'just-the-docs-light');
-      }
+    if (localStorage.getItem('jtd-theme') === 'light') {
+      document.documentElement.classList.add('light-mode');
     }
   })();
 </script>
