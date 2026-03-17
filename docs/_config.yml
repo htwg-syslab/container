@@ -12,6 +12,8 @@ relative_links:
 
 color_scheme: dark
 
+# Toggle-Button wird über _includes/head_custom.html eingebunden
+
 # Navigation über defaults steuern, ohne .md-Dateien zu ändern
 defaults:
   # --- Pocket Lab: Docker und SSH ---
