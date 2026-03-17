@@ -1,0 +1,29 @@
+<script>
+  (function() {
+    function getTheme() {
+      return localStorage.getItem('jtd-theme') || 'dark';
+    }
+
+    function applyTheme(theme) {
+      var link = document.querySelector('link[rel="stylesheet"][href*="just-the-docs"]');
+      if (link) {
+        link.href = link.href.replace(/just-the-docs-\w+/, 'just-the-docs-' + theme);
+      }
+      localStorage.setItem('jtd-theme', theme);
+    }
+
+    var btn = document.createElement('button');
+    btn.className = 'theme-toggle' + (getTheme() === 'light' ? ' light' : '');
+    btn.setAttribute('aria-label', 'Toggle light/dark mode');
+    btn.textContent = getTheme() === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+
+    btn.addEventListener('click', function() {
+      var next = getTheme() === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+      btn.className = 'theme-toggle' + (next === 'light' ? ' light' : '');
+    });
+
+    document.body.appendChild(btn);
+  })();
+</script>
