@@ -180,7 +180,3 @@ xauth: (argv):1:  unable to open display "host.docker.internal:0".
 ```
 
 Die X-Server-Konfiguration wird im weiteren Verlauf erläutert.
-
-### Optional: GUI-Zugriff
-
-Falls Sie die grafische Oberfläche nutzen möchten, siehe [UI-Variante](BSYS-UI-Variante.md).
