@@ -37,7 +37,9 @@ ubuntu:22.04
 - `3_esys.yml` - builds 3Esys
 
 ## Documentation
-- `docs/` - User-facing documentation (Just the Docs/Jekyll), navigation via `docs/_config.yml`
+- `docs/` - User-facing documentation, TOC in `docs/SUMMARY.md`
+- GitBook: `docs/` on `main` branch
+- GitHub Pages (Just the Docs/Jekyll): `docs/` on `github-pages` branch, navigation via `docs/_config.yml`
 - Docs reference Ubuntu (not Debian)
 
 ## Conventions
