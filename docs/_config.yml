@@ -89,9 +89,9 @@ defaults:
       parent: "AIN BSYS"
       nav_order: 6
   - scope:
-      path: "Anleitung_PowerShell_Script.md"
+      path: "BSYS-WeitereSoftware.md"
     values:
-      title: "PowerShell scripten"
+      title: "Weitere Software"
       parent: "AIN BSYS"
       nav_order: 7
 
@@ -100,26 +100,20 @@ defaults:
       path: "Optional.md"
     values:
       title: "Optional"
-      nav_order: 20
+      nav_order: 10
       has_children: true
   - scope:
       path: "BSYS-UI-Variante.md"
     values:
       title: "UI-Variante"
+      parent: "Optional"
       nav_order: 1
-      parent: "Optional"
-  - scope:
-      path: "BSYS-WeitereSoftware.md"
-    values:
-      title: "Weitere Software"
-      nav_order: 3
-      parent: "Optional"
   - scope:
       path: "Commandline-Tools.md"
     values:
       title: "Command Line Tools"
-      nav_order: 4
       parent: "Optional"
+      nav_order: 2
       has_children: true
   - scope:
       path: "zoxide.md"
@@ -140,14 +134,27 @@ defaults:
       parent: "Command Line Tools"
       nav_order: 3
 
+  # --- HOWTO ---
+  - scope:
+      path: "HOWTO.md"
+    values:
+      title: "HOWTO"
+      nav_order: 20
+      has_children: true
+  - scope:
+      path: "Anleitung_PowerShell_Script.md"
+    values:
+      title: "PowerShell scripten"
+      parent: "HOWTO"
+      nav_order: 1
   - scope:
       path: "DockerExperts.md"
     values:
       title: "Docker Experts"
-      parent: "Optional"
-      nav_order: 5
+      parent: "HOWTO"
+      nav_order: 2
 
-  # SUMMARY.md, README und Admin aus Navigation ausschließen
+  # Aus Navigation ausschließen
   - scope:
       path: "Admin.md"
     values:
