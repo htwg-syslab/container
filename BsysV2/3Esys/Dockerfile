@@ -48,7 +48,11 @@ RUN ARCH="$(dpkg --print-architecture)" && \
 RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         arm64) \
-            packages="qemu-system-x86" \
+            packages="gcc-x86-64-linux-gnu \
+                      gdb-multiarch \
+                      qemu-system-x86 \
+                      qemu-user-static \
+                      libc6-dev-amd64-cross" \
             ;; \
         amd64) \
             packages="gcc-aarch64-linux-gnu \
