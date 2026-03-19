@@ -88,7 +88,7 @@ defaults:
       path: "Optional.md"
     values:
       title: "Optional"
-      nav_order: 3
+      nav_order: 20
       has_children: true
   - scope:
       path: "BSYS-UI-Variante.md"
