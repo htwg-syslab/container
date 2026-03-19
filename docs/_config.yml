@@ -146,15 +146,19 @@ defaults:
       title: "Docker Experts"
       nav_order: 11
 
-  # --- Admin (nicht in Navigation sichtbar) ---
   - scope:
       path: "Admin.md"
     values:
       title: "Admin"
-      nav_order: 99
+      parent: "Optional"
+      nav_order: 10
 
   # SUMMARY.md und README aus Navigation ausschließen
   - scope:
       path: "SUMMARY.md"
+    values:
+      nav_exclude: true
+  - scope:
+      path: "README.md"
     values:
       nav_exclude: true
