@@ -10,6 +10,7 @@
 - AIN BSYS
   - [Installation BSYS Pocketlab](BSYS-Pocketlab.md)
   - [Anmeldung und Konfiguration](BSYS-Login-Config.md)
+  - [Optional: UI-Variante](BSYS-UI-Variante.md)
   - [VSCode Integration](BSYS-VSCode.md)
   - [XServer Konfiguration](BSYS-XServer.md)
   - [OSTEP](Ostep.md)

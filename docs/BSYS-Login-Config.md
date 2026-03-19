@@ -183,6 +183,4 @@ Die X-Server-Konfiguration wird im weiteren Verlauf erläutert.
 
 ### Optional: GUI-Zugriff
 
-> Für das Praktikum ist der GUI-Zugriff **nicht erforderlich**. Er richtet sich an Benutzer, die eine grafische Oberfläche bevorzugen.
-
-Voraussetzung: Sie haben den `pocketlabui`-Container (statt `pocketlabbase`) gestartet. Öffnen Sie dann `localhost:40001` im Browser, um die grafische Oberfläche des Containers zu nutzen.
+Falls Sie die grafische Oberfläche nutzen möchten, siehe [UI-Variante](BSYS-UI-Variante.md).

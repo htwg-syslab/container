@@ -13,7 +13,7 @@ In der ersten Laborstunde behandeln wir Login, SSH-Konfiguration und die Einrich
 Der BSYS-Container ist vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft.
 
 - **pocketlabbase** (empfohlen): Schlankes Image mit Terminal-Zugriff. Die Entwicklung erfolgt über das Terminal oder Visual Studio Code.
-- **pocketlabui** (optional): Erweitert die Basisversion um eine grafische Oberfläche (GUI) im Browser. Nur für Benutzer mit sehr wenig Computererfahrung – für das Praktikum nicht erforderlich.
+- **pocketlabui** (optional): Erweitert die Basisversion um eine grafische Oberfläche (GUI) im Browser – siehe [UI-Variante](BSYS-UI-Variante.md). Für das Praktikum nicht erforderlich.
 
 #### Architektur
 
@@ -29,23 +29,6 @@ docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabb
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
-```
-
-##### Optional: UI-Variante
-
-Falls Sie die grafische Oberfläche nutzen möchten, verwenden Sie stattdessen:
-
-X86:
-```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui
-```
-
-ARM:
-
-> **Hinweis:** Das UI-Image für ARM64 ist derzeit nicht zuverlässig verfügbar. Nutzen Sie auf ARM-Macs bevorzugt `pocketlabbase-ARM64`.
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-ARM64
 ```
 
 #### Nach dem Start
