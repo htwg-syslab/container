@@ -2,68 +2,62 @@
 
 ### Vorwort
 
-Es wird empfohlen, die Vorbereitung auf dem mobilen System durchzuführen, das Sie während der Laborstunden verwenden werden. Selbstverständlich besteht auch die Möglichkeit, die erforderliche Software zusätzlich auf Ihrem Desktop-System für zu Hause zu installieren, um Flexibilität und eine nahtlose Arbeitsumgebung zu gewährleisten.
+Es wird empfohlen, die Vorbereitung auf dem System durchzuführen, das Sie während der Laborstunden verwenden werden.
 
-**WICHTIG: Bitte führen Sie die "Vorbereitung des BSYS Pocketlab" unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und zum Einrichten einige große Dateien benötigt werden.
+**WICHTIG: Bitte führen Sie die Vorbereitung unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und einige große Dateien heruntergeladen werden müssen.
 
-In der ersten Laborstunde werden wir uns mit den Themen:
-
-- Login,
-- SSH-Konfiguration und
-- der Einrichtung von VS Code
-
-beschäftigen. Diese Schritte können Sie selbstverständlich auch bereits im Vorfeld eigenständig durchführen, um optimal vorbereitet zu sein.
+In der ersten Laborstunde behandeln wir Login, SSH-Konfiguration und die Einrichtung von VS Code. Diese Schritte können Sie auch vorab eigenständig durchführen.
 
 #### Installation des BSYS Pocketlab
 
-Der BSYS-Container ist bereits vorkonfiguriert und kann gestartet werden, sobald Docker Desktop ausgeführt wird. Es stehen zwei Varianten des Docker-Containers zur Verfügung:
+Der BSYS-Container ist vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft.
 
-- **pocketlabbase**: Ein schlankes Docker-Image, das Ihnen den Zugriff auf das laufende Linux-System über ein Terminal ermöglicht. Die gesamte Simulation sowie die Code-Entwicklung können ebenfalls über Visual Studio Code (VSCode) durchgeführt werden. Detaillierte Informationen hierzu finden Sie weiter unten.
-
-- **pocketlabui**: Dieses Image erweitert die Basisversion um eine grafische Benutzeroberfläche (GUI), die Ihnen die Bedienung des Linux-Systems über Ihren Browser ermöglicht.
-
-Die Verwendung des GUI-Images ist optional und richtet sich vor allem an Benutzer, die nur sehr wenig Computererfahrung haben. Für die Aufgaben im BSYS-Kurs ist die Arbeit im Terminal mit `pocketlabbase` völlig ausreichend und sollte bevorzugt benutzt werden.
+- **pocketlabbase** (empfohlen): Schlankes Image mit Terminal-Zugriff. Die Entwicklung erfolgt über das Terminal oder Visual Studio Code.
+- **pocketlabui** (optional): Erweitert die Basisversion um eine grafische Oberfläche (GUI) im Browser. Nur für Benutzer mit sehr wenig Computererfahrung – für das Praktikum nicht erforderlich.
 
 #### Architektur
 
-Je nach verwendeter CPU-Architektur müssen Sie das passende Docker-Image auswählen, um eine optimale Leistung sicherzustellen. Es ist entscheidend, das Image auszuwählen, das nativ auf Ihrer spezifischen Architektur ausgeführt werden kann, sei es x86_64 (Intel/AMD) oder ARM64 (Apple M1/M2 oder andere ARM-basierte Prozessoren). Nur durch die Auswahl des korrekten Images kann gewährleistet werden, dass die Container ohne die Notwendigkeit einer Architektur-Emulation betrieben werden. Dadurch wird eine maximale Geschwindigkeit und Effizienz erreicht, da die Emulation von Architekturen häufig zu Leistungseinbußen führen kann.
+Wählen Sie das Docker-Image passend zu Ihrer CPU-Architektur, damit der Container ohne Emulation läuft.
 
 ##### X86 Architektur (Intel/AMD)
-
-base:
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
 ```
 
-ui:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui
-```
-
-##### ARM Maschinen (Apple Mac mit M (1,2,3, ...) chips)
-
-base:
+##### ARM Maschinen (Apple Mac mit M1/M2/M3/...)
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
 ```
 
-ui:
+##### Optional: UI-Variante
+
+Falls Sie die grafische Oberfläche nutzen möchten, verwenden Sie stattdessen:
+
+X86:
+```bash
+docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui
+```
+
+ARM:
+
+> **Hinweis:** Das UI-Image für ARM64 ist derzeit nicht zuverlässig verfügbar. Nutzen Sie auf ARM-Macs bevorzugt `pocketlabbase-ARM64`.
 
 ```bash
 docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=pocketlab systemlabor/bsys:pocketlabui-ARM64
 ```
 
-Beim erstmaligen Start des Images wird es noch nicht lokal auf Ihrem System vorhanden sein und muss daher von Docker Hub heruntergeladen werden. Dieser Vorgang kann abhängig von Ihrer Internetverbindung einige Minuten in Anspruch nehmen. Da hierbei eine beträchtliche Menge an Daten übertragen wird, wird dringend empfohlen, den Download vorab zu Hause durchzuführen. Die WLAN-Verbindung an der HTWG bietet nur eine begrenzte Datenrate, was den Download erheblich verlangsamen könnte.
+#### Nach dem Start
 
-Nach Abschluss des Downloads sehen Sie den laufenden Pocketlab-Laborcontainer unter „Containers“ sowie das heruntergeladene `systemlabor/bsys` Image unter „Images“ in Docker Desktop.
+Beim ersten Start wird das Image von Docker Hub heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
 
-Der Parameter `-p 127.0.0.1:40405:22` bei der Ausführung des Containers leitet den Port 22 (SSH) des Containers auf den lokalen Port 40405 Ihres Systems um. Wenn Sie sich per SSH mit dem Container verbinden möchten, nutzen Sie einen SSH-Client und stellen die Verbindung über den lokalen Port 40405 her. Detaillierte Anweisungen zur Konfiguration der SSH-Verbindung finden Sie in einem späteren Abschnitt dieses Dokuments. Dort wird der gesamte Prozess Schritt für Schritt erläutert, um sicherzustellen, dass die Verbindung korrekt und sicher eingerichtet wird.
+Nach dem Download sehen Sie den laufenden Container unter „Containers" und das Image unter „Images" in Docker Desktop.
 
-Darüber hinaus wird für beide Container-Typen ein X-Server benötigt, um grafische Benutzeroberflächen (GUIs) von Anwendungen, die im Container laufen, auf der Host-Maschine anzuzeigen. Dies wird besonders gegen Ende des Kurses relevant.
+Der Parameter `-p 127.0.0.1:40405:22` leitet den SSH-Port (22) des Containers auf den lokalen Port 40405 um. Die SSH-Konfiguration wird im nächsten Abschnitt erläutert.
+
+Gegen Ende des Kurses wird ein X-Server benötigt, um grafische Anwendungen aus dem Container auf Ihrem Rechner anzuzeigen.
 
 ### Wichtiger Hinweis
 
-Beachten Sie, dass alle Einstellungen und Dateien im Container gelöscht werden, wenn dieser entfernt wird. Starten Sie den Container erneut, um Ihre Arbeit fortzusetzen, ohne ihn neu erstellen zu müssen.
+Alle Einstellungen und Dateien im Container werden gelöscht, wenn dieser entfernt wird. Starten Sie den Container erneut, um Ihre Arbeit fortzusetzen, ohne ihn neu erstellen zu müssen.

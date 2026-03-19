@@ -1,10 +1,10 @@
 ## SSH-Schlüssel einrichten
 
-Für den Zugriff auf den Container wird ein automatisch generierter SSH-Schlüssel verwendet. Dieser Schlüssel wird beim ersten Start des Containers erzeugt und in den Logs angezeigt.
+Für den Zugriff auf den Container wird ein automatisch generierter SSH-Schlüssel verwendet. Dieser wird beim ersten Start des Containers erzeugt und in den Logs angezeigt.
 
 ### SSH-Schlüssel aus Docker-Logs extrahieren
 
-Um den Schlüssel auszulesen, können Sie die Docker-Logs aufrufen:
+Um den Schlüssel auszulesen:
 
 ```bash
 docker logs pocketlab
@@ -20,46 +20,37 @@ und
 
 ### SSH-Verzeichnis vorbereiten
 
-Für den Kommandozeilen-Client `ssh` befinden sich die Konfigurationsdateien im versteckten Verzeichnis `.ssh/`. Schauen Sie also in Ihrem Home-Verzeichnis Ihres Rechners nach diesem Verzeichnis. Haben Sie in der Vergangenheit `ssh` benutzt, sollten darin bereits Dateien zu finden sein (z.B. die Datei `.ssh/known_hosts`).
-
-Gibt es das Verzeichnis noch nicht, versuchen Sie bitte, auf den laufenden Container via `ssh` zuzugreifen:
+Die SSH-Konfigurationsdateien befinden sich im versteckten Verzeichnis `~/.ssh/`. Falls dieses Verzeichnis noch nicht existiert, legen Sie es an:
 
 ```bash
-ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+mkdir -p ~/.ssh
 ```
 
-Der Zugriff funktioniert noch nicht, da der Key erst noch kopiert werden muss.
+Unter Windows (PowerShell):
 
-Allgemein: Um bei Problemen erweiterte Informationen des `ssh` Befehls zu erhalten benutzen Sie die `-v` Option, z.B.:
-
-```bash
-ssh -p40405 -v -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+```powershell
+mkdir $env:USERPROFILE\.ssh
 ```
 
 ### SSH-Schlüssel speichern
 
-Legen Sie in dem `.ssh/` Verzeichnis die Datei `id_rsa_pocketlab.key` an. In diese Datei kopieren Sie den Key, also alle Zeichen zwischen den Zeilen und inkl. der Zeilen
+Legen Sie in `~/.ssh/` die Datei `id_rsa_pocketlab.key` an und kopieren Sie den kompletten Key hinein – **inklusive** der Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----`.
 
-```text
------BEGIN OPENSSH PRIVATE KEY----- und
------END OPENSSH PRIVATE KEY-----
+**Windows:** Am Ende der Datei muss ein Return-Zeichen stehen.
+
+#### Windows: PowerShell-Skript
+
+Beim manuellen Copy & Paste unter Windows kommt es oft zu Problemen (Steuerzeichen, falsches Encoding, CRLF statt LF), die zu folgendem Fehler führen:
+
+```
+Load key "...id_rsa_pocketlab.key": error in libcrypto
 ```
 
-**WICHTIG:** Achten Sie darauf, die Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----` ebenfalls vollständig zu kopieren! Bei Windows muss am Ende der Datei noch ein Return Zeichen eingefügt werden.
+**Voraussetzungen:**
+- Der Ordner `~\.ssh` muss existieren (siehe oben: `mkdir $env:USERPROFILE\.ssh`)
+- Das Skript muss als `.ps1`-Datei gespeichert werden, bevor es ausgeführt werden kann. Hinweise dazu unter [PowerShell scripten](Anleitung_PowerShell_Script.md).
 
-#### Windows-spezifische Lösung
-
-Wenn man den Private Key aus `docker logs` per **Copy & Paste** unter Windows in einen Editor übernimmt, kommt es oft zu Problemen:
-
-- Unsichtbare **Steuerzeichen** oder ANSI-Codes
-- Falsches **Encoding** (z. B. UTF-16 mit BOM statt UTF-8/ASCII)
-- Falsche **Zeilenenden** (CRLF statt LF)
-- Extra-Leerzeilen am Ende
-
-➡️ Ergebnis beim Login:
-`Load key "...id_rsa_pocketlab.key": error in libcrypto`
-
-Dieses PS1-Skript für Windows kopiert den Key sauber in die Key-Datei:
+Dieses Skript kopiert den Key sauber in die Key-Datei:
 
 ```powershell
 # get-pocketlab-key.ps1
@@ -116,33 +107,29 @@ Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 ```
 
-Dann können Sie das Skript ausführen. Hinweise zur Erstellung einer PS1-Datei und deren Ausführung finden Sie unter [PowerShell scripten](Anleitung_PowerShell_Script.md).
+Ist die Key-Datei bereits vorhanden, muss diese zuerst gelöscht werden.
 
-Ist die Key-Datei bereits vorhanden, so muss diese zuerst gelöscht werden.
+#### Mac/Linux
 
-#### Mac/Linux-Lösung
-
-Unter Mac und Linux gibt es mit dem Editor weniger Probleme, oder man kopiert noch einfacher mit folgendem Kommandozeilen-Befehl (Linux, Mac), den Sie in Ihrem Home-Directory aufrufen:
+Unter Mac und Linux kopieren Sie den Key am einfachsten per Kommandozeile (im Home-Verzeichnis ausführen):
 
 ```bash
 docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
 ```
 
-Dieser Kommandozeilen-Befehl (alles in einer Zeile schreiben und mit Return ausführen!) liest die Log-Datei des laufenden pocketlab Containers aus, filtert nur die Zeilen BEGIN, Key und END heraus und schreibt dann die gefilterten Informationen in die Datei `.ssh/id_rsa_pocketlab.key`. Dazu werden die Befehle (docker logs ... | sed ) hintereinander mit einer sogenannten Pipe ( | ) verbunden und ausgeführt und das Ergebnis wird nicht auf die Konsole, sondern in eine Datei geschrieben, indem die Ausgabe umgeleitet wird mit '>'.
-
 ### Berechtigungen setzen
 
-Die Datei mit dem Key darf nur für Sie als User lesbar und schreibbar sein. Sind zu viele Lese- oder Schreibrechte auf die Datei möglich, so beschwert sich das ssh Programm entsprechend.
-
-Stellen Sie sicher, dass nur Sie darauf zugreifen können:
+Die Key-Datei darf nur für Sie lesbar sein:
 
 ```bash
 chmod 600 ~/.ssh/id_rsa_pocketlab.key
 ```
 
+**Windows-Nutzer:** Der Befehl `chmod` funktioniert nicht in PowerShell oder CMD. Führen Sie ihn stattdessen in **Git Bash** aus. Falls Sie Git Bash noch nicht installiert haben, siehe [SSH Clients](BSYS-SSH-Clients.md).
+
 ### Fehlerbehandlung
 
-Wichtig: Sollten Sie schon mit Keys experimentiert haben und durch Neustart des Images neue Keys erzeugt haben, ist es möglich, dass sich der SSH-Befehl beschwert:
+Falls Sie durch Neustart des Containers neue Keys erzeugt haben, kann folgende Meldung erscheinen:
 
 ```
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -150,11 +137,11 @@ Wichtig: Sollten Sie schon mit Keys experimentiert haben und durch Neustart des 
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-Dann müssen Sie die localhost-Einträge in der `.ssh/known_hosts`-Datei löschen. SSH merkt nämlich, dass Sie bereits auf diesem Host waren, aber mit einem anderen Key.
+Lösung: Löschen Sie die localhost-Einträge in `~/.ssh/known_hosts`.
 
 ## SSH-Konfiguration
 
-Um den SSH-Zugriff auf den Container zu vereinfachen, fügen Sie die folgende Konfiguration zu Ihrer `.ssh/config` Datei hinzu:
+Um den SSH-Zugriff zu vereinfachen, fügen Sie folgende Konfiguration in `~/.ssh/config` ein:
 
 ```ssh
 Host pocketlab
@@ -166,40 +153,36 @@ Host pocketlab
     ForwardX11Trusted yes
 ```
 
-Nun können Sie sich einfach mit dem Befehl `ssh pocketlab` in den Container einloggen.
+Danach reicht `ssh pocketlab` zum Einloggen.
 
 ## SSH-Verbindung herstellen
-
-### Grundlegende SSH-Verbindung
-
-Mit folgendem Befehl können Sie sich dann per SSH in den Container einloggen:
 
 ```bash
 ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
 ```
 
-### SSH-Optionen erklärt
+| Option | Bedeutung |
+|--------|-----------|
+| `-p40405` | SSH-Port des Containers (statt Standard-Port 22) |
+| `-i ...` | Pfad zum Private Key |
+| `-X` | X11-Forwarding für grafische Anwendungen |
 
-**Port 40405:** Die Option `-p40405` weist das SSH-Programm an, die Verbindung zum Remote-Server über den spezifischen Port 40405 herzustellen. In der Standardeinstellung nutzt SSH den Port 22 für Verbindungen. Durch die Angabe von `-p40405` wird der Standardport überschrieben, sodass SSH stattdessen den angegebenen alternativen Port verwendet. Dies ist besonders nützlich, wenn der SSH-Dienst auf dem Remote-Server aus Sicherheits- oder Konfigurationsgründen auf einem anderen Port als dem Standardport läuft.
+Bei Problemen liefert `-v` erweiterte Diagnose-Informationen:
 
-Zur Erinnerung: In einem vorherigen Schritt haben wir das Docker-Image gestartet und dabei den im Docker-Image laufenden SSH-Server so konfiguriert, dass externe Zugriffe über den Port 40405 erfolgen.
+```bash
+ssh -p40405 -v -i ~/.ssh/id_rsa_pocketlab.key pocketlab@localhost
+```
 
-**X11-Forwarding:** Die Option `-X` bei `ssh` aktiviert **X11-Forwarding**, wodurch grafische Anwendungen, die auf einem Remote-Server laufen, auf Ihrem lokalen Rechner angezeigt werden können. Dadurch können Sie die Benutzeroberfläche von Programmen, die auf dem Remote-Server ausgeführt werden, nutzen, als ob sie lokal laufen würden. Dies ist besonders nützlich, wenn Sie auf einem entfernten Server arbeiten, aber dennoch Zugriff auf grafische Anwendungen benötigen.
-
-### Fehlerbehandlung
-
-Sollten Sie noch keinen XServer lokal gestartet haben, könnte Ihnen die folgende Fehlermeldung angezeigt werden:
+Falls noch kein X-Server läuft, erscheint ggf.:
 
 ```text
 xauth: (argv):1:  unable to open display "host.docker.internal:0".
 ```
 
-Die Konfiguration des XServers wird im weiteren Verlauf erläutert.
+Die X-Server-Konfiguration wird im weiteren Verlauf erläutert.
 
-## GUI-Zugriff (Alternative)
+### Optional: GUI-Zugriff
 
-Um Zugriff auf die **grafische Benutzeroberfläche (GUI)** des laufenden **Linux-Containers** zu erhalten, müssen Sie statt des `base` Containers den 'ui' Container gestartet und eingerichtet haben. Öffnen Sie einen Webbrowser Ihrer Wahl und geben Sie in die Adressleiste die URL `localhost:40001` ein.
+> Für das Praktikum ist der GUI-Zugriff **nicht erforderlich**. Er richtet sich an Benutzer, die eine grafische Oberfläche bevorzugen.
 
-Nach dem Aufruf dieser Adresse wird die grafische Oberfläche des Containers direkt in Ihrem Browser angezeigt. Sie können die Oberfläche wie gewohnt verwenden, indem Sie **Maus** und **Tastatur** nutzen. Dies ermöglicht Ihnen eine vollständige Interaktion mit dem Container, als ob Sie direkt vor einem physischen System sitzen würden.
-
-Durch diese Methode können Sie komfortabel auf die GUI-basierten Anwendungen innerhalb des Containers zugreifen und diese in Ihrer gewohnten Arbeitsumgebung bedienen. Für das Praktikum wird die GUI-Version jedoch nicht benötigt. Sie bietet sich eher für den unerfahrenen Computer-User an.
+Voraussetzung: Sie haben den `pocketlabui`-Container (statt `pocketlabbase`) gestartet. Öffnen Sie dann `localhost:40001` im Browser, um die grafische Oberfläche des Containers zu nutzen.

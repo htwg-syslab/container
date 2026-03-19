@@ -1,23 +1,21 @@
 ## SSH Client in Windows 11
 
-SSH (Secure Shell) ist ein Protokoll für den sicheren Fernzugriff auf Server. Während Linux und macOS standardmäßig einen SSH-Client mitbringen, müssen Sie in Windows 11 diesen entweder aktivieren oder einen separaten Client installieren. Hier sind die wichtigsten Optionen:
+Linux und macOS bringen standardmäßig einen SSH-Client mit. Unter Windows 11 müssen Sie einen SSH-Client aktivieren oder installieren.
 
-1. **OpenSSH (Standard in Windows 11)**:  
-   Windows 11 enthält OpenSSH als optionales Feature, das Sie über die **Einstellungen** unter **Apps** > **Optionale Features** aktivieren können. Alternativ können Sie auch die PowerShell verwenden:
+### Empfehlung: Git Bash
 
-   ```powershell
-   Add-WindowsCapability -Online -Name OpenSSH.Client*
-   ```
+Git Bash wird mit [Git](https://git-scm.com/) mitgeliefert und enthält einen vollständigen SSH-Client. Git werden Sie im Studium ohnehin benötigen, und mit Git Bash können Sie Linux-Befehle wie `chmod` direkt unter Windows ausführen – das wird später für die SSH-Key-Konfiguration gebraucht.
 
-   Nach der Installation können Sie den SSH-Client über die Eingabeaufforderung oder PowerShell nutzen.
+→ Download: [https://git-scm.com/](https://git-scm.com/)
 
-2. **PuTTY**:  
-   PuTTY ist ein weit verbreiteter SSH-Client mit grafischer Benutzeroberfläche. Sie können es von der [offiziellen Webseite](https://www.putty.org/) herunterladen und installieren. PuTTY unterstützt SSH, Telnet und serielle Verbindungen.
+### Alternativen
 
-3. **MobaXterm**:  
-   MobaXterm ist ein umfassendes Tool, das neben SSH auch einen X-Server und Dateiübertragungsfunktionen bietet. Es ist ideal für Nutzer, die zusätzliche Funktionen benötigen. Sie können es von der [offiziellen Webseite](https://mobaxterm.mobatek.net/) herunterladen und installieren.
+- **OpenSSH** (in Windows 11 integriert): Aktivierung über **Einstellungen** > **Apps** > **Optionale Features** oder per PowerShell:
 
-4. **Git Bash**:  
-   Git Bash, das mit Git geliefert wird, enthält ebenfalls einen SSH-Client. Es ist eine gute Wahl für Entwickler, die Git unter Windows verwenden.
+  ```powershell
+  Add-WindowsCapability -Online -Name OpenSSH.Client*
+  ```
 
-Mit diesen Optionen können auch Windows 11-Nutzer problemlos SSH-Verbindungen herstellen, wie es unter Linux und macOS standardmäßig möglich ist.
+- **PuTTY**: SSH-Client mit grafischer Oberfläche. Download: [putty.org](https://www.putty.org/)
+
+- **MobaXterm**: Umfassendes Tool mit SSH, X-Server und Dateiübertragung. Download: [mobaxterm.mobatek.net](https://mobaxterm.mobatek.net/)
