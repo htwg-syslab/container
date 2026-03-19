@@ -10,10 +10,7 @@ In der ersten Laborstunde behandeln wir Login, SSH-Konfiguration und die Einrich
 
 #### Installation des BSYS Pocketlab
 
-Der BSYS-Container ist vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft.
-
-- **pocketlabbase** (empfohlen): Schlankes Image mit Terminal-Zugriff. Die Entwicklung erfolgt über das Terminal oder Visual Studio Code.
-- **pocketlabui** (optional): Erweitert die Basisversion um eine grafische Oberfläche (GUI) im Browser – siehe [UI-Variante](BSYS-UI-Variante.md). Für das Praktikum nicht erforderlich.
+Der BSYS-Container (`pocketlabbase`) ist vorkonfiguriert und kann gestartet werden, sobald Docker Desktop läuft. Die Entwicklung erfolgt über das Terminal oder Visual Studio Code. Es gibt auch eine [UI-Variante](BSYS-UI-Variante.md) mit grafischer Oberfläche, die für das Praktikum jedoch nicht empfohlen wird.
 
 #### Architektur
 
