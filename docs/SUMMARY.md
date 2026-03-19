@@ -1,6 +1,6 @@
 ‌# Summary​
 
-## Pocket Lab​
+## BSYS Einrichtung​
 
 - [Docker und SSH](Docker.md)
   - [Docker Container](Docker-Container.md)
@@ -10,13 +10,16 @@
 - AIN BSYS
   - [Installation BSYS Pocketlab](BSYS-Pocketlab.md)
   - [Anmeldung und Konfiguration](BSYS-Login-Config.md)
-  - [Optional: UI-Variante](BSYS-UI-Variante.md)
   - [VSCode Integration](BSYS-VSCode.md)
   - [XServer Konfiguration](BSYS-XServer.md)
   - [OSTEP](Ostep.md)
   - [Git config](BSYS-GitConfig.md)
-  - [Dateiaustausch Host<->Container](BSYS-FileCopy.md)
-  - [Weitere Software](BSYS-WeitereSoftware.md)
+
+## Optional​
+
+- [UI-Variante](BSYS-UI-Variante.md)
+- [Dateiaustausch Host<->Container](BSYS-FileCopy.md)
+- [Weitere Software](BSYS-WeitereSoftware.md)
 - [Command Line Tools](Commandline-Tools.md)
   - [zoxide](zoxide.md)
   - [starship](starship.md)
