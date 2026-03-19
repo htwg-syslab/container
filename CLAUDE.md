@@ -28,7 +28,6 @@ ubuntu:22.04
 - `minimal-python`, `minimal-python-ARM64`
 
 ## Legacy / Other
-- `bsysobsolete/` - old base/ui images (not in active workflows)
 - `pi-esys/` + `pi-esys-runner/` - Raspberry Pi Esys images
 
 ## GitHub Actions Workflows
@@ -38,7 +37,7 @@ ubuntu:22.04
 - `3_esys.yml` - builds 3Esys
 
 ## Documentation
-- `docs/` - User-facing documentation (GitBook), TOC in `docs/SUMMARY.md`
+- `docs/` - User-facing documentation (Just the Docs/Jekyll), navigation via `docs/_config.yml`
 - Docs reference Ubuntu (not Debian)
 
 ## Conventions
