@@ -1,0 +1,48 @@
+FROM ubuntu:26.04
+
+# Benutzername und Passwort
+ARG my_user="user"
+ARG my_password="user"
+
+# Timezone
+ENV TZ=Europe/Berlin
+
+# Basic packages
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    openssh-server wget vim nano man-db htop curl \
+    tmux zsh git sl lolcat shellcheck \
+    bash bash-completion locales \
+    xsel \
+    gnupg \
+    supervisor \
+    sudo \
+    dos2unix
+
+# Configure locale
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
+
+# Add user and configure sudo
+RUN adduser --disabled-password --gecos "" user && \
+    echo "user:user" | chpasswd && \
+    usermod -aG sudo user && \
+    echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Configure SSH
+COPY config/sshd/sshd_config /etc/ssh/sshd_config
+RUN dos2unix /etc/ssh/sshd_config
+RUN ssh-keygen -A
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+RUN sed -i 's/#UsePAM yes/UsePAM no/' /etc/ssh/sshd_config
+EXPOSE 22
+
+# Add Supervisord config
+COPY config/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+RUN dos2unix /etc/supervisor/conf.d/supervisord.conf
+
+# Add entrypoint
+COPY config/entrypoint.sh /
+RUN dos2unix entrypoint.sh ; \
+    chmod +x entrypoint.sh ;
+CMD ["/entrypoint.sh"]
