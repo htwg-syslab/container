@@ -1,4 +1,4 @@
-name: Build BSYS-Python Docker Image
+name: Build BSYS-Lab Docker Image
 
 on:
   push:
