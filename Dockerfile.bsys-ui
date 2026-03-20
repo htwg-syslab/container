@@ -86,7 +86,8 @@ RUN dos2unix xstartup.turbovnc ; \
     chmod a+x /home/user/.vnc/xstartup*
 RUN chown -R user:user /home/user
 RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/user/.chromium-browser.init
-RUN dos2unix /opt/noVNC/utils/launch.sh; \
+COPY config/desktop-scripts/launch.sh /opt/noVNC/utils/launch.sh
+RUN dos2unix /opt/noVNC/utils/launch.sh ; \
     chmod +x /opt/noVNC/utils/launch.sh
 
 # Set Display Variable
