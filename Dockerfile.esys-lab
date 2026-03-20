@@ -14,7 +14,7 @@ RUN apt-get update && \
         lsb-release libnotify4 bc expect cpio rsync
 
 # Set clang as gcc
-echo "alias gcc='clang'" >> /etc/bash.bashrc
+RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
 
 # Install ACT
 RUN ARCH="$(dpkg --print-architecture)" && \

@@ -10,4 +10,4 @@ RUN apt-get update && \
     xz-utils
 
 # Set clang as gcc
-echo "alias gcc='clang'" >> /etc/bash.bashrc
+RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
