@@ -1,4 +1,4 @@
-name: Build BSYS-Lab Docker Image
+name: Build ESYS-Lab Docker Image
 
 on:
   push:
