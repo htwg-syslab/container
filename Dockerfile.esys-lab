@@ -31,7 +31,7 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
             packages="gcc-x86-64-linux-gnu \
                       gdb-multiarch \
                       qemu-system-x86 \
-                      qemu-user-static \
+                      qemu-user-binfmt \
                       libc6-dev-amd64-cross" \
             ;; \
         amd64) \
@@ -39,7 +39,7 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
                       gdb-multiarch \
                       qemu-system-x86 \
                       qemu-system-arm \
-                      qemu-user-static \
+                      qemu-user-binfmt \
                       libc6-dev-arm64-cross" \
             ;; \
         *) \
@@ -47,4 +47,3 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
             ;; \
     esac; \
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
-
