@@ -13,7 +13,7 @@ RUN apt-get update && \
 
 # Install Firefox
 RUN add-apt-repository -y ppa:mozillateam/ppa
-COPY mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
+COPY config/mozilla-firefox/mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
 RUN chmod +x /etc/apt/preferences.d/mozilla-firefox; \
     dos2unix /etc/apt/preferences.d/mozilla-firefox ;\
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y firefox
@@ -72,8 +72,8 @@ RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" 
     cd /opt/noVNC/utils
 
 # Configure X11
-COPY xorg.conf /etc/X11/xorg.conf
-COPY index.html /opt/noVNC/index.html
+COPY config/X11/xorg.conf /etc/X11/xorg.conf
+COPY config/X11/index.html /opt/noVNC/index.html
 RUN openssl req -subj '/C=DE/ST=KN/L=KN/O=Dis/CN=unvalid.kk' -x509 -nodes -days 358000 -newkey rsa:2048 -keyout /home/user/.self.pem -out /home/user/.self.pem
 RUN dos2unix /etc/X11/xorg.conf ; \
     dos2unix /opt/noVNC/index.html ; \
@@ -82,13 +82,13 @@ RUN dos2unix /etc/X11/xorg.conf ; \
 
 # Install desktop files for VNC sessions
 RUN mkdir -p /home/user/.vnc
-COPY xstartup.turbovnc /home/user/.vnc/xstartup.turbovnc
+COPY config/turbovnc/xstartup.turbovnc /home/user/.vnc/xstartup.turbovnc
 RUN dos2unix xstartup.turbovnc ; \
     chmod a+x /home/user/.vnc/xstartup*
 RUN chown -R user:user /home/user
 RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/user/.chromium-browser.init
 RUN dos2unix /opt/noVNC/utils/launch.sh; \
-    chmod +x launch.sh
+    chmod +x /opt/noVNC/utils/launch.sh
 
 # Set Display Variable
 ENV DISPLAY=host.docker.internal:0
