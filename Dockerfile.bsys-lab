@@ -1,11 +1,13 @@
 FROM ghcr.io/htwg-syslab/container/bsys-python:latest
 
-# C Programming Packages
+# C Lab Programming Packages
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    build-essential gcc clang cmake valgrind \
-    netcat-openbsd indent bats \
-    gettext
+    build-essential make gcc clang cmake valgrind \
+    libc6-dev gettext indent bats \
+    netcat-openbsd net-tools iputils-ping traceroute bmon \
+    lsof psmisc \
+    xz-utils
 
 # Set clang as gcc
 echo "alias gcc='clang'" >> /etc/bash.bashrc

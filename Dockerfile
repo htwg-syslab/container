@@ -11,7 +11,7 @@ ENV TZ=Europe/Berlin
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
     openssh-server wget vim nano man-db htop curl \
-    tmux zsh git sl lolcat shellcheck \
+    tmux zsh git sl lolcat shellcheck less \
     bash bash-completion locales \
     xsel \
     gnupg \
