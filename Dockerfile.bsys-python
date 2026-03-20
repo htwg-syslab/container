@@ -1,0 +1,18 @@
+FROM ghcr.io/htwg-syslab/container/base:latest
+
+# Python Packages
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    python3-tk \
+    python-is-python3
+
+# Install pyenv
+RUN curl https://pyenv.run | su - user -c 'bash'
+
+# Update bash config with pyenv paths
+RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/user/.bashrc; \
+    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/user/.bashrc; \
+    echo 'eval "$(pyenv init - bash)"' >> /home/user/.bashrc; \
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> /home/user/.profile; \
+    echo '[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"' >> /home/user/.profile; \
+    echo 'eval "$(pyenv init - bash)"' >> /home/user/.profile
