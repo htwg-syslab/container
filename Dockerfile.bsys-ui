@@ -115,7 +115,7 @@ RUN dos2unix /usr/local/bin/start_desktop.sh; \
     chmod +x /usr/local/bin/start_desktop.sh
 
 # Add Supervisord config
-COPY config/supervisord-ui.conf /etc/supervisor/conf.d/supervisord.conf
+COPY config/supervisord/supervisord-ui.conf /etc/supervisor/conf.d/supervisord.conf
 RUN dos2unix /etc/supervisor/conf.d/supervisord.conf; \
     chmod +x /etc/supervisor/conf.d/supervisord.conf
 
