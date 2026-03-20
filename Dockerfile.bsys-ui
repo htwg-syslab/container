@@ -1,0 +1,126 @@
+FROM ghcr.io/htwg-syslab/container/bsys-lab:latest
+
+# UI Packages
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    xubuntu-desktop software-properties-common \
+    ca-certificates openssl nemo geany zenity \
+    xterm dbus-x11 x11-xkb-utils xauth xfonts-base xvfb \
+    xkb-data python3-dev \
+    libxext6 libsm6 libxrender1 libglu1 libxv1 libegl1 \
+    libsuitesparse-dev libgtest-dev libeigen3-dev libsdl2-dev libsdl2-image-dev \
+    mesa-utils libgl1-mesa-dri libgl1 libglib2.0-0
+
+# Install Firefox
+RUN add-apt-repository -y ppa:mozillateam/ppa
+COPY mozilla-firefox /etc/apt/preferences.d/mozilla-firefox
+RUN chmod +x /etc/apt/preferences.d/mozilla-firefox; \
+    dos2unix /etc/apt/preferences.d/mozilla-firefox ;\
+    apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y firefox
+
+# Install VSCode
+RUN set -eux; \
+    dpkgArch="$(dpkg --print-architecture)"; \
+    case "${dpkgArch##*-}" in \
+        amd64) \
+        curl -fsSL -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" \
+        ;; \
+        arm64) \
+        curl -fsSL -o vscode.deb "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64" \
+        ;; \
+        *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
+    esac; \
+    dpkg -i *.deb && \
+    rm -f *.deb
+
+# Install VirtualGL and TurboVNC
+RUN set -eux; \
+    dpkgArch="$(dpkg --print-architecture)"; \
+    case "${dpkgArch##*-}" in \
+        amd64) \
+            dpkg --add-architecture i386; \
+            apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends libxtst6:i386 libglu1 libglu1:i386 libxv1 libxv1:i386 libegl1-mesa:i386 && apt-get clean && rm -rf /var/lib/apt/lists/* ;; \
+        arm64) ;; \
+        *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
+    esac;
+
+RUN set -eux;cd /tmp; \
+    dpkgArch="$(dpkg --print-architecture)"; \
+    case "${dpkgArch##*-}" in \
+        amd64) \
+        curl -fsSL -O "https://sourceforge.net/projects/turbovnc/files/3.0.3/turbovnc_3.0.3_amd64.deb" \
+        -O "https://sourceforge.net/projects/libjpeg-turbo/files/2.1.5.1/libjpeg-turbo-official_2.1.5.1_amd64.deb" \
+        -O "https://sourceforge.net/projects/virtualgl/files/3.1/virtualgl_3.1_amd64.deb" \
+        ;; \
+        arm64) \
+        curl -fsSL -O "https://sourceforge.net/projects/turbovnc/files/3.0.3/turbovnc_3.0.3_arm64.deb" \
+        -O "https://sourceforge.net/projects/libjpeg-turbo/files/2.1.5.1/libjpeg-turbo-official_2.1.5.1_arm64.deb" \
+        ;; \
+        *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
+    esac; \
+    dpkg -i *.deb && \
+    rm -f /tmp/*.deb && \
+    sed -i 's/$host:/unix:/g' /opt/TurboVNC/bin/vncserver
+
+# Install noVNC
+RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" | tar -xzf - -C /opt && \
+    curl -fsSL "https://github.com/novnc/websockify/archive/refs/tags/v0.11.0.tar.gz" | tar -xzf - -C /opt && \
+    mv /opt/noVNC-* /opt/noVNC && \
+    chmod -R a+w /opt/noVNC && \
+    mv /opt/websockify-* /opt/websockify && \
+    cd /opt/websockify && \
+    cd /opt/noVNC/utils
+
+# Configure X11
+COPY xorg.conf /etc/X11/xorg.conf
+COPY index.html /opt/noVNC/index.html
+RUN openssl req -subj '/C=DE/ST=KN/L=KN/O=Dis/CN=unvalid.kk' -x509 -nodes -days 358000 -newkey rsa:2048 -keyout /home/user/.self.pem -out /home/user/.self.pem
+RUN dos2unix /etc/X11/xorg.conf ; \
+    dos2unix /opt/noVNC/index.html ; \
+    chmod +x /etc/X11/xorg.conf ; \
+    chmod +x /opt/noVNC/index.html
+
+# Install desktop files for VNC sessions
+RUN mkdir -p /home/user/.vnc
+COPY xstartup.turbovnc /home/user/.vnc/xstartup.turbovnc
+RUN dos2unix xstartup.turbovnc ; \
+    chmod a+x /home/user/.vnc/xstartup*
+RUN chown -R user:user /home/user
+RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/user/.chromium-browser.init
+RUN dos2unix /opt/noVNC/utils/launch.sh; \
+    chmod +x launch.sh
+
+# Set Display Variable
+ENV DISPLAY=host.docker.internal:0
+
+# ssh:22 xserver:5901 noVNC:40001
+EXPOSE 22 5901 40001
+
+# Add script to set DISPLAY variable
+COPY config/desktop-scripts/set_display.sh set_display.sh
+RUN dos2unix set_display ; \
+    chmod +x set_display.sh
+
+# Add bashrc
+COPY config/bashrc/bashrc-ui /home/user/.bashrc
+RUN dos2unix /home/user/.bashrc; \
+    chmod +x /home/user/.bashrc
+
+# Add launch and desktop scripts
+COPY config/desktop-scripts/launch.sh /opt/noVNC/utils/launch.sh
+RUN dos2unix /opt/noVNC/utils/launch.sh; \
+    chmod +x /opt/noVNC/utils/launch.sh
+COPY config/desktop-scripts/start_desktop.sh /usr/local/bin/start_desktop.sh
+RUN dos2unix /usr/local/bin/start_desktop.sh; \
+    chmod +x /usr/local/bin/start_desktop.sh
+
+# Add Supervisord config
+COPY config/supervisord-ui.conf /etc/supervisor/conf.d/supervisord.conf
+RUN dos2unix /etc/supervisor/conf.d/supervisord.conf; \
+    chmod +x /etc/supervisor/conf.d/supervisord.conf
+
+# Add entrypoint
+COPY config/entrypoint-ui.sh /entrypoint.sh
+RUN dos2unix entrypoint.sh ; \
+    chmod +x entrypoint.sh ;
+CMD ["/entrypoint.sh"]

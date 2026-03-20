@@ -1,0 +1,5 @@
+#!/bin/sh
+xsetroot -solid grey
+
+xrdb $HOME/.Xresources
+startxfce4 &
