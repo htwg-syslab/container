@@ -59,13 +59,14 @@ RUN set -eux;cd /tmp; \
     dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         amd64) \
-        curl -fsSL -O "https://sourceforge.net/projects/turbovnc/files/3.0.3/turbovnc_3.0.3_amd64.deb" \
-        -O "https://sourceforge.net/projects/libjpeg-turbo/files/2.1.5.1/libjpeg-turbo-official_2.1.5.1_amd64.deb" \
-        -O "https://sourceforge.net/projects/virtualgl/files/3.1/virtualgl_3.1_amd64.deb" \
+        curl -fsSL -O "https://github.com/TurboVNC/turbovnc/releases/download/3.3/turbovnc_3.3_amd64.deb" \
+        -O "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/libjpeg-turbo-official_3.1.3_amd64.deb" \
+        -O "https://github.com/VirtualGL/virtualgl/releases/download/3.1.4/virtualgl_3.1.4_amd64.deb" \
         ;; \
         arm64) \
-        curl -fsSL -O "https://sourceforge.net/projects/turbovnc/files/3.0.3/turbovnc_3.0.3_arm64.deb" \
-        -O "https://sourceforge.net/projects/libjpeg-turbo/files/2.1.5.1/libjpeg-turbo-official_2.1.5.1_arm64.deb" \
+        curl -fsSL -O "https://github.com/TurboVNC/turbovnc/releases/download/3.3/turbovnc_3.3_arm64.deb" \
+        -O "https://github.com/libjpeg-turbo/libjpeg-turbo/releases/download/3.1.3/libjpeg-turbo-official_3.1.3_arm64.deb" \
+        -O "https://github.com/VirtualGL/virtualgl/releases/download/3.1.4/virtualgl_3.1.4_arm64.deb" \
         ;; \
         *) echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 ;; \
     esac; \
