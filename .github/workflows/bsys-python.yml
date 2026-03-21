@@ -2,6 +2,11 @@ name: Build BSYS-Python Docker Image
 
 on:
   push:
+    paths:
+      - '.github/workflows/bsys-python.yml'
+      - 'Dockerfile.bsys-python'
+      - 'config/**'
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
