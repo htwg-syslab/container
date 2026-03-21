@@ -2,6 +2,11 @@ name: Build Base Docker Image
 
 on:
   push:
+    paths:
+      - '.github/workflows/base-image.yml'
+      - 'Dockerfile.base'
+      - 'config/**'
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
