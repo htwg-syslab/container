@@ -2,12 +2,20 @@
 
 Für den Zugriff auf den Container wird ein automatisch generierter SSH-Schlüssel verwendet. Dieser wird beim ersten Start des Containers erzeugt und in den Logs angezeigt.
 
+Die folgenden Anleitungen gelten für alle Pocketlab-Container. Verwenden Sie die Werte Ihres Labors:
+
+| | BSYS | ESYS |
+|---|---|---|
+| Container-Name | `bsyslab` | `esyslab` |
+| SSH-Port | `40405` | `40407` |
+| Key-Datei | `id_rsa_bsyslab.key` | `id_rsa_esyslab.key` |
+
 ### SSH-Schlüssel aus Docker-Logs extrahieren
 
-Um den Schlüssel auszulesen:
+Um den Schlüssel auszulesen (ersetzen Sie `<container-name>` durch `bsyslab` oder `esyslab`):
 
 ```bash
-docker logs pocketlab
+docker logs <container-name>
 ```
 
 Der Schlüssel befindet sich zwischen den Zeilen:
@@ -34,7 +42,7 @@ mkdir $env:USERPROFILE\.ssh
 
 ### SSH-Schlüssel speichern
 
-Legen Sie in `~/.ssh/` die Datei `id_rsa_pocketlab.key` an und kopieren Sie den kompletten Key hinein – **inklusive** der Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----`.
+Legen Sie in `~/.ssh/` die Key-Datei an (z.B. `id_rsa_bsyslab.key` für BSYS oder `id_rsa_esyslab.key` für ESYS) und kopieren Sie den kompletten Key hinein – **inklusive** der Zeilen `-----BEGIN OPENSSH PRIVATE KEY-----` und `-----END OPENSSH PRIVATE KEY-----`.
 
 **Windows:** Am Ende der Datei muss ein Return-Zeichen stehen.
 
@@ -43,23 +51,27 @@ Legen Sie in `~/.ssh/` die Datei `id_rsa_pocketlab.key` an und kopieren Sie den 
 Beim manuellen Copy & Paste unter Windows kommt es oft zu Problemen (Steuerzeichen, falsches Encoding, CRLF statt LF), die zu folgendem Fehler führen:
 
 ```
-Load key "...id_rsa_pocketlab.key": error in libcrypto
+Load key "...id_rsa_bsyslab.key": error in libcrypto
 ```
 
 **Voraussetzungen:**
 - Der Ordner `~\.ssh` muss existieren (siehe oben: `mkdir $env:USERPROFILE\.ssh`)
 - Das Skript muss als `.ps1`-Datei gespeichert werden, bevor es ausgeführt werden kann. Hinweise dazu unter [PowerShell scripten](Anleitung_PowerShell_Script.md).
 
-Dieses Skript kopiert den Key sauber in die Key-Datei:
+Dieses Skript kopiert den Key sauber in die Key-Datei. Passen Sie die ersten beiden Variablen an Ihr Labor an:
 
 ```powershell
-# get-pocketlab-key.ps1
+# get-lab-key.ps1
 # Extrahiert den Private Key aus Docker Logs und speichert ihn 1:1 sauber
+#
+# Passen Sie diese Werte an Ihr Labor an:
+$containerName = "bsyslab"          # oder "esyslab"
+$keyFileName   = "id_rsa_bsyslab.key" # oder "id_rsa_esyslab.key"
 
 # Konsolenausgabe auf UTF-8 umstellen
 $OutputEncoding = [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new()
 
-$keyPath = "$env:USERPROFILE\.ssh\id_rsa_pocketlab.key"
+$keyPath = "$env:USERPROFILE\.ssh\$keyFileName"
 
 Write-Host ">> Erzeuge SSH-Key unter: $keyPath"
 
@@ -74,7 +86,7 @@ Bitte die Datei zuerst manuell loeschen, bevor das Skript erneut gestartet wird.
 $inBlock = $false
 $keyLines = @()
 
-docker logs pocketlab | ForEach-Object {
+docker logs $containerName | ForEach-Object {
     if ($_ -match "-----BEGIN OPENSSH PRIVATE KEY-----") { $inBlock = $true }
     if ($inBlock) { $keyLines += $_ }
     if ($_ -match "-----END OPENSSH PRIVATE KEY-----") { $inBlock = $false }
@@ -98,7 +110,7 @@ ssh-keygen -y -f $keyPath
 
 Write-Host "`n>> Fertig! Key gespeichert unter: $keyPath"
 Write-Host "Teste Verbindung mit:"
-Write-Host "ssh -i $keyPath pocketlab@localhost -p 40405"
+Write-Host "ssh -i $keyPath pocketlab@localhost -p $( if ($containerName -eq 'bsyslab') { '40405' } else { '40407' } )"
 ```
 
 **WICHTIG:** PowerShell-Skripte sind standardmäßig blockiert. Erlauben Sie die Ausführung mit:
@@ -111,10 +123,16 @@ Ist die Key-Datei bereits vorhanden, muss diese zuerst gelöscht werden.
 
 #### Mac/Linux
 
-Unter Mac und Linux kopieren Sie den Key am einfachsten per Kommandozeile (im Home-Verzeichnis ausführen):
+Unter Mac und Linux kopieren Sie den Key am einfachsten per Kommandozeile (im Home-Verzeichnis ausführen). Ersetzen Sie `<container-name>` und `<key-datei>` passend:
 
+**BSYS:**
 ```bash
-docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_pocketlab.key
+docker logs bsyslab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_bsyslab.key
+```
+
+**ESYS:**
+```bash
+docker logs esyslab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > ~/.ssh/id_rsa_esyslab.key
 ```
 
 ### Berechtigungen setzen
@@ -122,10 +140,11 @@ docker logs pocketlab | sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END 
 Die Key-Datei darf nur für Sie lesbar sein:
 
 ```bash
-chmod 600 ~/.ssh/id_rsa_pocketlab.key
+chmod 600 ~/.ssh/id_rsa_bsyslab.key   # BSYS
+chmod 600 ~/.ssh/id_rsa_esyslab.key   # ESYS
 ```
 
-**Windows-Nutzer:** Der Befehl `chmod` funktioniert nicht in PowerShell oder CMD. Führen Sie ihn stattdessen in **Git Bash** aus. Falls Sie Git Bash noch nicht installiert haben, siehe [SSH Clients](BSYS-SSH-Clients.md).
+**Windows-Nutzer:** Der Befehl `chmod` funktioniert nicht in PowerShell oder CMD. Führen Sie ihn stattdessen in **Git Bash** aus. Falls Sie Git Bash noch nicht installiert haben, siehe [SSH Clients](SSH-Clients.md).
 
 ### Fehlerbehandlung
 
@@ -141,24 +160,40 @@ Lösung: Löschen Sie die localhost-Einträge in `~/.ssh/known_hosts`.
 
 ## SSH-Konfiguration
 
-Um den SSH-Zugriff zu vereinfachen, fügen Sie folgende Konfiguration in `~/.ssh/config` ein:
+Um den SSH-Zugriff zu vereinfachen, fügen Sie die passende Konfiguration in `~/.ssh/config` ein:
 
+**BSYS:**
 ```ssh
-Host pocketlab
+Host bsyslab
     HostName localhost
     User pocketlab
     Port 40405
-    IdentityFile ~/.ssh/id_rsa_pocketlab.key
+    IdentityFile ~/.ssh/id_rsa_bsyslab.key
     ForwardX11 yes
     ForwardX11Trusted yes
 ```
 
-Danach reicht `ssh pocketlab` zum Einloggen.
+**ESYS:**
+```ssh
+Host esyslab
+    HostName localhost
+    User pocketlab
+    Port 40407
+    IdentityFile ~/.ssh/id_rsa_esyslab.key
+    ForwardX11 yes
+    ForwardX11Trusted yes
+```
+
+Falls Sie beide Labore besuchen, fügen Sie beide Blöcke ein.
+
+Danach reicht `ssh bsyslab` bzw. `ssh esyslab` zum Einloggen.
 
 ## SSH-Verbindung herstellen
 
+Beispiel für BSYS (für ESYS Port und Key-Datei entsprechend anpassen):
+
 ```bash
-ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
+ssh -p40405 -i ~/.ssh/id_rsa_bsyslab.key -X pocketlab@localhost
 ```
 
 | Option | Bedeutung |
@@ -170,7 +205,7 @@ ssh -p40405 -i ~/.ssh/id_rsa_pocketlab.key -X pocketlab@localhost
 Bei Problemen liefert `-v` erweiterte Diagnose-Informationen:
 
 ```bash
-ssh -p40405 -v -i ~/.ssh/id_rsa_pocketlab.key pocketlab@localhost
+ssh -p40405 -v -i ~/.ssh/id_rsa_bsyslab.key pocketlab@localhost
 ```
 
 Falls noch kein X-Server läuft, erscheint ggf.:

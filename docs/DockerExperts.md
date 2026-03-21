@@ -2,55 +2,55 @@
 
 Install [Ubuntu](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) with [Docker](https://docs.docker.com/engine/install/ubuntu/) and build the Docker-Image.
 
-### Intel/amd64 Architecture
+### Container starten
 
-Local building is not necessary. The image can be pulled from DockerHub.
+Local building is not necessary. The image can be pulled from ghcr.io (Multi-Arch, works on amd64 and arm64):
 
-Base:
-
-```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
-```
-
-### Apple arm64 Architecture
-
-Base:
+BSYS:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
+docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container/bsys-lab:latest
 ```
 
-## login (shown with Intel/amd64 Architecture)
+ESYS:
+
+```bash
+docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esys-lab:latest
+```
+
+## login
 
 Get your RSA from the logs, the user is default set to pocketlab.
-Copy this key into a new file, e.g. **.ssh/id_rsa_pocketlab.key** :
+Copy this key into a new file, e.g. **.ssh/id_rsa_bsyslab.key** :
 
 ```text
-docker logs pocketlab |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+docker logs bsyslab |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_bsyslab.key
 ```
 
-The **.ssh/id_rsa_pocketlab.key** file should be only readable by you (the owner).
+The **.ssh/id_rsa_bsyslab.key** file should be only readable by you (the owner).
 
 Login to running docker image:
 
 ```text
-ssh -p40405 -i path/to/rsa pocketlab@localhost
-```
-
-with above **.ssh/id_rsa_pocketlab.key** file e.g.:
-
-```text
-ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+ssh -p40405 -i .ssh/id_rsa_bsyslab.key pocketlab@localhost
 ```
 
 ## .ssh/config
 
 ```text
-Host pocketbsys
+Host bsyslab
     HostName localhost
     User pocketlab
     Port 40405
-    IdentityFile ~/.ssh/id_rsa_pocketlab.key
+    IdentityFile ~/.ssh/id_rsa_bsyslab.key
+    ForwardX11 yes
+    ForwardX11Trusted yes
+
+Host esyslab
+    HostName localhost
+    User pocketlab
+    Port 40407
+    IdentityFile ~/.ssh/id_rsa_esyslab.key
     ForwardX11 yes
     ForwardX11Trusted yes
 ```
