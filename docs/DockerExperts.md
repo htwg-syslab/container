@@ -2,22 +2,20 @@
 
 Install [Ubuntu](https://ubuntu.com/tutorials/install-ubuntu-desktop#1-overview) with [Docker](https://docs.docker.com/engine/install/ubuntu/) and build the Docker-Image.
 
-### Intel/amd64 Architecture
+### Container starten
 
-Local building is not necessary. The image can be pulled from DockerHub.
+Local building is not necessary. The image can be pulled from ghcr.io (Multi-Arch, works on amd64 and arm64):
 
-Base:
+BSYS:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase
+docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
 ```
 
-### Apple arm64 Architecture
-
-Base:
+ESYS:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=pocketlab systemlabor/bsys:pocketlabbase-ARM64
+docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esyslab:latest
 ```
 
 ## login (shown with Intel/amd64 Architecture)
