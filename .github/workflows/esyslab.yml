@@ -1,10 +1,10 @@
-name: Build ESYS-Lab Docker Image
+name: Build esyslab Docker Image
 
 on:
   push:
     paths:
-      - '.github/workflows/esys-lab.yml'
-      - 'Dockerfile.esys-lab'
+      - '.github/workflows/esyslab.yml'
+      - 'Dockerfile.esyslab'
       - 'config/**'
   workflow_dispatch:
   workflow_run:
@@ -14,7 +14,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_TYPE: esys-lab
+  IMAGE_TYPE: esyslab
 
 jobs:
   docker-build:
