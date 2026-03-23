@@ -69,9 +69,9 @@ Install Xquartz, with basic configuration, X11 forward to be configured!
 
 natively installed
 
-## access
+## GUI-Zugriff (nur UI-Variante)
 
-via Browser to http://localhost:40001
+Die grafische Oberfläche ist nur im UI-Image (`bsys-ui`) verfügbar und erfordert ein zusätzliches Port-Mapping (`-p 127.0.0.1:40001:40001`). Siehe [UI-Variante](BSYS-UI-Variante.md) für Details.
 
 ```text
 username: pocketlab

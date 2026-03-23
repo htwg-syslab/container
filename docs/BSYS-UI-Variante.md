@@ -9,7 +9,7 @@ Das Image `bsys-ui` erweitert `bsyslab` um eine grafische Benutzeroberfläche (X
 ### Container starten
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 --name=bsyslab ghcr.io/htwg-syslab/container/bsys-ui:latest
+docker run -d -p 127.0.0.1:40405:22 -p 127.0.0.1:40001:40001 -p 127.0.0.1:5901:5901 --name=bsyslab ghcr.io/htwg-syslab/container/bsys-ui:latest
 ```
 
 > **Hinweis:** Das UI-Image ist Multi-Arch, jedoch für ARM64 derzeit nicht zuverlässig verfügbar. Nutzen Sie auf ARM-Macs bevorzugt `bsyslab`.

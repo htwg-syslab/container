@@ -1,6 +1,8 @@
 title: Pocketlab Container Docs
 description: Docker-Container für Laborumgebungen
 remote_theme: just-the-docs/just-the-docs@v0.10.1
+url: "https://htwg-syslab.github.io"
+baseurl: "/container"
 
 plugins:
   - jekyll-remote-theme

@@ -110,7 +110,7 @@ ssh-keygen -y -f $keyPath
 
 Write-Host "`n>> Fertig! Key gespeichert unter: $keyPath"
 Write-Host "Teste Verbindung mit:"
-Write-Host "ssh -i $keyPath pocketlab@localhost -p $( if ($containerName -eq 'bsyslab') { '40405' } else { '40407' } )"
+Write-Host "ssh -i $keyPath -p $( if ($containerName -eq 'bsyslab') { '40405' } else { '40407' } ) pocketlab@localhost"
 ```
 
 **WICHTIG:** PowerShell-Skripte sind standardmäßig blockiert. Erlauben Sie die Ausführung mit:
