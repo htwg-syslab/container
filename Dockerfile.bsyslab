@@ -1,4 +1,4 @@
-FROM ghcr.io/htwg-syslab/container/pythonlab:latest
+FROM ghcr.io/htwg-syslab/container/base:latest
 
 # C Lab Programming Packages
 RUN apt-get update && \
