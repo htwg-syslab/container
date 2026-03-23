@@ -20,6 +20,14 @@ docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container
 
 Das Image ist Multi-Arch — Docker wählt automatisch die passende Variante (amd64 oder arm64) für Ihre CPU.
 
+**Optional: Persistentes Home-Verzeichnis**
+
+Standardmäßig gehen alle Dateien verloren, wenn der Container entfernt wird. Mit einem Volume bleibt das Home-Verzeichnis auch nach `docker rm` erhalten:
+
+```bash
+docker run -d -p 127.0.0.1:40405:22 -v bsyslab-home:/home/pocketlab --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
+```
+
 #### Nach dem Start
 
 Beim ersten Start wird das Image von Docker Hub heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
