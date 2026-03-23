@@ -15,7 +15,7 @@ Im Unterschied zum BSYS-Container wird ein **Docker Volume** verwendet, sodass I
 #### Container starten
 
 ```bash
-docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esys-lab:latest
+docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esyslab:latest
 ```
 
 Das Image ist Multi-Arch — Docker wählt automatisch die passende Variante (amd64 oder arm64) für Ihre CPU.

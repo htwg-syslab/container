@@ -9,13 +9,13 @@ Local building is not necessary. The image can be pulled from ghcr.io (Multi-Arc
 BSYS:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container/bsys-lab:latest
+docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
 ```
 
 ESYS:
 
 ```bash
-docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esys-lab:latest
+docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esyslab:latest
 ```
 
 ## login
