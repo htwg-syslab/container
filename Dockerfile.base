@@ -21,7 +21,14 @@ RUN apt-get update && \
 
 # Ubuntu 26.04: uutils-coreutils readlink ist inkompatibel mit vielen Tools
 # (pyenv, etc.) — GNU readlink als Default setzen
-RUN ln -sf /usr/bin/gnureadlink /usr/local/bin/readlink
+RUN if [ -x /usr/bin/gnureadlink ]; then \
+        ln -sf /usr/bin/gnureadlink /usr/local/bin/readlink; \
+    elif [ -x /usr/bin/readlink ]; then \
+        ln -sf /usr/bin/readlink /usr/local/bin/readlink; \
+    else \
+        echo "ERROR: Neither /usr/bin/gnureadlink nor /usr/bin/readlink found" >&2; \
+        exit 1; \
+    fi
 
 # Configure locale
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
