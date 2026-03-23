@@ -1,4 +1,4 @@
-FROM ghcr.io/htwg-syslab/container/bsys-lab:latest
+FROM ghcr.io/htwg-syslab/container/bsyslab:latest
 
 # UI Packages
 RUN apt-get update && \
