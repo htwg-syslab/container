@@ -5,16 +5,19 @@
       jtd.setTheme(saved);
     }
 
+    var currentTheme = jtd.getTheme();
     var btn = document.createElement('button');
     btn.className = 'theme-toggle';
     btn.setAttribute('aria-label', 'Toggle light/dark mode');
-    btn.textContent = jtd.getTheme() === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+    btn.setAttribute('aria-pressed', currentTheme === 'dark' ? 'true' : 'false');
+    btn.textContent = currentTheme === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
 
     btn.addEventListener('click', function() {
       var next = jtd.getTheme() === 'dark' ? 'light' : 'dark';
       jtd.setTheme(next);
       localStorage.setItem('jtd-theme', next);
       btn.textContent = next === 'dark' ? '\u2600\uFE0F' : '\uD83C\uDF19';
+      btn.setAttribute('aria-pressed', next === 'dark' ? 'true' : 'false');
     });
 
     document.body.appendChild(btn);
