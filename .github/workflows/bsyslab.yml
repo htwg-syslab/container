@@ -1,16 +1,20 @@
-name: Build BSYS-Python Docker Image
+name: Build bsyslab Docker Image
 
 on:
   push:
     paths:
-      - '.github/workflows/bsys-python.yml'
-      - 'Dockerfile.bsys-python'
+      - '.github/workflows/bsyslab.yml'
+      - 'Dockerfile.bsyslab'
       - 'config/**'
   workflow_dispatch:
+  workflow_run:
+    workflows: [Build Base Docker Image]
+    types:
+      - completed
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_TYPE: bsys-python
+  IMAGE_TYPE: bsyslab
 
 jobs:
   docker-build:

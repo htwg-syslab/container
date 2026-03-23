@@ -1,10 +1,10 @@
-name: Build BSYS-UI Docker Image
+name: Build bsyslab-ui Docker Image
 
 on:
   push:
     paths:
-      - '.github/workflows/bsys-ui.yml'
-      - 'Dockerfile.bsys-ui'
+      - '.github/workflows/bsyslab-ui.yml'
+      - 'Dockerfile.bsyslab-ui'
       - 'config/**'
   workflow_dispatch:
   workflow_run:
@@ -14,7 +14,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_TYPE: bsys-ui
+  IMAGE_TYPE: bsyslab-ui
 
 jobs:
   docker-build:
