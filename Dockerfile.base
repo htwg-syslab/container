@@ -1,8 +1,8 @@
 FROM ubuntu:26.04
 
 # Benutzername und Passwort
-ARG my_user="user"
-ARG my_password="user"
+ARG my_user="pocketlab"
+ARG my_password="pocketlab"
 
 # Timezone
 ENV TZ=Europe/Berlin
@@ -22,10 +22,10 @@ RUN apt-get update && \
 # Configure locale
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y tzdata
 
-# Add user and configure sudo
-RUN adduser --disabled-password --gecos "" user && \
-    echo "user:user" | chpasswd && \
-    usermod -aG sudo user && \
+# Add user pocketlab and configure sudo
+RUN adduser --disabled-password --gecos "" pocketlab && \
+    echo "pocketlab:pocketlab" | chpasswd && \
+    usermod -aG sudo pocketlab && \
     echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Configure SSH

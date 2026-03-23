@@ -74,19 +74,19 @@ RUN curl -fsSL "https://github.com/novnc/noVNC/archive/refs/tags/v1.4.0.tar.gz" 
 # Configure X11
 COPY config/X11/xorg.conf /etc/X11/xorg.conf
 COPY config/X11/index.html /opt/noVNC/index.html
-RUN openssl req -subj '/C=DE/ST=KN/L=KN/O=Dis/CN=unvalid.kk' -x509 -nodes -days 358000 -newkey rsa:2048 -keyout /home/user/.self.pem -out /home/user/.self.pem
+RUN openssl req -subj '/C=DE/ST=KN/L=KN/O=Dis/CN=unvalid.kk' -x509 -nodes -days 358000 -newkey rsa:2048 -keyout /home/pocketlab/.self.pem -out /home/pocketlab/.self.pem
 RUN dos2unix /etc/X11/xorg.conf ; \
     dos2unix /opt/noVNC/index.html ; \
     chmod +x /etc/X11/xorg.conf ; \
     chmod +x /opt/noVNC/index.html
 
 # Install desktop files for VNC sessions
-RUN mkdir -p /home/user/.vnc
-COPY config/turbovnc/xstartup.turbovnc /home/user/.vnc/xstartup.turbovnc
+RUN mkdir -p /home/pocketlab/.vnc
+COPY config/turbovnc/xstartup.turbovnc /home/pocketlab/.vnc/xstartup.turbovnc
 RUN dos2unix xstartup.turbovnc ; \
-    chmod a+x /home/user/.vnc/xstartup*
-RUN chown -R user:user /home/user
-RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/user/.chromium-browser.init
+    chmod a+x /home/pocketlab/.vnc/xstartup*
+RUN chown -R pocketlab:pocketlab /home/pocketlab
+RUN echo "CHROMIUM_FLAGS='--no-sandbox --disable-dev-shm-usage --start-maximized --user-data-dir'" > /home/pocketlab/.chromium-browser.init
 COPY config/desktop-scripts/launch.sh /opt/noVNC/utils/launch.sh
 RUN dos2unix /opt/noVNC/utils/launch.sh ; \
     chmod +x /opt/noVNC/utils/launch.sh
@@ -103,9 +103,9 @@ RUN dos2unix set_display ; \
     chmod +x set_display.sh
 
 # Add bashrc
-COPY config/bashrc/bashrc-ui /home/user/.bashrc
-RUN dos2unix /home/user/.bashrc; \
-    chmod +x /home/user/.bashrc
+COPY config/bashrc/bashrc-ui /home/pocketlab/.bashrc
+RUN dos2unix /home/pocketlab/.bashrc; \
+    chmod +x /home/pocketlab/.bashrc
 
 # Add launch and desktop scripts
 COPY config/desktop-scripts/launch.sh /opt/noVNC/utils/launch.sh
