@@ -11,7 +11,7 @@ RUN curl https://pyenv.run | su - pocketlab -c 'bash'
 
 # pyenv-Init als Drop-in unter /etc/profile.d/ (unabhängig vom Home-Volume)
 RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' > /etc/profile.d/pyenv.sh; \
-    echo 'if [ -d "$PYENV_ROOT/bin" ]; then export PATH="$PYENV_ROOT/bin:$PATH"; eval "$(pyenv init - bash)"; fi' >> /etc/profile.d/pyenv.sh; \
+    echo 'if [ -x "$PYENV_ROOT/bin/pyenv" ]; then export PATH="$PYENV_ROOT/bin:$PATH"; eval "$(pyenv init - bash)"; fi' >> /etc/profile.d/pyenv.sh; \
     chmod +x /etc/profile.d/pyenv.sh
 
 # Clone the OSTEP Homework repository
