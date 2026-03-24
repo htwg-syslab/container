@@ -109,6 +109,13 @@ defaults:
     values:
       title: "AIN ESYS"
       nav_order: 4
+      has_children: true
+  - scope:
+      path: "ESYS-Template-Sync.md"
+    values:
+      title: "Fork mit Template synchronisieren"
+      parent: "AIN ESYS"
+      nav_order: 1
 
   # --- Optional ---
   - scope:
