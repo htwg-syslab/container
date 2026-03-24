@@ -1,5 +1,8 @@
 FROM ghcr.io/htwg-syslab/container/base:latest
 
+LABEL org.opencontainers.image.source="https://github.com/htwg-syslab/container"
+LABEL org.opencontainers.image.description="ESYS Lab Container Image"
+
 # Install ESYS Lab packages
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
