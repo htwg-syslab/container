@@ -11,7 +11,7 @@ RUN apt-get update && \
         libssl-dev libelf-dev \
         flex bison \
         libncurses-dev libcurses-ocaml-dev zlib1g \
-        lsb-release libnotify4 bc expect cpio rsync
+        lsb-release libnotify4 bc expect cpio rsync lz4
 
 # Set clang as gcc
 RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
