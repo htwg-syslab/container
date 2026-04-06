@@ -7,7 +7,7 @@ RUN apt-get update && \
         libc6-dev gettext indent bats \
         netcat-openbsd net-tools iputils-ping traceroute bmon \
         lsof psmisc xz-utils unzip gnupg2 \
-        uml-utilities \
+        uml-utilities strace kmod device-tree-compiler \
         libssl-dev libelf-dev \
         flex bison \
         libncurses-dev libcurses-ocaml-dev zlib1g \
