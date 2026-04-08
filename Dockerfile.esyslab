@@ -31,6 +31,7 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
             packages="gcc-x86-64-linux-gnu \
                       gdb-multiarch \
                       qemu-system-x86 \
+                      qemu-system-arm \
                       qemu-user-binfmt \
                       libc6-dev-amd64-cross" \
             ;; \
