@@ -8,7 +8,7 @@ RUN apt-get update && \
         netcat-openbsd net-tools iputils-ping traceroute bmon \
         lsof psmisc xz-utils unzip gnupg2 \
         uml-utilities strace kmod device-tree-compiler \
-        libssl-dev libelf-dev \
+        libssl-dev libelf-dev libcrypt-dev \
         flex bison \
         libncurses-dev libcurses-ocaml-dev zlib1g \
         lsb-release libnotify4 bc expect cpio rsync
