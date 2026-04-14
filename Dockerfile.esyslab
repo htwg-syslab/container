@@ -24,7 +24,11 @@ RUN apt-get update && \
         # --- Realtime-Messungen + Tracing (HW7) ---
         rt-tests stress-ng trace-cmd kernelshark \
         # --- lz4 für rootfs-Demo Kompressionsvergleich (HW1/HW2) ---
-        lz4
+        lz4 \
+        # --- Buildroot host-side dev-Header (sonst scheitern host-mkpasswd,
+        # host-fakeroot, host-libpython etc. mit "*.h: No such file or directory") ---
+        libxcrypt-dev zlib1g-dev libacl1-dev \
+        libffi-dev libsqlite3-dev libreadline-dev libbz2-dev
 
 # Set clang as gcc
 RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
