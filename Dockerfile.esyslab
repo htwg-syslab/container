@@ -27,7 +27,7 @@ RUN apt-get update && \
         lz4 \
         # --- Buildroot host-side dev-Header (sonst scheitern host-mkpasswd,
         # host-fakeroot, host-libpython etc. mit "*.h: No such file or directory") ---
-        libxcrypt-dev zlib1g-dev libacl1-dev \
+        libcrypt-dev zlib1g-dev libacl1-dev \
         libffi-dev libsqlite3-dev libreadline-dev libbz2-dev
 
 # Set clang as gcc
