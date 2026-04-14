@@ -22,7 +22,9 @@ RUN apt-get update && \
         # --- TFTP-Server fuer HW3 RPi-Netzwerkboot (manuell starten) ---
         tftpd-hpa \
         # --- Realtime-Messungen + Tracing (HW7) ---
-        rt-tests stress-ng trace-cmd kernelshark
+        rt-tests stress-ng trace-cmd kernelshark \
+        # --- lz4 für rootfs-Demo Kompressionsvergleich (HW1/HW2) ---
+        lz4
 
 # Set clang as gcc
 RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
