@@ -28,7 +28,13 @@ RUN apt-get update && \
         # --- Buildroot host-side dev-Header (sonst scheitern host-mkpasswd,
         # host-fakeroot, host-libpython etc. mit "*.h: No such file or directory") ---
         libcrypt-dev zlib1g-dev libacl1-dev \
-        libffi-dev libsqlite3-dev libreadline-dev libbz2-dev
+        libffi-dev libsqlite3-dev libreadline-dev libbz2-dev \
+        # --- Defensive Ergänzungen (auf esyslab installiert, im Container fehlend) ---
+        # liblzma-dev/libzstd-dev: Kernel-XZ/zstd-Kompression + diverse host-Pakete
+        # libxml2-dev: manche host-Tools mit XML-Verarbeitung
+        # musl-tools: für HW3-Variante mit musl-libc statt glibc (Embedded-Trimm)
+        # qemu-utils: qemu-img u.a. für SD-Karten-Tooling (HW4)
+        liblzma-dev libzstd-dev libxml2-dev musl-tools qemu-utils
 
 # Set clang as gcc
 RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
