@@ -11,7 +11,30 @@ RUN apt-get update && \
         libssl-dev libelf-dev libcrypt-dev \
         flex bison \
         libncurses-dev libcurses-ocaml-dev zlib1g \
-        lsb-release libnotify4 bc expect cpio rsync
+        lsb-release libnotify4 bc expect cpio rsync \
+        # --- Buildroot-Stabilität (HW3+): gawk vermeidet mawk-printf-Stolperer,
+        # pyelftools wird vom Linux-Kernel >=5.x bei Modul-/vmlinux-Verarbeitung gebraucht ---
+        gawk python3-pyelftools \
+        # --- FAT-Tools für SD-Karten + RPi-Boot-Partition (HW3-RPi, HW4) ---
+        dosfstools mtools \
+        # --- Bootloader-Tooling: mkimage (uImage), RPi-Boot-Helfer ---
+        u-boot-tools \
+        # --- TFTP-Server fuer HW3 RPi-Netzwerkboot (manuell starten) ---
+        tftpd-hpa \
+        # --- Realtime-Messungen + Tracing (HW7) ---
+        rt-tests stress-ng trace-cmd kernelshark \
+        # --- lz4 für rootfs-Demo Kompressionsvergleich (HW1/HW2) ---
+        lz4 \
+        # --- Buildroot host-side dev-Header (sonst scheitern host-mkpasswd,
+        # host-fakeroot, host-libpython etc. mit "*.h: No such file or directory") ---
+        libcrypt-dev zlib1g-dev libacl1-dev \
+        libffi-dev libsqlite3-dev libreadline-dev libbz2-dev \
+        # --- Defensive Ergänzungen (auf esyslab installiert, im Container fehlend) ---
+        # liblzma-dev/libzstd-dev: Kernel-XZ/zstd-Kompression + diverse host-Pakete
+        # libxml2-dev: manche host-Tools mit XML-Verarbeitung
+        # musl-tools: für HW3-Variante mit musl-libc statt glibc (Embedded-Trimm)
+        # qemu-utils: qemu-img u.a. für SD-Karten-Tooling (HW4)
+        liblzma-dev libzstd-dev libxml2-dev musl-tools qemu-utils
 
 # Set clang as gcc
 RUN echo "alias gcc='clang'" >> /etc/bash.bashrc
