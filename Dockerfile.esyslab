@@ -94,3 +94,7 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
         echo "Skipping Bootlin aarch64-musl toolchain on ${dpkgArch} (x86_64-host binaries, arm64 hat nativen aarch64-gcc)"; \
     fi
 ENV BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-2024.02-1
+# SSH-Login-Shells lesen /etc/environment via PAM; Docker-ENV propagiert nur
+# an PID 1 (docker exec), nicht an sshd-Kinder. Damit HW3 §4.2 ("umgebungsabhängige
+# Pfade robust behandeln") die Env-Var nutzen kann, hier zusätzlich in /etc/environment.
+RUN echo "BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}" >> /etc/environment
