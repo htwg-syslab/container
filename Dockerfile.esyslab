@@ -98,3 +98,13 @@ ENV BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-2024.02-1
 # an PID 1 (docker exec), nicht an sshd-Kinder. Damit HW3 §4.2 ("umgebungsabhängige
 # Pfade robust behandeln") die Env-Var nutzen kann, hier zusätzlich in /etc/environment.
 RUN echo "BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}" >> /etc/environment
+
+# --- Buildroot-Maintainer-Key systemweit importieren (HW3 §1.1 / §4.2) ---
+# Buildroot-Tarballs sind GPG-signiert (Maintainer: Thomas Petazzoni). Bei
+# non-interaktivem Skript-Aufruf (CI-Runner, frisch provisionierter Container)
+# fehlt der Key im Root-Keyring — `gpg --verify` scheitert. Der hw3.sh-seitige
+# `--recv-keys`-Fallback deckt fremde Umgebungen (eigener Laptop, pocketlab-User)
+# ab; dieser Layer nimmt den Keyserver-Roundtrip aus dem CI-Pfad — Hedge gegen
+# keyserver.ubuntu.com-Downtime. Bei Maintainer-Key-Rotation neu bauen.
+RUN gpg --keyserver hkps://keyserver.ubuntu.com \
+        --recv-keys 18C7DF2819C1733D822D599EA500D6EE9CB0E540
