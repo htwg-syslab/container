@@ -3,12 +3,12 @@ FROM ghcr.io/htwg-syslab/container/base:latest
 # Install ESYS Lab packages
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        build-essential make gcc clang cmake valgrind \
+        build-essential make gcc clang cmake valgrind time \
         libc6-dev gettext indent bats \
         netcat-openbsd net-tools iputils-ping traceroute bmon \
         lsof psmisc xz-utils unzip gnupg2 \
         uml-utilities strace kmod device-tree-compiler \
-        libssl-dev libelf-dev \
+        libssl-dev libelf-dev libcrypt-dev \
         flex bison \
         libncurses-dev libcurses-ocaml-dev zlib1g \
         lsb-release libnotify4 bc expect cpio rsync \
@@ -52,13 +52,16 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "${dpkgArch##*-}" in \
         arm64) \
             packages="gcc-x86-64-linux-gnu \
+                      g++-x86-64-linux-gnu \
                       gdb-multiarch \
                       qemu-system-x86 \
+                      qemu-system-arm \
                       qemu-user-binfmt \
                       libc6-dev-amd64-cross" \
             ;; \
         amd64) \
             packages="gcc-aarch64-linux-gnu \
+                      g++-aarch64-linux-gnu \
                       gdb-multiarch \
                       qemu-system-x86 \
                       qemu-system-arm \
@@ -70,3 +73,38 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
             ;; \
     esac; \
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
+
+# --- Bootlin aarch64-musl Cross-Toolchain (HW3 External-Toolchain-Variante) ---
+# Erlaubt Buildroot, eigene Toolchain-Stages zu überspringen → CI-Build von
+# ~30-45 min auf ~5-10 min. Phase-0-Test (lab/solutions/hw3/external-toolchain-plan.md)
+# zeigt 4m54s im x86_64-Container. URL pinned auf Bootlin-Stable, sha256 verifiziert.
+# Nur auf amd64: Bootlin-Binaries sind x86_64-Host-→-aarch64-Target; auf arm64-Host
+# nicht ausführbar (außer über qemu-user) und wegen native-aarch64-gcc auch unnötig.
+ARG BOOTLIN_AARCH64_MUSL_VERSION=2024.02-1
+ARG BOOTLIN_AARCH64_MUSL_SHA256=aaa1a5c9212067de3618afbb8f3de4047d99fa1d23e5bc1452bab7fd3744df2e
+RUN dpkgArch="$(dpkg --print-architecture)"; \
+    if [ "$dpkgArch" = "amd64" ]; then \
+        cd /opt && \
+        wget -q "https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}.tar.bz2" -O bootlin.tar.bz2 && \
+        echo "${BOOTLIN_AARCH64_MUSL_SHA256}  bootlin.tar.bz2" | sha256sum -c - && \
+        mkdir -p cross && \
+        tar xjf bootlin.tar.bz2 -C cross && \
+        rm bootlin.tar.bz2; \
+    else \
+        echo "Skipping Bootlin aarch64-musl toolchain on ${dpkgArch} (x86_64-host binaries, arm64 hat nativen aarch64-gcc)"; \
+    fi
+ENV BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-2024.02-1
+# SSH-Login-Shells lesen /etc/environment via PAM; Docker-ENV propagiert nur
+# an PID 1 (docker exec), nicht an sshd-Kinder. Damit HW3 §4.2 ("umgebungsabhängige
+# Pfade robust behandeln") die Env-Var nutzen kann, hier zusätzlich in /etc/environment.
+RUN echo "BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}" >> /etc/environment
+
+# --- Buildroot-Maintainer-Key systemweit importieren (HW3 §1.1 / §4.2) ---
+# Buildroot-Tarballs sind GPG-signiert (Maintainer: Thomas Petazzoni). Bei
+# non-interaktivem Skript-Aufruf (CI-Runner, frisch provisionierter Container)
+# fehlt der Key im Root-Keyring — `gpg --verify` scheitert. Der hw3.sh-seitige
+# `--recv-keys`-Fallback deckt fremde Umgebungen (eigener Laptop, pocketlab-User)
+# ab; dieser Layer nimmt den Keyserver-Roundtrip aus dem CI-Pfad — Hedge gegen
+# keyserver.ubuntu.com-Downtime. Bei Maintainer-Key-Rotation neu bauen.
+RUN gpg --keyserver hkps://keyserver.ubuntu.com \
+        --recv-keys 18C7DF2819C1733D822D599EA500D6EE9CB0E540
