@@ -2,6 +2,14 @@ name: Build esyslab Docker Image
 
 on:
   push:
+    # Nur github-pages pusht nach ghcr.io/.../esyslab:latest. Ohne diesen
+    # Filter wuerden Pushes auf main den `:latest`-Tag ueberschreiben und
+    # je nach Stand der Branches ARM64-spezifische Pakete (qemu-system-arm)
+    # oder die Bootlin-aarch64-musl-Cross-Toolchain aus dem gepushten Image
+    # entfernen. `main` ist die kanonische Quelle, `github-pages` die
+    # Deployment-Linie mit Container-Runtime-Patches — nur letztere veroeffentlicht.
+    branches:
+      - github-pages
     paths:
       - '.github/workflows/esyslab.yml'
       - 'Dockerfile.esyslab'
