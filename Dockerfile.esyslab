@@ -74,25 +74,42 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
     esac; \
     apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y $packages
 
-# --- Bootlin aarch64-musl Cross-Toolchain (HW3 External-Toolchain-Variante) ---
-# Erlaubt Buildroot, eigene Toolchain-Stages zu überspringen → CI-Build von
-# ~30-45 min auf ~5-10 min. Phase-0-Test (lab/solutions/hw3/external-toolchain-plan.md)
-# zeigt 4m54s im x86_64-Container. URL pinned auf Bootlin-Stable, sha256 verifiziert.
-# Nur auf amd64: Bootlin-Binaries sind x86_64-Host-→-aarch64-Target; auf arm64-Host
-# nicht ausführbar (außer über qemu-user) und wegen native-aarch64-gcc auch unnötig.
+# --- Externe aarch64-musl Cross-Toolchain (HW3 External-Toolchain-Variante) ---
+# Beide Archs bekommen eine externe musl-Cross-Toolchain unter /opt/cross/:
+#  * amd64: Bootlin-Tarball (x86_64-host → aarch64-target). Bootlin liefert nur
+#    x86_64-gehostete Toolchains.
+#  * arm64: htwg-syslab/aarch64-musl-cross-Release (aarch64-host → aarch64-target,
+#    selbst aus musl-cross-make gebaut, kompensiert die fehlende Bootlin-ARM64-
+#    Host-Variante; siehe https://github.com/htwg-syslab/aarch64-musl-cross).
+# Erlaubt Buildroot, eigene Toolchain-Stages zu überspringen → CI-Build
+# bleibt bei ~5-10 min statt 30-45 min auf beiden Archs. Beide pinned auf
+# konkrete Versionen, sha256-verifiziert.
 ARG BOOTLIN_AARCH64_MUSL_VERSION=2024.02-1
 ARG BOOTLIN_AARCH64_MUSL_SHA256=aaa1a5c9212067de3618afbb8f3de4047d99fa1d23e5bc1452bab7fd3744df2e
+ARG HTWG_AARCH64_MUSL_VERSION=2026.04-1
+ARG HTWG_AARCH64_MUSL_SHA256=e96f97f9ddb559b75c22986f7d46db4538aba27ce0c8fb97850ced2bf9b8d4c9
 RUN dpkgArch="$(dpkg --print-architecture)"; \
-    if [ "$dpkgArch" = "amd64" ]; then \
-        cd /opt && \
-        wget -q "https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}.tar.bz2" -O bootlin.tar.bz2 && \
-        echo "${BOOTLIN_AARCH64_MUSL_SHA256}  bootlin.tar.bz2" | sha256sum -c - && \
-        mkdir -p cross && \
-        tar xjf bootlin.tar.bz2 -C cross && \
-        rm bootlin.tar.bz2; \
-    else \
-        echo "Skipping Bootlin aarch64-musl toolchain on ${dpkgArch} (x86_64-host binaries, arm64 hat nativen aarch64-gcc)"; \
-    fi
+    case "$dpkgArch" in \
+        amd64) \
+            cd /opt && \
+            wget -q "https://toolchains.bootlin.com/downloads/releases/toolchains/aarch64/tarballs/aarch64--musl--stable-${BOOTLIN_AARCH64_MUSL_VERSION}.tar.bz2" -O bootlin.tar.bz2 && \
+            echo "${BOOTLIN_AARCH64_MUSL_SHA256}  bootlin.tar.bz2" | sha256sum -c - && \
+            mkdir -p cross && \
+            tar xjf bootlin.tar.bz2 -C cross && \
+            rm bootlin.tar.bz2 \
+            ;; \
+        arm64) \
+            cd /opt && \
+            wget -q "https://github.com/htwg-syslab/aarch64-musl-cross/releases/download/v${HTWG_AARCH64_MUSL_VERSION}/aarch64--musl--stable-${HTWG_AARCH64_MUSL_VERSION}.tar.xz" -O htwg.tar.xz && \
+            echo "${HTWG_AARCH64_MUSL_SHA256}  htwg.tar.xz" | sha256sum -c - && \
+            mkdir -p cross && \
+            tar xJf htwg.tar.xz -C cross && \
+            rm htwg.tar.xz \
+            ;; \
+        *) \
+            echo >&2 "unsupported architecture: ${dpkgArch}"; exit 1 \
+            ;; \
+    esac
 ENV BOOTLIN_AARCH64_MUSL_PATH=/opt/cross/aarch64--musl--stable-2024.02-1
 # SSH-Login-Shells lesen /etc/environment via PAM; Docker-ENV propagiert nur
 # an PID 1 (docker exec), nicht an sshd-Kinder. Damit HW3 §4.2 ("umgebungsabhängige
