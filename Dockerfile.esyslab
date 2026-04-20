@@ -86,8 +86,8 @@ RUN dpkgArch="$(dpkg --print-architecture)"; \
 # konkrete Versionen, sha256-verifiziert.
 ARG BOOTLIN_AARCH64_MUSL_VERSION=2024.02-1
 ARG BOOTLIN_AARCH64_MUSL_SHA256=aaa1a5c9212067de3618afbb8f3de4047d99fa1d23e5bc1452bab7fd3744df2e
-ARG HTWG_AARCH64_MUSL_VERSION=2026.04-1
-ARG HTWG_AARCH64_MUSL_SHA256=e96f97f9ddb559b75c22986f7d46db4538aba27ce0c8fb97850ced2bf9b8d4c9
+ARG HTWG_AARCH64_MUSL_VERSION=2026.04-2
+ARG HTWG_AARCH64_MUSL_SHA256=6f2e3e2f9c61562acba67a6a96697c210dbf64b19ff32289d42886673d4c3ce9
 RUN dpkgArch="$(dpkg --print-architecture)"; \
     case "$dpkgArch" in \
         amd64) \
