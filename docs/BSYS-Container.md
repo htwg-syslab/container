@@ -15,7 +15,7 @@ Der BSYS-Container (`bsyslab`) ist vorkonfiguriert und kann gestartet werden, so
 #### Container starten
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
+docker run -d -p 127.0.0.1:40405:22 --hostname=bsyslab --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
 ```
 
 Das Image ist Multi-Arch — Docker wählt automatisch die passende Variante (amd64 oder arm64) für Ihre CPU.
@@ -25,7 +25,7 @@ Das Image ist Multi-Arch — Docker wählt automatisch die passende Variante (am
 Standardmäßig gehen alle Dateien verloren, wenn der Container entfernt wird. Mit einem Volume bleibt das Home-Verzeichnis auch nach `docker rm` erhalten:
 
 ```bash
-docker run -d -p 127.0.0.1:40405:22 -v bsyslab-home:/home/pocketlab --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
+docker run -d -p 127.0.0.1:40405:22 --hostname=bsyslab -v bsyslab-home:/home/pocketlab --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
 ```
 
 #### Nach dem Start
