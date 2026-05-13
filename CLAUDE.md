@@ -50,43 +50,25 @@ ubuntu:22.04
 - Host port mapping: `-p 127.0.0.1:40405:22`
 - `dos2unix` is used throughout for cross-platform line ending compatibility
 
-## Branch-Rollen: `main` vs. `github-pages`
+## Branch-Rolle: `main` (single-branch)
 
-Dieses Repo trägt zwei Branches mit komplementären, aber scharf getrennten
-Aufgaben. Der Unterschied ist nicht „stabil vs. experimentell", sondern
-**Quelle der Wahrheit vs. Deployment-Linie**.
+Dieses Repo trägt einen einzigen aktiven Branch: `main`. Quelle der
+Wahrheit **und** Deployment-Linie zugleich.
 
-### `main` — Quelle der Wahrheit für Container-Code
-- Alle Änderungen an Dockerfiles, `config/**` und `.github/workflows/**`
-  landen ausschließlich hier (PR-basiert).
-- Triggert **keinen** Push nach `ghcr.io/.../esyslab:latest` — der
-  `esyslab.yml`-Workflow filtert `push`-Trigger auf `branches: [github-pages]`
-  (siehe PR #93). Das verhindert, dass Zwischenstände das gemeinsame
-  `:latest`-Manifest unter der Deployment-Linie wegdrücken.
+- Alle Änderungen (Dockerfiles, `config/**`, `.github/workflows/**`,
+  `docs/**`) landen via PR auf main.
+- `esyslab.yml` triggert bei Dockerfile-/Workflow-/Config-Pushes
+  automatisch den Image-Build → `ghcr.io/.../esyslab:latest`.
+- GitHub Pages serviert `docs/**` aus main, Pages-Settings:
+  `source: {branch: main, path: /docs}`, Output:
+  https://htwg-syslab.github.io/container/.
+- Quality-Gates: CI-Checks vor Merge auf main. Der frühere
+  `github-pages`-Branch als Stabilitäts-Anker wurde 2026-05-13 abgeschafft,
+  weil main mittlerweile alle ARM64-Patches enthält und der Doppel-Branch
+  nur noch Pflege-Aufwand verursachte.
 
-### `github-pages` — Deployment-Linie + Pages-Serving
-- GitHub Pages serviert `docs/**` von diesem Branch (Pages-Settings:
-  `source: {branch: github-pages, path: /docs}`, `build_type: legacy`,
-  Output: https://htwg-syslab.github.io/container/). Deshalb der Name.
-- Zusätzlich veröffentlicht der `esyslab.yml`-Workflow von hier (und nur
-  von hier) die Image-Tags `:latest_X64`, `:latest_ARM64` und das
-  Multi-Arch-Manifest `:latest`.
-- Dockerfile-Änderungen gehören **nicht** direkt auf diesen Branch.
-  Stattdessen: main → github-pages mergen, dann pushen. Der Merge-Push
-  triggert automatisch den Image-Build.
-- Der Parent-Workspace (`esys-workspace`) pinnt sein Submodul auf
-  genau diesen Branch, weil das Deployed-State Ihres Containers hier steht.
-
-### Doc-Änderungen in `docs/**`
-Direktes Commiten auf `github-pages` ist zulässig (Pages soll schnell
-aktualisiert werden). Wenn dieselbe Doku auch woanders gepflegt wird
-(GitBook-Space via `.gitbook.yaml` auf `main`), ist ein Rück-Merge nach
-main sinnvoll, aber nicht zwingend für den Deploy-Pfad.
-
-### Typischer Deploy-Flow nach einem Code-PR
+### Typischer Deploy-Flow
 ```bash
-# PR auf main gemerged (z.B. Dockerfile.esyslab-Update)
-git checkout github-pages && git pull
-git merge main              # bringt den neuen Dockerfile auf die Deploy-Linie
-git push origin github-pages  # triggert esyslab.yml → neues :latest
+# Feature-Branch -> PR auf main -> Merge
+# Merge-Push triggert esyslab.yml automatisch -> neues :latest
 ```
