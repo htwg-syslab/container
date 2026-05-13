@@ -18,37 +18,39 @@ ESYS:
 docker run -d -p 127.0.0.1:40407:22 -v esyslab-home:/home/pocketlab --name=esyslab ghcr.io/htwg-syslab/container/esyslab:latest
 ```
 
-## login (shown with Intel/amd64 Architecture)
+## login
 
 Get your RSA from the logs, the user is default set to pocketlab.
-Copy this key into a new file, e.g. **.ssh/id_rsa_pocketlab.key** :
+Copy this key into a new file, e.g. **.ssh/id_rsa_bsyslab.key** :
 
 ```text
-docker logs pocketlab |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_pocketlab.key
+docker logs bsyslab |sed -n '/-----BEGIN OPENSSH PRIVATE KEY-----/,/-----END OPENSSH PRIVATE KEY-----/p' > .ssh/id_rsa_bsyslab.key
 ```
 
-The **.ssh/id_rsa_pocketlab.key** file should be only readable by you (the owner).
+The **.ssh/id_rsa_bsyslab.key** file should be only readable by you (the owner).
 
 Login to running docker image:
 
 ```text
-ssh -p40405 -i path/to/rsa pocketlab@localhost
-```
-
-with above **.ssh/id_rsa_pocketlab.key** file e.g.:
-
-```text
-ssh -p40405 -i  .ssh/id_rsa_pocketlab.key pocketlab@localhost
+ssh -p40405 -i .ssh/id_rsa_bsyslab.key pocketlab@localhost
 ```
 
 ## .ssh/config
 
 ```text
-Host pocketbsys
+Host bsyslab
     HostName localhost
     User pocketlab
     Port 40405
-    IdentityFile ~/.ssh/id_rsa_pocketlab.key
+    IdentityFile ~/.ssh/id_rsa_bsyslab.key
+    ForwardX11 yes
+    ForwardX11Trusted yes
+
+Host esyslab
+    HostName localhost
+    User pocketlab
+    Port 40407
+    IdentityFile ~/.ssh/id_rsa_esyslab.key
     ForwardX11 yes
     ForwardX11Trusted yes
 ```

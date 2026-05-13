@@ -2,6 +2,8 @@
 
 Beim Arbeiten mit Docker-Containern kann es häufig notwendig sein, Dateien zwischen dem Container und dem Host-System auszutauschen. Es gibt mehrere Möglichkeiten, dies zu erreichen, wobei zwei der gebräuchlichsten Methoden die Verwendung von `scp` und die Nutzung eines Git-Repositories sind.
 
+Die folgenden Beispiele verwenden den SSH-Host `bsyslab`. Für ESYS ersetzen Sie diesen durch `esyslab` (siehe [SSH-Konfiguration](Pocketlab-Login-Config.md)).
+
 ### 1. Dateiaustausch mit `scp`
 
 Wenn Ihr Docker-Container über SSH erreichbar ist, können Sie das `scp`-Kommando verwenden, um Dateien sicher zwischen Ihrem Host und dem Container zu übertragen.
@@ -9,15 +11,15 @@ Wenn Ihr Docker-Container über SSH erreichbar ist, können Sie das `scp`-Komman
 **Beispiel: Eine Datei vom Host in den Container kopieren**
 
 ```bash
-scp /path/to/local/file pocketlab:/path/in/container/
+scp /path/to/local/file bsyslab:/path/in/container/
 ```
 
-In diesem Beispiel kopieren Sie eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Host-Alias `pocketlab` nutzt die Konfiguration aus Ihrer `.ssh/config` (siehe [SSH-Schlüssel einrichten](BSYS-Login-Config.md)).
+In diesem Beispiel kopieren Sie eine lokale Datei (`/path/to/local/file`) in das Verzeichnis `/path/in/container/` des Containers. Der Host-Alias `bsyslab` nutzt die Konfiguration aus Ihrer `.ssh/config` (siehe [SSH-Schlüssel einrichten](Pocketlab-Login-Config.md)).
 
 **Beispiel: Eine Datei vom Container auf den Host kopieren**
 
 ```bash
-scp pocketlab:/path/in/container/file /path/to/local/
+scp bsyslab:/path/in/container/file /path/to/local/
 ```
 
 Hier kopieren Sie eine Datei aus dem Container (`/path/in/container/file`) auf Ihren lokalen Rechner (`/path/to/local/`).
@@ -55,7 +57,7 @@ Wenn Sie auf dem Host Änderungen vorgenommen haben, können Sie diese einfach i
 
 ### Fazit
 
-Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die BSYS-Aufgaben wird dringend zum Anlegen eines eigenen Git-Repositorys geraten.
+Die Verwendung von `scp` ist ideal für den direkten und schnellen Austausch einzelner Dateien zwischen dem Host und dem Container, besonders wenn keine komplexe Versionskontrolle erforderlich ist. Ein Git-Repository hingegen bietet eine robuste Lösung für die Synchronisation und Verwaltung von Dateien, insbesondere bei der Zusammenarbeit in Teams oder bei der Arbeit an umfangreicheren Projekten. Für die Laboraufgaben wird dringend zum Anlegen eines eigenen Git-Repositorys geraten.
 
 ## Git Repo vs Z-Drive
 

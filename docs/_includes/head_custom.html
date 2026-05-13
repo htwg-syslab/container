@@ -1,0 +1,33 @@
+<script>
+  // Flacker-Schutz: Stylesheet tauschen bevor die Seite rendert
+  (function() {
+    if (localStorage.getItem('jtd-theme') === 'dark') {
+      var link = document.querySelector('link[rel="stylesheet"][href*="just-the-docs"]');
+      if (link) {
+        link.href = link.href.replace(/just-the-docs-\w+/, 'just-the-docs-dark');
+      }
+    }
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 100;
+    background-color: var(--body-background-color);
+    color: var(--body-text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .theme-toggle:hover { opacity: 0.8; }
+</style>
