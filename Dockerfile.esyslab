@@ -3,7 +3,7 @@ FROM ghcr.io/htwg-syslab/container/base:latest
 # Install ESYS Lab packages
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        build-essential make gcc clang cmake valgrind time \
+        build-essential make gcc clang cmake valgrind time ccache \
         libc6-dev gettext indent bats \
         netcat-openbsd net-tools iputils-ping traceroute bmon \
         lsof psmisc xz-utils unzip gnupg2 \
