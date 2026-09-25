@@ -115,6 +115,19 @@ body:
         - VPN
         - egal / nicht relevant
 
+  - type: textarea
+    id: netzwerkadapter
+    attributes:
+      label: Netzwerkadapter des eigenen Rechners (optional)
+      description: |
+        Hilfreich bei SSH- oder Verbindungsproblemen (z. B. falscher vEthernet-/WSL-/VPN-Adapter). Auf dem **eigenen Rechner** ausführen:
+        - Windows (PowerShell): `Get-NetAdapter | Format-Table Name,InterfaceDescription,Status` und `ipconfig`
+        - macOS: `ifconfig | grep -E '^[a-z]|inet '`
+        - Linux: `ip -br addr`
+
+        Die Ausgabe enthält IP-Adressen. Private Adressen (192.168.x.x, 10.x.x.x, 172.16–31.x.x) sind unkritisch; öffentliche IP-Adressen bitte vor dem Absenden unkenntlich machen (z. B. `85.x.x.x`).
+      render: shell
+
   - type: checkboxes
     id: check
     attributes:
