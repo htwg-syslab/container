@@ -1,0 +1,124 @@
+name: Pocketlab-Problem melden
+description: Etwas funktioniert im Pocketlab-Container (bsyslab/esyslab) oder in der Anleitung nicht
+title: "[Problem] "
+labels: ["bug"]
+assignees: ["ro99bre"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Danke für die Rückmeldung! Mit den Angaben unten lässt sich das Problem nachstellen.
+        **Achtung: Dieses Repository ist öffentlich.** Bitte keine Passwörter, privaten SSH-Keys, Matrikelnummern oder Lösungen von Abgaben posten.
+
+  - type: dropdown
+    id: labor
+    attributes:
+      label: Container
+      options:
+        - bsyslab (BSYS)
+        - bsyslab-ui (BSYS, UI-Variante)
+        - esyslab (ESYS)
+        - weiß nicht
+    validations:
+      required: true
+
+  - type: dropdown
+    id: bereich
+    attributes:
+      label: Wo tritt das Problem auf?
+      options:
+        - Image-Download / Container startet nicht
+        - SSH-Login
+        - VS Code (Remote-SSH)
+        - Tool im Container (gcc, make, gdb, python, ...)
+        - Homework-Skript / OSTEP-Simulation
+        - X-Server / grafische Anwendung
+        - Dateien kopieren / persistentes Home-Volume
+        - Fehler oder Lücke in der Anleitung
+        - Sonstiges
+    validations:
+      required: true
+
+  - type: dropdown
+    id: host-os
+    attributes:
+      label: Betriebssystem des eigenen Rechners
+      options:
+        - macOS (Apple Silicon, M1/M2/…)
+        - macOS (Intel)
+        - Windows 11
+        - Windows 10
+        - Linux
+        - Laborrechner F035
+    validations:
+      required: true
+
+  - type: textarea
+    id: umgebung
+    attributes:
+      label: Umgebung (Ausgabe der Befehle einfügen)
+      description: |
+        Bitte auf dem **eigenen Rechner** (nicht im Container) ausführen:
+        ```
+        docker version --format '{{.Client.Version}} / {{.Server.Version}} / {{.Server.Os}}-{{.Server.Arch}}'
+        docker image inspect ghcr.io/htwg-syslab/container/bsyslab:latest --format '{{index .RepoDigests 0}} {{.Created}}'
+        docker ps -a --filter name=syslab
+        ```
+        Bei esyslab den Image-Namen entsprechend anpassen. Außerdem: Docker Desktop, Podman, Rancher, WSL2-Backend …?
+      render: shell
+    validations:
+      required: true
+
+  - type: input
+    id: run-befehl
+    attributes:
+      label: Verwendeter `docker run`-Befehl
+      description: Exakt so, wie er ausgeführt wurde (z. B. mit oder ohne `-v bsyslab-home:/home/pocketlab`).
+      placeholder: docker run -d -p 127.0.0.1:40405:22 --hostname=bsyslab --name=bsyslab ghcr.io/htwg-syslab/container/bsyslab:latest
+
+  - type: textarea
+    id: schritte
+    attributes:
+      label: Schritte zum Nachstellen
+      description: Welche Befehle / Klicks führen zum Problem? Gern mit Verweis auf Anleitungsseite oder Homework (z. B. HW Kapitel 7, Aufgabe 3).
+      placeholder: |
+        1. Container gestartet mit …
+        2. Per `ssh bsyslab` eingeloggt
+        3. `make` im Verzeichnis … ausgeführt
+    validations:
+      required: true
+
+  - type: textarea
+    id: erwartet
+    attributes:
+      label: Erwartetes vs. tatsächliches Verhalten
+    validations:
+      required: true
+
+  - type: textarea
+    id: log
+    attributes:
+      label: Fehlermeldung / Log
+      description: Vollständige Terminal-Ausgabe als Text (keine Screenshots von Text). Bei Start-Problemen zusätzlich `docker logs bsyslab`.
+      render: shell
+
+  - type: dropdown
+    id: netz
+    attributes:
+      label: Netzwerk
+      description: Relevant v. a. bei Download-Problemen
+      options:
+        - Zu Hause / privat
+        - HTWG-WLAN / eduroam
+        - VPN
+        - egal / nicht relevant
+
+  - type: checkboxes
+    id: check
+    attributes:
+      label: Vorab geprüft
+      options:
+        - label: Aktuelles Image geholt (`docker pull …:latest`) und Container neu erstellt – Problem besteht weiterhin
+        - label: Anleitung unter https://htwg-syslab.github.io/container/ gelesen
+        - label: Keine Passwörter, privaten Keys oder persönlichen Daten im Issue
+          required: true
