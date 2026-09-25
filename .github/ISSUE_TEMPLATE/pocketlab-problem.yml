@@ -16,7 +16,6 @@ body:
       label: Container
       options:
         - bsyslab (BSYS)
-        - bsyslab-ui (BSYS, UI-Variante)
         - esyslab (ESYS)
         - weiß nicht
     validations:
