@@ -63,8 +63,10 @@ body:
         docker version --format '{{.Client.Version}} / {{.Server.Version}} / {{.Server.Os}}-{{.Server.Arch}}'
         docker image inspect ghcr.io/htwg-syslab/container/bsyslab:latest --format '{{index .RepoDigests 0}} {{.Created}}'
         docker ps -a --filter name=syslab
+        docker inspect bsyslab --format 'NetworkMode={{.HostConfig.NetworkMode}} Ports={{json .NetworkSettings.Ports}} Networks={{json .NetworkSettings.Networks}}'
+        docker network ls
         ```
-        Bei esyslab den Image-Namen entsprechend anpassen. Außerdem: Docker Desktop, Podman, Rancher, WSL2-Backend …?
+        Bei esyslab den Image- bzw. Container-Namen entsprechend anpassen. Außerdem: Docker Desktop, Podman, Rancher, WSL2-Backend …?
       render: shell
     validations:
       required: true
