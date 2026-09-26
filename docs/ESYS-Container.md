@@ -22,7 +22,7 @@ Das Image ist Multi-Arch — Docker wählt automatisch die passende Variante (am
 
 #### Nach dem Start
 
-Beim ersten Start wird das Image von Docker Hub heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
+Beim ersten Start wird das Image aus der GitHub Container Registry (`ghcr.io`) heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
 
 Nach dem Download sehen Sie den laufenden Container unter „Containers" und das Image unter „Images" in Docker Desktop.
 

@@ -21,9 +21,10 @@ Falls Sie lediglich Zugriff auf die **man pages** benötigen, gibt es auch ander
 - **TLDR Pages**: [tldr.sh](https://tldr.sh) - Bietet kürzere und einfachere Versionen von **man pages** für eine schnelle Referenz.
 
 ### Ausführung
-Um `unminimize` in einem Docker-Container auszuführen, geben Sie den folgenden Befehl in die Kommandozeile ein:
+Der Befehl `unminimize` ist im Image nicht vorinstalliert. Installieren Sie ihn zuerst und führen Sie ihn dann aus:
 
 ```bash
+sudo apt-get update && sudo apt-get install -y unminimize
 sudo unminimize
 ```
 

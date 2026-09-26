@@ -6,7 +6,7 @@ Es wird empfohlen, die Vorbereitung auf dem System durchzuführen, das Sie währ
 
 **WICHTIG: Bitte führen Sie die Vorbereitung unbedingt VOR dem ersten Labortermin durch**, da die WLAN-Durchsatzrate an der HTWG begrenzt ist und einige große Dateien heruntergeladen werden müssen.
 
-In der ersten Laborstunde behandeln wir Login, SSH-Konfiguration und die Einrichtung von VS Code. Diese Schritte können Sie auch vorab eigenständig durchführen.
+Richten Sie den Container vorab **vollständig** ein – einschließlich Login und SSH-Konfiguration (VS Code empfohlen) – und prüfen Sie, dass Sie sich per `ssh bsyslab` anmelden und im Container ein C-Programm übersetzen und ausführen können. Im ersten Labortermin zeigen Sie Ihre laufende Umgebung; für eine Installation vor Ort reicht die Zeit dort nicht. Wenn Sie bei der Einrichtung hängen bleiben, bringen Sie die Fehlermeldung mit.
 
 #### Installation des bsyslab Containers
 
@@ -30,7 +30,7 @@ docker run -d -p 127.0.0.1:40405:22 --hostname=bsyslab -v bsyslab-home:/home/poc
 
 #### Nach dem Start
 
-Beim ersten Start wird das Image von Docker Hub heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
+Beim ersten Start wird das Image aus der GitHub Container Registry (`ghcr.io`) heruntergeladen. Dieser Vorgang kann je nach Internetverbindung einige Minuten dauern – bitte vorab zu Hause durchführen.
 
 Nach dem Download sehen Sie den laufenden Container unter „Containers" und das Image unter „Images" in Docker Desktop.
 
