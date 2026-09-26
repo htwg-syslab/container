@@ -148,7 +148,7 @@ chmod 600 ~/.ssh/id_rsa_esyslab.key   # ESYS
 
 ### Fehlerbehandlung
 
-Falls Sie durch Neustart des Containers neue Keys erzeugt haben, kann folgende Meldung erscheinen:
+Wenn Sie den Container aus einer neueren Image-Version neu erstellt haben (z. B. nach `docker pull` und `docker rm`), hat sich der Host-Schlüssel des Containers geändert. Beim nächsten Login erscheint dann folgende Meldung (ein bloßes `docker stop`/`docker start` ändert nichts):
 
 ```
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -156,7 +156,14 @@ Falls Sie durch Neustart des Containers neue Keys erzeugt haben, kann folgende M
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ```
 
-Lösung: Löschen Sie die localhost-Einträge in `~/.ssh/known_hosts`.
+Lösung: Entfernen Sie den alten Eintrag aus `~/.ssh/known_hosts` (Port an Ihr Labor anpassen):
+
+```bash
+ssh-keygen -R "[localhost]:40405"   # BSYS
+ssh-keygen -R "[localhost]:40407"   # ESYS
+```
+
+Alternativ können Sie die localhost-Einträge in `~/.ssh/known_hosts` von Hand löschen.
 
 ## SSH-Konfiguration
 
