@@ -7,8 +7,9 @@
 # "git update": erst Index leeren (gestagte neue Dateien bleiben als untracked
 # erhalten), dann Repo-Dateien auf HEAD zuruecksetzen, dann per checkout auf
 # origin/master wechseln. Anders als "reset --hard origin/master" bricht checkout
-# ab, statt eine eigene Datei zu ueberschreiben, die upstream neu hinzukommt.
+# (mit --no-overwrite-ignore auch fuer ignorierte Dateien) ab, statt eine eigene
+# Datei zu ueberschreiben, die upstream neu hinzukommt.
 [remote "origin"]
 	pushurl = READ-ONLY-kein-push
 [alias]
-	update = "!git fetch -q origin && git reset -q && git reset -q --hard && git checkout -q -B master origin/master && git log -1 --format='Aktueller Stand: %h %s' || { echo 'git update abgebrochen (siehe Meldung oben). Eigene Datei umbenennen/verschieben und erneut ausfuehren.' >&2; false; }"
+	update = "!git fetch -q origin && git reset -q && git reset -q --hard && git checkout -q --no-overwrite-ignore -B master origin/master && git log -1 --format='Aktueller Stand: %h %s' || { echo 'git update abgebrochen (siehe Meldung oben). Eigene Datei umbenennen/verschieben und erneut ausfuehren.' >&2; false; }"
