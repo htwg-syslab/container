@@ -18,3 +18,9 @@ RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' > /etc/profile.d/pyenv.sh; \
 # Clone the OSTEP Homework repository
 RUN git clone https://github.com/remzi-arpacidusseau/ostep-homework /home/pocketlab/ostep-homework
 RUN chown -R pocketlab:pocketlab /home/pocketlab/ostep-homework
+
+# ~/ostep-homework als Lese-Spiegel: kein Push, Aktualisieren per "git update".
+# Systemweit unter /etc statt im Home, damit es auch bestehende Home-Volumes erreicht.
+COPY config/git/gitconfig-ostep-homework /etc/gitconfig-ostep-homework
+RUN dos2unix /etc/gitconfig-ostep-homework && \
+    git config --system includeIf."gitdir:/home/pocketlab/ostep-homework/".path /etc/gitconfig-ostep-homework
