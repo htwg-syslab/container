@@ -1,0 +1,9 @@
+# ~/ostep-homework ist ein reiner Lese-Spiegel des OSTEP-Homework-Repos:
+# kein Push, Aktualisieren per "git update" (verwirft Aenderungen an Repo-Dateien,
+# eigene neue Dateien bleiben erhalten).
+# Eingebunden ueber includeIf in /etc/gitconfig (siehe Dockerfile.pythonlab), damit
+# es auch fuer bestehende Home-Volumes greift.
+[remote "origin"]
+	pushurl = READ-ONLY-kein-push
+[alias]
+	update = !git fetch -q origin && git reset --hard origin/master
