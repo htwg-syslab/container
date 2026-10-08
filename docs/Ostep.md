@@ -22,6 +22,8 @@ Um das OSTEP Homework Repository auf dem neuesten Stand zu halten, können Sie r
 
     > **Achtung:** Änderungen an Dateien, die zum Repository gehören (z. B. ein editiertes Skript oder README, geänderte Dateirechte), gehen dabei **verloren**. Neu angelegte eigene Dateien bleiben erhalten. Eigenen Code und eigene Notizen legen Sie am besten in Ihrem eigenen Repository ab, nicht in `~/ostep-homework`.
 
+    Bringt das Update eine neue Datei mit, die denselben Namen hat wie eine Ihrer eigenen Dateien, bricht `git update` ab und nennt die betroffene Datei. Benennen Sie Ihre Datei dann um oder verschieben Sie sie und führen Sie `git update` erneut aus.
+
 3. **Überprüfen Sie die Aktualisierungen**: Nachdem der `git update`-Befehl ausgeführt wurde, werden alle neuen Dateien oder Änderungen in Ihrem lokalen Verzeichnis verfügbar sein.
 
 Indem Sie regelmäßig `git update` ausführen, stellen Sie sicher, dass Sie immer mit den neuesten Aufgaben und Aktualisierungen des OSTEP Homework Repositorys arbeiten.
